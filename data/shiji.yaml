@@ -1,0 +1,973 @@
+# 史記 family tree — genealogy data (the ONLY thing you hand-edit as you read).
+#
+# CONVENTION: every Chinese character — both `id` and `name` — is TRADITIONAL (繁體).
+# id  : stable, unique handle == the Chinese name. Frozen once assigned.
+#       Disambiguate a true name-clash with a suffix, e.g. 共伯-衛 / 共伯-某.
+# Parent links live on the CHILD: father_id / mother_id / birth_order.
+#   birth_order: 1 = eldest among the anchor parent's children.
+#   mother_id  : must point to a NAMED record, or be omitted.
+# colors / chapters are yours to add later; omit color to use the default fill.
+# `# ...` comments are free — annotate chapters, quotes, and doubts inline.
+
+# === 五帝本紀 ===
+people:
+  - id: 少典
+    name: 少典
+
+  - id: 黃帝              # 少典之子
+    name: 黃帝
+    color: "#D4AF37"     # 五帝 gold
+    father_id: 少典
+    birth_order: 1
+
+  - id: 嫘祖              # 黃帝之妻；玄囂、昌意之母
+    name: 嫘祖
+
+  # --- 黃帝 → 玄囂 (長子) 一系 ---
+  - id: 玄囂              # 黃帝長子
+    name: 玄囂
+    father_id: 黃帝
+    mother_id: 嫘祖
+    birth_order: 1
+
+  - id: 蟜極              # 玄囂之子
+    name: 蟜極
+    father_id: 玄囂
+    birth_order: 1
+
+  - id: 帝嚳              # 蟜極之子
+    name: 帝嚳
+    color: "#D4AF37"     # 五帝 gold
+    father_id: 蟜極
+    birth_order: 1
+
+  - id: 帝堯              # 帝嚳長子
+    name: 帝堯
+    color: "#D4AF37"     # 五帝 gold
+    father_id: 帝嚳
+    birth_order: 1
+
+  - id: 摯                # 帝嚳次子
+    name: 摯
+    father_id: 帝嚳
+    birth_order: 2
+
+  - id: 丹朱              # 帝堯之子
+    name: 丹朱
+    father_id: 帝堯
+    birth_order: 1
+
+  # --- 黃帝 → 昌意 (次子) 一系 ---
+  - id: 昌意              # 黃帝次子
+    name: 昌意
+    father_id: 黃帝
+    mother_id: 嫘祖
+    birth_order: 2
+
+  - id: 昌僕              # 昌意之妻；帝顓頊之母  (你寫作「昌仆」)
+    name: 昌僕
+
+  - id: 帝顓頊            # 昌意之子
+    name: 帝顓頊
+    color: "#D4AF37"     # 五帝 gold
+    father_id: 昌意
+    mother_id: 昌僕
+    birth_order: 1
+
+  - id: 窮蟬              # 帝顓頊長子
+    name: 窮蟬
+    father_id: 帝顓頊
+    birth_order: 1
+
+  - id: 敬康              # 窮蟬之子
+    name: 敬康
+    father_id: 窮蟬
+    birth_order: 1
+
+  - id: 句望              # 敬康之子
+    name: 句望
+    father_id: 敬康
+    birth_order: 1
+
+  - id: 橋牛              # 句望之子
+    name: 橋牛
+    father_id: 句望
+    birth_order: 1
+
+  - id: 瞽叟              # 橋牛之子
+    name: 瞽叟
+    father_id: 橋牛
+    birth_order: 1
+
+  - id: 帝舜              # 瞽叟長子
+    name: 帝舜
+    color: "#D4AF37"     # 五帝 gold
+    father_id: 瞽叟
+    birth_order: 1
+
+  - id: 商均              # 帝舜之子
+    name: 商均
+    father_id: 帝舜
+    birth_order: 1
+
+  - id: 象                # 瞽叟次子
+    name: 象
+    father_id: 瞽叟
+    birth_order: 2
+
+  - id: 檮杌              # 帝顓頊次子  (你寫作「梼杌」)
+    name: 檮杌
+    father_id: 帝顓頊
+    birth_order: 2
+
+  # --- 黃帝 第三子 ---
+  - id: 渾沌              # 黃帝三子 (母不詳)
+    name: 渾沌
+    father_id: 黃帝
+    birth_order: 3
+
+  # === 夏本紀 (帝顓頊 → 鯀 → 夏禹 …) ===
+  - id: 鯀                # 帝顓頊之子 (排行假定為三)
+    name: 鯀
+    father_id: 帝顓頊
+    birth_order: 3
+
+  - id: 夏禹              # 鯀之子
+    name: 夏禹
+    color: "#639283"
+    father_id: 鯀
+    birth_order: 1
+
+  - id: 夏啟              # 夏禹之子
+    name: 夏啟
+    color: "#639283"
+    father_id: 夏禹
+    birth_order: 1
+
+  - id: 夏太康            # 夏啟長子
+    name: 夏太康
+    color: "#639283"
+    father_id: 夏啟
+    birth_order: 1
+
+  - id: 夏中康            # 夏啟次子
+    name: 夏中康
+    color: "#639283"
+    father_id: 夏啟
+    birth_order: 2
+
+  - id: 夏相              # 夏中康之子
+    name: 夏相
+    color: "#639283"
+    father_id: 夏中康
+    birth_order: 1
+
+  - id: 夏少康            # 夏相之子
+    name: 夏少康
+    color: "#639283"
+    father_id: 夏相
+    birth_order: 1
+
+  - id: 夏予              # 夏少康之子
+    name: 夏予
+    color: "#639283"
+    father_id: 夏少康
+    birth_order: 1
+
+  - id: 夏槐              # 夏予之子
+    name: 夏槐
+    color: "#639283"
+    father_id: 夏予
+    birth_order: 1
+
+  - id: 夏芒              # 夏槐之子
+    name: 夏芒
+    color: "#639283"
+    father_id: 夏槐
+    birth_order: 1
+
+  - id: 夏泄              # 夏芒之子
+    name: 夏泄
+    color: "#639283"
+    father_id: 夏芒
+    birth_order: 1
+
+  - id: 夏不降            # 夏泄長子
+    name: 夏不降
+    color: "#639283"
+    father_id: 夏泄
+    birth_order: 1
+
+  - id: 夏扃              # 夏泄次子
+    name: 夏扃
+    color: "#639283"
+    father_id: 夏泄
+    birth_order: 2
+
+  - id: 夏廑              # 夏扃之子
+    name: 夏廑
+    color: "#639283"
+    father_id: 夏扃
+    birth_order: 1
+
+  - id: 夏孔甲            # 夏不降之子
+    name: 夏孔甲
+    color: "#639283"
+    father_id: 夏不降
+    birth_order: 1
+
+  - id: 劉累              # 帝堯之裔，於夏孔甲時見 (見下 descended_from)
+    name: 劉累
+
+  - id: 夏皋              # 夏孔甲之子
+    name: 夏皋
+    color: "#639283"
+    father_id: 夏孔甲
+    birth_order: 1
+
+  - id: 夏發              # 夏皋之子
+    name: 夏發
+    color: "#639283"
+    father_id: 夏皋
+    birth_order: 1
+
+  - id: 夏桀              # 夏發之子 (夏末代)
+    name: 夏桀
+    color: "#639283"
+    father_id: 夏發
+    birth_order: 1
+
+  # === 殷本紀 (帝嚳 → 契 → … → 殷紂)  [X = 殷王, 暗紅] ===
+  - id: 簡狄              # 帝嚳之妻；契之母
+    name: 簡狄
+
+  - id: 契                # 帝嚳四子 (母簡狄)
+    name: 契
+    father_id: 帝嚳
+    mother_id: 簡狄
+    birth_order: 4
+
+  - id: 昭明              # 契之子
+    name: 昭明
+    father_id: 契
+    birth_order: 1
+
+  - id: 相土              # 昭明之子
+    name: 相土
+    father_id: 昭明
+    birth_order: 1
+
+  - id: 昌若              # 相土之子
+    name: 昌若
+    father_id: 相土
+    birth_order: 1
+
+  - id: 曹圉              # 昌若之子
+    name: 曹圉
+    father_id: 昌若
+    birth_order: 1
+
+  - id: 冥                # 曹圉之子
+    name: 冥
+    father_id: 曹圉
+    birth_order: 1
+
+  - id: 振                # 冥之子
+    name: 振
+    father_id: 冥
+    birth_order: 1
+
+  - id: 微                # 振之子 (上甲微)
+    name: 微
+    father_id: 振
+    birth_order: 1
+
+  - id: 報丁              # 微之子
+    name: 報丁
+    father_id: 微
+    birth_order: 1
+
+  - id: 報乙              # 報丁之子
+    name: 報乙
+    father_id: 報丁
+    birth_order: 1
+
+  - id: 報丙              # 報乙之子
+    name: 報丙
+    father_id: 報乙
+    birth_order: 1
+
+  - id: 主壬              # 報丙之子
+    name: 主壬
+    father_id: 報丙
+    birth_order: 1
+
+  - id: 主癸              # 主壬之子
+    name: 主癸
+    father_id: 主壬
+    birth_order: 1
+
+  - id: 殷湯              # 主癸之子 (商湯)
+    name: 殷湯
+    color: "#8B1E1E"
+    father_id: 主癸
+    birth_order: 1
+
+  - id: 殷子太丁          # 殷湯長子 (太子太丁，未立)
+    name: 殷子太丁
+    father_id: 殷湯
+    birth_order: 1
+
+  - id: 殷外丙            # 殷湯次子
+    name: 殷外丙
+    color: "#8B1E1E"
+    father_id: 殷湯
+    birth_order: 2
+
+  - id: 殷中壬            # 殷湯三子
+    name: 殷中壬
+    color: "#8B1E1E"
+    father_id: 殷湯
+    birth_order: 3
+
+  - id: 殷太甲            # 殷子太丁之子
+    name: 殷太甲
+    color: "#8B1E1E"
+    father_id: 殷子太丁
+    birth_order: 1
+
+  - id: 殷沃丁            # 殷太甲長子
+    name: 殷沃丁
+    color: "#8B1E1E"
+    father_id: 殷太甲
+    birth_order: 1
+
+  - id: 殷太庚            # 殷太甲次子
+    name: 殷太庚
+    color: "#8B1E1E"
+    father_id: 殷太甲
+    birth_order: 2
+
+  - id: 殷小甲            # 殷太庚長子
+    name: 殷小甲
+    color: "#8B1E1E"
+    father_id: 殷太庚
+    birth_order: 1
+
+  - id: 殷雍己            # 殷太庚次子
+    name: 殷雍己
+    color: "#8B1E1E"
+    father_id: 殷太庚
+    birth_order: 2
+
+  - id: 殷太戊            # 殷太庚三子
+    name: 殷太戊
+    color: "#8B1E1E"
+    father_id: 殷太庚
+    birth_order: 3
+
+  - id: 殷中丁            # 殷太戊長子
+    name: 殷中丁
+    color: "#8B1E1E"
+    father_id: 殷太戊
+    birth_order: 1
+
+  - id: 殷外壬            # 殷太戊次子
+    name: 殷外壬
+    color: "#8B1E1E"
+    father_id: 殷太戊
+    birth_order: 2
+
+  - id: 殷河亶甲          # 殷太戊三子
+    name: 殷河亶甲
+    color: "#8B1E1E"
+    father_id: 殷太戊
+    birth_order: 3
+
+  - id: 殷祖乙            # 殷河亶甲之子
+    name: 殷祖乙
+    color: "#8B1E1E"
+    father_id: 殷河亶甲
+    birth_order: 1
+
+  - id: 殷祖辛            # 殷祖乙長子
+    name: 殷祖辛
+    color: "#8B1E1E"
+    father_id: 殷祖乙
+    birth_order: 1
+
+  - id: 殷沃甲            # 殷祖乙次子
+    name: 殷沃甲
+    color: "#8B1E1E"
+    father_id: 殷祖乙
+    birth_order: 2
+
+  - id: 殷南庚            # 殷沃甲之子
+    name: 殷南庚
+    color: "#8B1E1E"
+    father_id: 殷沃甲
+    birth_order: 1
+
+  - id: 殷祖丁            # 殷祖辛之子
+    name: 殷祖丁
+    color: "#8B1E1E"
+    father_id: 殷祖辛
+    birth_order: 1
+
+  - id: 殷陽甲            # 殷祖丁長子
+    name: 殷陽甲
+    color: "#8B1E1E"
+    father_id: 殷祖丁
+    birth_order: 1
+
+  - id: 殷盤庚            # 殷祖丁次子
+    name: 殷盤庚
+    color: "#8B1E1E"
+    father_id: 殷祖丁
+    birth_order: 2
+
+  - id: 殷小辛            # 殷祖丁三子
+    name: 殷小辛
+    color: "#8B1E1E"
+    father_id: 殷祖丁
+    birth_order: 3
+
+  - id: 殷小乙            # 殷祖丁四子
+    name: 殷小乙
+    color: "#8B1E1E"
+    father_id: 殷祖丁
+    birth_order: 4
+
+  - id: 殷武丁            # 殷小乙之子
+    name: 殷武丁
+    color: "#8B1E1E"
+    father_id: 殷小乙
+    birth_order: 1
+
+  - id: 殷祖庚            # 殷武丁長子
+    name: 殷祖庚
+    color: "#8B1E1E"
+    father_id: 殷武丁
+    birth_order: 1
+
+  - id: 殷甲              # 殷武丁次子 (祖甲)
+    name: 殷甲
+    color: "#8B1E1E"
+    father_id: 殷武丁
+    birth_order: 2
+
+  - id: 殷廩辛            # 殷甲長子
+    name: 殷廩辛
+    color: "#8B1E1E"
+    father_id: 殷甲
+    birth_order: 1
+
+  - id: 殷庚丁            # 殷甲次子
+    name: 殷庚丁
+    color: "#8B1E1E"
+    father_id: 殷甲
+    birth_order: 2
+
+  - id: 殷武乙            # 殷庚丁之子
+    name: 殷武乙
+    color: "#8B1E1E"
+    father_id: 殷庚丁
+    birth_order: 1
+
+  - id: 殷太丁            # 殷武乙之子 (帝乙之父)
+    name: 殷太丁
+    color: "#8B1E1E"
+    father_id: 殷武乙
+    birth_order: 1
+
+  - id: 殷乙              # 殷太丁長子 (帝乙)
+    name: 殷乙
+    color: "#8B1E1E"
+    father_id: 殷太丁
+    birth_order: 1
+
+  - id: 比干              # 殷太丁次子
+    name: 比干
+    father_id: 殷太丁
+    birth_order: 2
+
+  - id: 箕子              # 殷太丁三子
+    name: 箕子
+    father_id: 殷太丁
+    birth_order: 3
+
+  - id: 微子啟            # 殷乙長子
+    name: 微子啟
+    father_id: 殷乙
+    birth_order: 1
+
+  - id: 殷紂              # 殷乙次子 (帝辛)
+    name: 殷紂
+    color: "#8B1E1E"
+    father_id: 殷乙
+    birth_order: 2
+
+  - id: 殷子武庚          # 殷紂之子 (武庚祿父)
+    name: 殷子武庚
+    father_id: 殷紂
+    birth_order: 1
+
+  # === 周本紀 (帝嚳 → 后稷 → … → 周赧王)  [X = 周王, 紫] ===
+  - id: 姜原              # 帝嚳之正妃；后稷之母 (置帝嚳左側，簡狄再左)
+    name: 姜原
+
+  - id: 后稷              # 帝嚳三子 (母姜原)
+    name: 后稷
+    father_id: 帝嚳
+    mother_id: 姜原
+    birth_order: 3
+
+  - id: 不窋              # 后稷之子
+    name: 不窋
+    father_id: 后稷
+    birth_order: 1
+
+  - id: 鞠                # 不窋之子
+    name: 鞠
+    father_id: 不窋
+    birth_order: 1
+
+  - id: 公劉              # 鞠之子
+    name: 公劉
+    father_id: 鞠
+    birth_order: 1
+
+  - id: 慶節              # 公劉之子
+    name: 慶節
+    father_id: 公劉
+    birth_order: 1
+
+  - id: 皇僕              # 慶節之子
+    name: 皇僕
+    father_id: 慶節
+    birth_order: 1
+
+  - id: 差弗              # 皇僕之子
+    name: 差弗
+    father_id: 皇僕
+    birth_order: 1
+
+  - id: 毀隃              # 差弗之子
+    name: 毀隃
+    father_id: 差弗
+    birth_order: 1
+
+  - id: 公非              # 毀隃之子
+    name: 公非
+    father_id: 毀隃
+    birth_order: 1
+
+  - id: 高圉              # 公非之子
+    name: 高圉
+    father_id: 公非
+    birth_order: 1
+
+  - id: 亞圉              # 高圉之子
+    name: 亞圉
+    father_id: 高圉
+    birth_order: 1
+
+  - id: 公叔祖類          # 亞圉之子
+    name: 公叔祖類
+    father_id: 亞圉
+    birth_order: 1
+
+  - id: 古公亶父          # 公叔祖類之子
+    name: 古公亶父
+    father_id: 公叔祖類
+    birth_order: 1
+
+  - id: 太姜              # 古公亶父之妻；季歷之母
+    name: 太姜
+
+  - id: 太伯              # 古公亶父長子
+    name: 太伯
+    father_id: 古公亶父
+    birth_order: 1
+
+  - id: 虞仲              # 古公亶父次子
+    name: 虞仲
+    father_id: 古公亶父
+    birth_order: 2
+
+  - id: 季歷              # 古公亶父三子 (母太姜)
+    name: 季歷
+    father_id: 古公亶父
+    mother_id: 太姜
+    birth_order: 3
+
+  - id: 太任              # 季歷之妻；周文王之母
+    name: 太任
+
+  - id: 周文王            # 季歷之子 (母太任)
+    name: 周文王
+    color: "#6E4B9E"
+    father_id: 季歷
+    mother_id: 太任
+    birth_order: 1
+
+  - id: 周武王            # 周文王長子
+    name: 周武王
+    color: "#6E4B9E"
+    father_id: 周文王
+    birth_order: 1
+
+  - id: 周公旦            # 周文王次子
+    name: 周公旦
+    father_id: 周文王
+    birth_order: 2
+
+  - id: 召公奭            # 周文王三子
+    name: 召公奭
+    father_id: 周文王
+    birth_order: 3
+
+  - id: 畢公              # 周文王四子
+    name: 畢公
+    father_id: 周文王
+    birth_order: 4
+
+  - id: 叔振鐸            # 周文王五子
+    name: 叔振鐸
+    father_id: 周文王
+    birth_order: 5
+
+  - id: 毛叔鄭            # 周文王六子
+    name: 毛叔鄭
+    father_id: 周文王
+    birth_order: 6
+
+  - id: 衛康叔            # 周文王七子
+    name: 衛康叔
+    father_id: 周文王
+    birth_order: 7
+
+  - id: 管叔鮮            # 周文王八子
+    name: 管叔鮮
+    father_id: 周文王
+    birth_order: 8
+
+  - id: 蔡叔度            # 周文王九子
+    name: 蔡叔度
+    father_id: 周文王
+    birth_order: 9
+
+  - id: 南宮括            # 周文王十子
+    name: 南宮括
+    father_id: 周文王
+    birth_order: 10
+
+  - id: 周成王            # 周武王之子
+    name: 周成王
+    color: "#6E4B9E"
+    father_id: 周武王
+    birth_order: 1
+
+  - id: 周康王            # 周成王之子
+    name: 周康王
+    color: "#6E4B9E"
+    father_id: 周成王
+    birth_order: 1
+
+  - id: 周昭王            # 周康王之子
+    name: 周昭王
+    color: "#6E4B9E"
+    father_id: 周康王
+    birth_order: 1
+
+  - id: 周穆王            # 周昭王之子
+    name: 周穆王
+    color: "#6E4B9E"
+    father_id: 周昭王
+    birth_order: 1
+
+  - id: 周共王            # 周穆王長子
+    name: 周共王
+    color: "#6E4B9E"
+    father_id: 周穆王
+    birth_order: 1
+
+  - id: 周懿王            # 周共王之子
+    name: 周懿王
+    color: "#6E4B9E"
+    father_id: 周共王
+    birth_order: 1
+
+  - id: 周孝王            # 周穆王次子
+    name: 周孝王
+    color: "#6E4B9E"
+    father_id: 周穆王
+    birth_order: 2
+
+  - id: 周夷王            # 周懿王之子
+    name: 周夷王
+    color: "#6E4B9E"
+    father_id: 周懿王
+    birth_order: 1
+
+  - id: 周厲王            # 周夷王之子
+    name: 周厲王
+    color: "#6E4B9E"
+    father_id: 周夷王
+    birth_order: 1
+
+  - id: 周宣王            # 周厲王之子
+    name: 周宣王
+    color: "#6E4B9E"
+    father_id: 周厲王
+    birth_order: 1
+
+  - id: 周幽王            # 周宣王之子
+    name: 周幽王
+    color: "#6E4B9E"
+    father_id: 周宣王
+    birth_order: 1
+
+  - id: 褒姒              # 周幽王之妻
+    name: 褒姒
+
+  - id: 周平王            # 周幽王長子
+    name: 周平王
+    color: "#6E4B9E"
+    father_id: 周幽王
+    birth_order: 1
+
+  - id: 周子伯服          # 周幽王次子 (母褒姒)
+    name: 周子伯服
+    father_id: 周幽王
+    mother_id: 褒姒
+    birth_order: 2
+
+  - id: 周太子洩父        # 周平王之子
+    name: 周太子洩父
+    father_id: 周平王
+    birth_order: 1
+
+  - id: 周桓王            # 周太子洩父之子
+    name: 周桓王
+    color: "#6E4B9E"
+    father_id: 周太子洩父
+    birth_order: 1
+
+  - id: 周莊王            # 周桓王長子
+    name: 周莊王
+    color: "#6E4B9E"
+    father_id: 周桓王
+    birth_order: 1
+
+  - id: 周子克            # 周桓王次子
+    name: 周子克
+    father_id: 周桓王
+    birth_order: 2
+
+  - id: 姚                # 周莊王之妻；周子穨之母
+    name: 姚
+
+  - id: 周釐王            # 周莊王長子
+    name: 周釐王
+    color: "#6E4B9E"
+    father_id: 周莊王
+    birth_order: 1
+
+  - id: 周子穨            # 周莊王次子 (母姚)
+    name: 周子穨
+    father_id: 周莊王
+    mother_id: 姚
+    birth_order: 2
+
+  - id: 周惠王            # 周釐王之子
+    name: 周惠王
+    color: "#6E4B9E"
+    father_id: 周釐王
+    birth_order: 1
+
+  - id: 周襄王            # 周惠王長子
+    name: 周襄王
+    color: "#6E4B9E"
+    father_id: 周惠王
+    birth_order: 1
+
+  - id: 周叔帶            # 周惠王次子
+    name: 周叔帶
+    father_id: 周惠王
+    birth_order: 2
+
+  - id: 周頃王            # 周襄王之子
+    name: 周頃王
+    color: "#6E4B9E"
+    father_id: 周襄王
+    birth_order: 1
+
+  - id: 周匡王            # 周頃王長子
+    name: 周匡王
+    color: "#6E4B9E"
+    father_id: 周頃王
+    birth_order: 1
+
+  - id: 周定王-1          # 周頃王次子；與周元王之孫同名，另立 id (顯示作 周定王)
+    name: 周定王
+    color: "#6E4B9E"
+    father_id: 周頃王
+    birth_order: 2
+
+  - id: 周簡王            # 周定王-1 之子
+    name: 周簡王
+    color: "#6E4B9E"
+    father_id: 周定王-1
+    birth_order: 1
+
+  - id: 周靈王            # 周簡王之子
+    name: 周靈王
+    color: "#6E4B9E"
+    father_id: 周簡王
+    birth_order: 1
+
+  - id: 周景王            # 周靈王之子
+    name: 周景王
+    color: "#6E4B9E"
+    father_id: 周靈王
+    birth_order: 1
+
+  - id: 周太子聖          # 周景王長子
+    name: 周太子聖
+    father_id: 周景王
+    birth_order: 1
+
+  - id: 周悼王            # 周景王次子
+    name: 周悼王
+    color: "#6E4B9E"
+    father_id: 周景王
+    birth_order: 2
+
+  - id: 周子朝            # 周景王三子
+    name: 周子朝
+    father_id: 周景王
+    birth_order: 3
+
+  - id: 周敬王            # 周景王四子
+    name: 周敬王
+    color: "#6E4B9E"
+    father_id: 周景王
+    birth_order: 4
+
+  - id: 周元王            # 周敬王之子
+    name: 周元王
+    color: "#6E4B9E"
+    father_id: 周敬王
+    birth_order: 1
+
+  - id: 周定王-2          # 周元王之子；與周頃王次子同名，另立 id (顯示作 周定王)
+    name: 周定王
+    color: "#6E4B9E"
+    father_id: 周元王
+    birth_order: 1
+
+  - id: 周哀王            # 周定王-2 長子
+    name: 周哀王
+    color: "#6E4B9E"
+    father_id: 周定王-2
+    birth_order: 1
+
+  - id: 周思王            # 周定王-2 次子
+    name: 周思王
+    color: "#6E4B9E"
+    father_id: 周定王-2
+    birth_order: 2
+
+  - id: 周考王            # 周定王-2 三子
+    name: 周考王
+    color: "#6E4B9E"
+    father_id: 周定王-2
+    birth_order: 3
+
+  - id: 周威烈王          # 周考王之子
+    name: 周威烈王
+    color: "#6E4B9E"
+    father_id: 周考王
+    birth_order: 1
+
+  - id: 西周桓公          # 周定王-2 四子
+    name: 西周桓公
+    father_id: 周定王-2
+    birth_order: 4
+
+  - id: 西周威公          # 西周桓公之子
+    name: 西周威公
+    father_id: 西周桓公
+    birth_order: 1
+
+  - id: 西周惠公          # 西周威公長子
+    name: 西周惠公
+    father_id: 西周威公
+    birth_order: 1
+
+  - id: 東周惠公          # 西周威公次子
+    name: 東周惠公
+    father_id: 西周威公
+    birth_order: 2
+
+  - id: 周安王            # 周威烈王之子
+    name: 周安王
+    color: "#6E4B9E"
+    father_id: 周威烈王
+    birth_order: 1
+
+  - id: 周烈王            # 周安王長子
+    name: 周烈王
+    color: "#6E4B9E"
+    father_id: 周安王
+    birth_order: 1
+
+  - id: 周顯王            # 周安王次子
+    name: 周顯王
+    color: "#6E4B9E"
+    father_id: 周安王
+    birth_order: 2
+
+  - id: 周慎靚王          # 周顯王之子
+    name: 周慎靚王
+    color: "#6E4B9E"
+    father_id: 周顯王
+    birth_order: 1
+
+  - id: 周赧王            # 周慎靚王之子 (周末代)
+    name: 周赧王
+    color: "#6E4B9E"
+    father_id: 周慎靚王
+    birth_order: 1
+
+  - id: 周子南君          # 周赧王之裔；暫作直系子 (no level fix)
+    name: 周子南君
+    father_id: 周赧王
+    birth_order: 1
+
+  # === 少暤 (另一根) ===
+  - id: 少暤
+    name: 少暤
+
+  - id: 窮奇              # 少暤之子
+    name: 窮奇
+    father_id: 少暤
+    birth_order: 1
+
+marriages:
+  - {husband_id: 黃帝, wife_id: 嫘祖}
+  - {husband_id: 昌意, wife_id: 昌僕}
+  - {husband_id: 帝嚳, wife_id: 簡狄}
+  - {husband_id: 帝嚳, wife_id: 姜原}
+  - {husband_id: 古公亶父, wife_id: 太姜}
+  - {husband_id: 季歷, wife_id: 太任}
+  - {husband_id: 周幽王, wife_id: 褒姒}
+  - {husband_id: 周莊王, wife_id: 姚}
+
+# descended_from: someone named only as an (often vague) descendant of `ancestor_id`.
+#   Drawn as a phantom youngest child of the ancestor (solid line), but placed on
+#   the generation row of `mentioned_with` — the figure during whose story they appear.
+#   e.g. {person_id: 劉累, ancestor_id: 帝堯, mentioned_with: 夏孔甲帝}
+descended_from:
+  - {person_id: 劉累, ancestor_id: 帝堯, mentioned_with: 夏孔甲}

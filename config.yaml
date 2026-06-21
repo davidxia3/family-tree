@@ -1,0 +1,32 @@
+# Layout + style knobs. Deep-merged over familytree/config.py defaults, so you
+# only need to list what you want to change. Editing this never affects the
+# genealogy DATA — only sizes, spacing, colors, fonts, and orientation.
+
+orientation: rtl          # rtl = senior/primary on the RIGHT (classical reading); ltr = mirror off
+
+layout:
+  char_box: 36            # px per stacked character
+  tile_pad: 9
+  h_gap: 30               # standardized horizontal gap: siblings AND husband-wife AND wife-wife
+  v_gap: 60               # standardized vertical gap between a tile and the next generation row
+  margin: 70
+  tile_radius: 8
+
+style:
+  background: "#f7f3ea"
+  default_fill: "#fffdf7"
+  tile_stroke: "#3a3a3a"
+  tile_stroke_width: 1.5
+  text_color: "#1a1a1a"
+  text_light: "#f7f3ea"         # text color used on dark-fill tiles (auto-picked by contrast)
+  font_family: "Songti SC, STSong, Noto Serif CJK SC, PingFang SC, serif"
+  font_size: 30
+  lineage_stroke: "#5b5b5b"     # solid: parent -> child
+  lineage_width: 1.6
+  marriage_stroke: "#9a6b4a"    # solid: husband -- wife
+  marriage_width: 1.6
+  secondary_stroke: "#a23b3b"   # dashed: married-in daughter -> father
+  secondary_width: 1.4
+  secondary_dash: "5 4"
+  highlight_stroke: "#e8462a"   # transient outline for newly-added (under-review) tiles
+  highlight_width: 4
