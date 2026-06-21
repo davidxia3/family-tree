@@ -45,7 +45,8 @@ class Marriage:
 class DescendedFrom:
     person_id: Optional[str] = None
     ancestor_id: Optional[str] = None
-    mentioned_with: Optional[str] = None   # whose generation row the descendant is drawn on
+    mentioned_with: Optional[str] = None   # render on this person's generation row
+    depth: Optional[int] = None            # OR render this many generations below the ancestor
 
 
 @dataclass
@@ -60,9 +61,10 @@ class Index:
     """Derived relationship maps, built once from a Dataset."""
     id_to_person: Dict[str, Person]
     children_of: Dict[str, List[Person]]   # father_id -> children, sorted by birth_order
-    wives_of: Dict[str, List[str]]         # husband/father id -> wife ids in slot order
-    husband_of: Dict[str, str]             # wife id -> the husband/father she attaches to
-    wife_persons: Set[str]                 # ids rendered as wife-tiles (not standalone nodes)
+    wives_of: Dict[str, List[str]]         # host id -> LEFT-side wife tiles, in slot order
+    husbands_of: Dict[str, List[str]]      # host id -> RIGHT-side husband tiles (free-root in-laws)
+    husband_of: Dict[str, str]             # spouse-tile id -> the host node it attaches to
+    wife_persons: Set[str]                 # all ids rendered as spouse-tiles (not standalone nodes)
     descended: List[DescendedFrom]
 
 
@@ -130,8 +132,15 @@ def load_dataset(path: str) -> Tuple[Dataset, List[str]]:
     desc: List[DescendedFrom] = []
     for d in (raw.get("descended_from") or []):
         if isinstance(d, dict):
+            dep = d.get("depth")
+            if dep is not None:
+                try:
+                    dep = int(dep)
+                except (TypeError, ValueError):
+                    problems.append(f"descended_from: depth is not an integer: {dep!r}")
+                    dep = None
             desc.append(DescendedFrom(person_id=_s(d.get("person_id")), ancestor_id=_s(d.get("ancestor_id")),
-                                      mentioned_with=_s(d.get("mentioned_with"))))
+                                      mentioned_with=_s(d.get("mentioned_with")), depth=dep))
         else:
             problems.append(f"descended_from: entry is not a mapping: {d!r}")
 
@@ -148,15 +157,37 @@ def build_index(ds: Dataset) -> Index:
     for kids in children_of.values():
         kids.sort(key=lambda c: (c.birth_order if c.birth_order is not None else 10 ** 9, c.name, c.id))
 
-    # A person is rendered as a WIFE-TILE (attached to a husband/father) when she
-    # is a named mother of someone whose father is also present, or an explicit
-    # marriage wife with the husband present.
+    # Who is a parent of someone in the chart? (used to spot "free roots".)
+    parents: Set[str] = set()
+    for p in ds.people:
+        if p.father_id in id_to:
+            parents.add(p.father_id)
+        if p.mother_id in id_to:
+            parents.add(p.mother_id)
+
+    def free_root(pid: str) -> bool:        # no ancestry and no children of their own
+        p = id_to[pid]
+        return p.father_id not in id_to and p.mother_id not in id_to and pid not in parents
+
+    def rooted(pid: str) -> bool:           # has a place in the tree via a parent
+        p = id_to[pid]
+        return p.father_id in id_to or p.mother_id in id_to
+
+    # FLIP (married-out daughter): a free-root husband married to a rooted wife becomes a
+    # RIGHT-side tile beside her — she stays a node under her father, wife-left/husband-right.
+    flip_husbands: Dict[str, str] = {}      # husband id -> wife (host)
+    for m in ds.marriages:
+        if m.husband_id in id_to and m.wife_id in id_to:
+            if free_root(m.husband_id) and rooted(m.wife_id):
+                flip_husbands[m.husband_id] = m.wife_id
+
+    # LEFT-side wife tiles: named mothers (present father) + non-flip marriage wives.
     wife_persons: Set[str] = set()
     for p in ds.people:
         if (p.mother_id and p.mother_id in id_to and p.father_id and p.father_id in id_to):
             wife_persons.add(p.mother_id)
     for m in ds.marriages:
-        if m.wife_id in id_to and m.husband_id in id_to:
+        if m.wife_id in id_to and m.husband_id in id_to and m.husband_id not in flip_husbands:
             wife_persons.add(m.wife_id)
 
     # Wife slot order (rule 6): a wife's rank is the seniority of her most-senior
@@ -170,7 +201,7 @@ def build_index(ds: Dataset) -> Index:
             rank[key] = min(rank.get(key, 10 ** 18), r)
             hus_wives.setdefault(p.father_id, set()).add(p.mother_id)
     for m in ds.marriages:
-        if m.wife_id in id_to and m.husband_id in id_to:
+        if m.wife_id in id_to and m.husband_id in id_to and m.husband_id not in flip_husbands:
             hus_wives.setdefault(m.husband_id, set()).add(m.wife_id)
 
     wives_of: Dict[str, List[str]] = {}
@@ -181,4 +212,12 @@ def build_index(ds: Dataset) -> Index:
         for w in ordered:
             husband_of.setdefault(w, h)
 
-    return Index(id_to, children_of, wives_of, husband_of, wife_persons, list(ds.descended_from))
+    # RIGHT-side husband tiles (the flips).
+    husbands_of: Dict[str, List[str]] = {}
+    for hbnd, wife in sorted(flip_husbands.items()):
+        husbands_of.setdefault(wife, []).append(hbnd)
+        husband_of.setdefault(hbnd, wife)
+        wife_persons.add(hbnd)
+
+    return Index(id_to, children_of, wives_of, husbands_of, husband_of, wife_persons,
+                 list(ds.descended_from))

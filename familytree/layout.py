@@ -126,17 +126,23 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
         else:
             anchor_children.setdefault(par, []).append(pid)
 
-    # Note 3: a descendant-only person is treated as a phantom YOUNGEST child of
-    # the ancestor (so the ancestor centers over it and a SOLID line is drawn to
-    # it), even though it is RENDERED lower, on another generation's row.
+    # A descended_from person is a phantom YOUNGEST child of the ancestor (the ancestor
+    # centers over it; a SOLID line is drawn). Where it lands depends on the edge:
+    #   depth: N        -> N generations below the ancestor (missing intermediates)  [rule 2]
+    #   mentioned_with  -> on that person's row (still packed at the ancestor's child row) [rule X]
+    #   neither         -> a plain direct youngest child                             [rule 1]
     descendant_render_ref: Dict[str, Optional[str]] = {}
+    depth_offset: Dict[str, int] = {}
     for d in idx.descended:
         P, anc = d.person_id, d.ancestor_id
         if P in node_set and anc in node_set:
             if P in roots:
                 roots.remove(P)
             anchor_children.setdefault(anc, []).append(P)
-            descendant_render_ref[P] = d.mentioned_with
+            if d.depth is not None and d.depth >= 1:
+                depth_offset[P] = d.depth
+            elif d.mentioned_with:
+                descendant_render_ref[P] = d.mentioned_with
 
     def child_sort_key(cid: str):
         c = id_to[cid]
@@ -157,7 +163,7 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
             gen[pid] = g
             seen2 = seen | {pid}
             for c in anchor_children.get(pid, []):
-                stack.append((c, g + 1, seen2))
+                stack.append((c, g + depth_offset.get(c, 1), seen2))
 
     for r in roots:
         assign_gen(r)
@@ -195,6 +201,19 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
             right = X[w] + half
         return right
 
+    def place_husbands(nid: str, X: Dict[str, float], base_x: float) -> float:
+        """Add free-root husband tiles to this node's left (canonical) -> right after mirror.
+        Keeps wife-left/husband-right. Return left edge."""
+        left = base_x - half
+        j = 0
+        for h in idx.husbands_of.get(nid, []):
+            if h not in id_to:
+                continue
+            j += 1
+            X[h] = base_x - j * slot
+            left = X[h] - half
+        return left
+
     visiting: Set[str] = set()
 
     def layout_block(nid: str) -> Block:
@@ -206,8 +225,9 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
         if not kids:
             X = {nid: 0.0}
             wright = place_wives(nid, X, 0.0)
+            hleft = place_husbands(nid, X, 0.0)
             visiting.discard(nid)
-            return Block(X, {g: -half}, {g: max(half, wright)})
+            return Block(X, {g: min(-half, hleft)}, {g: max(half, wright)})
 
         blocks = [layout_block(c) for c in kids]
         for c, b in zip(kids, blocks):
@@ -223,7 +243,8 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
         Rc = {gg: v - node_x for gg, v in mR.items()}
 
         wright = place_wives(nid, X, 0.0)
-        Lc[g] = min(Lc.get(g, -half), -half)
+        hleft = place_husbands(nid, X, 0.0)
+        Lc[g] = min(Lc.get(g, -half), -half, hleft)
         Rc[g] = max(Rc.get(g, half), max(half, wright))
         visiting.discard(nid)
         return Block(X, Lc, Rc)
@@ -282,6 +303,10 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
             if prev in tiles and w in tiles:
                 marriages.append((prev, w))
             prev = w
+    for host, husbands in idx.husbands_of.items():       # right-side (free-root) husband tiles
+        for hb in husbands:
+            if host in tiles and hb in tiles:
+                marriages.append((host, hb))
 
     secondary = [(a, b, k) for (a, b, k) in secondary if a in tiles and b in tiles]
     unplaced = [p.id for p in ds.people if p.id not in tiles]

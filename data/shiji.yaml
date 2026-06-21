@@ -946,6 +946,379 @@ people:
     father_id: 周赧王
     birth_order: 1
 
+  # === 秦本紀 (帝顓頊 → 女修 → … → 子嬰)  [X = 秦君, 黑] ===
+  - id: 女修              # 帝顓頊之裔 (世系不詳，作直系幼子)
+    name: 女修
+
+  - id: 大業              # 女修之子 (無父)
+    name: 大業
+    mother_id: 女修
+    birth_order: 1
+
+  - id: 女華              # 大業之妻；柏翳之母
+    name: 女華
+
+  - id: 柏翳              # 大業之子 (母女華)
+    name: 柏翳
+    father_id: 大業
+    mother_id: 女華
+    birth_order: 1
+
+  - id: 大廉              # 柏翳長子
+    name: 大廉
+    father_id: 柏翳
+    birth_order: 1
+
+  - id: 若木              # 柏翳次子 (你寫「大廉次子」；史記作柏翳次子、大廉之弟)
+    name: 若木
+    father_id: 柏翳
+    birth_order: 2
+
+  - id: 費昌              # 若木之玄孫 (depth 4)
+    name: 費昌
+
+  - id: 孟戲              # 大廉之玄孫，長 (depth 4)
+    name: 孟戲
+    birth_order: 1
+
+  - id: 中衍              # 大廉之玄孫，次 (depth 4)
+    name: 中衍
+    birth_order: 2
+
+  - id: 中潏              # 中衍之玄孫 (depth 4)
+    name: 中潏
+
+  - id: 蜚廉              # 中潏之子
+    name: 蜚廉
+    father_id: 中潏
+    birth_order: 1
+
+  - id: 惡來              # 蜚廉長子
+    name: 惡來
+    father_id: 蜚廉
+    birth_order: 1
+
+  - id: 季勝              # 蜚廉次子
+    name: 季勝
+    father_id: 蜚廉
+    birth_order: 2
+
+  - id: 孟增              # 季勝之子
+    name: 孟增
+    father_id: 季勝
+    birth_order: 1
+
+  - id: 衡父              # 孟增之子
+    name: 衡父
+    father_id: 孟增
+    birth_order: 1
+
+  - id: 造父              # 衡父之子
+    name: 造父
+    father_id: 衡父
+    birth_order: 1
+
+  - id: 趙衰              # 造父之裔 (世系不詳，作直系幼子)
+    name: 趙衰
+
+  - id: 女防              # 惡來之子
+    name: 女防
+    father_id: 惡來
+    birth_order: 1
+
+  - id: 旁皋              # 女防之子
+    name: 旁皋
+    father_id: 女防
+    birth_order: 1
+
+  - id: 太幾              # 旁皋之子
+    name: 太幾
+    father_id: 旁皋
+    birth_order: 1
+
+  - id: 大駱              # 太幾之子
+    name: 大駱
+    father_id: 太幾
+    birth_order: 1
+
+  - id: 成                # 大駱長子
+    name: 成
+    father_id: 大駱
+    birth_order: 1
+
+  - id: 秦嬴              # 大駱次子
+    name: 秦嬴
+    color: "#1c1c1c"
+    father_id: 大駱
+    birth_order: 2
+
+  - id: 秦侯              # 秦嬴之子
+    name: 秦侯
+    color: "#1c1c1c"
+    father_id: 秦嬴
+    birth_order: 1
+
+  - id: 秦公伯            # 秦侯之子
+    name: 秦公伯
+    color: "#1c1c1c"
+    father_id: 秦侯
+    birth_order: 1
+
+  - id: 秦仲              # 秦公伯之子
+    name: 秦仲
+    color: "#1c1c1c"
+    father_id: 秦公伯
+    birth_order: 1
+
+  - id: 秦莊公            # 秦仲之子
+    name: 秦莊公
+    color: "#1c1c1c"
+    father_id: 秦仲
+    birth_order: 1
+
+  - id: 秦子世父          # 秦莊公長子
+    name: 秦子世父
+    father_id: 秦莊公
+    birth_order: 1
+
+  - id: 秦襄公            # 秦莊公次子
+    name: 秦襄公
+    color: "#1c1c1c"
+    father_id: 秦莊公
+    birth_order: 2
+
+  - id: 繆嬴              # 秦莊公幼女，嫁西戎豐王 (married-out daughter)
+    name: 繆嬴
+    father_id: 秦莊公
+    birth_order: 3
+
+  - id: 西戎豐王          # 繆嬴之夫 (外族；無父，作根)
+    name: 西戎豐王
+
+  - id: 秦文公            # 秦襄公之子
+    name: 秦文公
+    color: "#1c1c1c"
+    father_id: 秦襄公
+    birth_order: 1
+
+  - id: 秦竫公            # 秦文公之子 (竫，與秦景公拼音同、漢字異)
+    name: 秦竫公
+    father_id: 秦文公
+    birth_order: 1
+
+  - id: 秦寧公            # 秦竫公之子
+    name: 秦寧公
+    color: "#1c1c1c"
+    father_id: 秦竫公
+    birth_order: 1
+
+  - id: 秦武公            # 秦寧公長子
+    name: 秦武公
+    color: "#1c1c1c"
+    father_id: 秦寧公
+    birth_order: 1
+
+  - id: 秦子白            # 秦武公之子
+    name: 秦子白
+    father_id: 秦武公
+    birth_order: 1
+
+  - id: 秦德公            # 秦寧公次子
+    name: 秦德公
+    color: "#1c1c1c"
+    father_id: 秦寧公
+    birth_order: 2
+
+  - id: 秦出子-1          # 秦寧公三子 (與秦惠公-2之子同名，另立 id)
+    name: 秦出子
+    color: "#1c1c1c"
+    father_id: 秦寧公
+    birth_order: 3
+
+  - id: 秦宣公            # 秦德公長子
+    name: 秦宣公
+    color: "#1c1c1c"
+    father_id: 秦德公
+    birth_order: 1
+
+  - id: 秦成公            # 秦德公次子
+    name: 秦成公
+    color: "#1c1c1c"
+    father_id: 秦德公
+    birth_order: 2
+
+  - id: 秦繆公            # 秦德公三子
+    name: 秦繆公
+    color: "#1c1c1c"
+    father_id: 秦德公
+    birth_order: 3
+
+  - id: 秦康公            # 秦繆公之子
+    name: 秦康公
+    color: "#1c1c1c"
+    father_id: 秦繆公
+    birth_order: 1
+
+  - id: 秦共公            # 秦康公之子
+    name: 秦共公
+    color: "#1c1c1c"
+    father_id: 秦康公
+    birth_order: 1
+
+  - id: 秦桓公            # 秦共公之子
+    name: 秦桓公
+    color: "#1c1c1c"
+    father_id: 秦共公
+    birth_order: 1
+
+  - id: 秦景公            # 秦桓公長子 (景，與秦竫公拼音同、漢字異)
+    name: 秦景公
+    color: "#1c1c1c"
+    father_id: 秦桓公
+    birth_order: 1
+
+  - id: 秦子鍼            # 秦桓公次子
+    name: 秦子鍼
+    father_id: 秦桓公
+    birth_order: 2
+
+  - id: 秦哀公            # 秦景公之子
+    name: 秦哀公
+    color: "#1c1c1c"
+    father_id: 秦景公
+    birth_order: 1
+
+  - id: 秦太子夷公        # 秦哀公之子
+    name: 秦太子夷公
+    father_id: 秦哀公
+    birth_order: 1
+
+  - id: 秦惠公-1          # 秦太子夷公之子 (與秦簡公之子同名，另立 id)
+    name: 秦惠公
+    color: "#1c1c1c"
+    father_id: 秦太子夷公
+    birth_order: 1
+
+  - id: 秦悼公            # 秦惠公-1 之子
+    name: 秦悼公
+    color: "#1c1c1c"
+    father_id: 秦惠公-1
+    birth_order: 1
+
+  - id: 秦厲共公          # 秦悼公之子
+    name: 秦厲共公
+    color: "#1c1c1c"
+    father_id: 秦悼公
+    birth_order: 1
+
+  - id: 秦躁公            # 秦厲共公長子
+    name: 秦躁公
+    color: "#1c1c1c"
+    father_id: 秦厲共公
+    birth_order: 1
+
+  - id: 秦懷公            # 秦厲共公次子
+    name: 秦懷公
+    color: "#1c1c1c"
+    father_id: 秦厲共公
+    birth_order: 2
+
+  - id: 秦太子昭          # 秦懷公長子
+    name: 秦太子昭
+    father_id: 秦懷公
+    birth_order: 1
+
+  - id: 秦簡公            # 秦懷公次子
+    name: 秦簡公
+    color: "#1c1c1c"
+    father_id: 秦懷公
+    birth_order: 2
+
+  - id: 秦靈公            # 秦太子昭之子
+    name: 秦靈公
+    color: "#1c1c1c"
+    father_id: 秦太子昭
+    birth_order: 1
+
+  - id: 秦惠公-2          # 秦簡公之子 (與秦太子夷公之子同名，另立 id)
+    name: 秦惠公
+    color: "#1c1c1c"
+    father_id: 秦簡公
+    birth_order: 1
+
+  - id: 秦出子-2          # 秦惠公-2 之子 (與秦寧公三子同名，另立 id)
+    name: 秦出子
+    color: "#1c1c1c"
+    father_id: 秦惠公-2
+    birth_order: 1
+
+  - id: 秦獻公            # 秦靈公之子
+    name: 秦獻公
+    color: "#1c1c1c"
+    father_id: 秦靈公
+    birth_order: 1
+
+  - id: 秦孝公            # 秦獻公之子
+    name: 秦孝公
+    color: "#1c1c1c"
+    father_id: 秦獻公
+    birth_order: 1
+
+  - id: 秦惠文王          # 秦孝公之子
+    name: 秦惠文王
+    color: "#1c1c1c"
+    father_id: 秦孝公
+    birth_order: 1
+
+  - id: 秦武王            # 秦惠文王長子
+    name: 秦武王
+    color: "#1c1c1c"
+    father_id: 秦惠文王
+    birth_order: 1
+
+  - id: 秦宣太后          # 秦惠文王之妻；秦昭襄王之母
+    name: 秦宣太后
+
+  - id: 秦昭襄王          # 秦惠文王次子 (母秦宣太后)
+    name: 秦昭襄王
+    color: "#1c1c1c"
+    father_id: 秦惠文王
+    mother_id: 秦宣太后
+    birth_order: 2
+
+  - id: 秦唐太后          # 秦昭襄王之妻
+    name: 秦唐太后
+
+  - id: 秦孝文王          # 秦昭襄王之子
+    name: 秦孝文王
+    color: "#1c1c1c"
+    father_id: 秦昭襄王
+    birth_order: 1
+
+  - id: 秦莊襄王          # 秦孝文王之子
+    name: 秦莊襄王
+    color: "#1c1c1c"
+    father_id: 秦孝文王
+    birth_order: 1
+
+  - id: 秦始皇帝          # 秦莊襄王之子
+    name: 秦始皇帝
+    color: "#1c1c1c"
+    father_id: 秦莊襄王
+    birth_order: 1
+
+  - id: 胡亥              # 秦始皇帝長子
+    name: 胡亥
+    color: "#1c1c1c"
+    father_id: 秦始皇帝
+    birth_order: 1
+
+  - id: 子嬰              # 秦始皇帝次子
+    name: 子嬰
+    color: "#1c1c1c"
+    father_id: 秦始皇帝
+    birth_order: 2
+
   # === 少暤 (另一根) ===
   - id: 少暤
     name: 少暤
@@ -964,6 +1337,10 @@ marriages:
   - {husband_id: 季歷, wife_id: 太任}
   - {husband_id: 周幽王, wife_id: 褒姒}
   - {husband_id: 周莊王, wife_id: 姚}
+  - {husband_id: 大業, wife_id: 女華}
+  - {husband_id: 西戎豐王, wife_id: 繆嬴}
+  - {husband_id: 秦惠文王, wife_id: 秦宣太后}
+  - {husband_id: 秦昭襄王, wife_id: 秦唐太后}
 
 # descended_from: someone named only as an (often vague) descendant of `ancestor_id`.
 #   Drawn as a phantom youngest child of the ancestor (solid line), but placed on
@@ -971,3 +1348,9 @@ marriages:
 #   e.g. {person_id: 劉累, ancestor_id: 帝堯, mentioned_with: 夏孔甲帝}
 descended_from:
   - {person_id: 劉累, ancestor_id: 帝堯, mentioned_with: 夏孔甲}
+  - {person_id: 女修, ancestor_id: 帝顓頊}                       # unclear -> direct youngest child
+  - {person_id: 趙衰, ancestor_id: 造父}                         # unclear -> direct youngest child
+  - {person_id: 費昌, ancestor_id: 若木, depth: 4}               # 玄孫
+  - {person_id: 孟戲, ancestor_id: 大廉, depth: 4}               # 玄孫
+  - {person_id: 中衍, ancestor_id: 大廉, depth: 4}               # 玄孫
+  - {person_id: 中潏, ancestor_id: 中衍, depth: 4}               # 玄孫

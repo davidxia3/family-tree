@@ -110,8 +110,9 @@ def validate(ds: Dataset) -> List[Issue]:
             issues.append((ERROR, f"descended_from: person == ancestor ({d.person_id})"))
         if d.mentioned_with and not exists(d.mentioned_with):
             issues.append((ERROR, f"descended_from: unknown mentioned_with {d.mentioned_with!r}"))
-        if not d.mentioned_with:
-            issues.append((WARN, f"descended_from: {d.person_id} has no mentioned_with; "
-                                 f"will render on {d.ancestor_id}'s child row"))
+        if d.depth is not None and d.depth < 1:
+            issues.append((ERROR, f"descended_from: {d.person_id} depth must be >= 1 (got {d.depth})"))
+        if d.depth is not None and d.mentioned_with:
+            issues.append((WARN, f"descended_from: {d.person_id} has both depth and mentioned_with; depth wins"))
 
     return issues

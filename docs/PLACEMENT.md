@@ -37,8 +37,9 @@ CSS inside the SVG `<defs>`; all sizes/spacing/colors come from `config.yaml`.
   ordering). `mother_id` must reference a *named* person record, or be null.
 - **`marriages`** — `husband_id` / `wife_id` edge list (childless unions, married-in
   daughters).
-- **`descended_from`** — `person_id` / `ancestor_id` / `mentioned_with` edge list
-  (someone named only as a vague descendant). See rule X.
+- **`descended_from`** — `person_id` / `ancestor_id` edge list (someone named only as a
+  descendant). Optional `depth` (generations below the ancestor) **or** `mentioned_with`
+  (a person whose row to render on). See rule X.
 
 This is a **DAG**, not a tree: a daughter may be both a child (of her father) and a
 wife (married elsewhere). Each person is drawn exactly once — see rule P.
@@ -136,30 +137,40 @@ Glyphs are never transformed — only tile center-x is negated — so text stays
   Roots form a forest: they are packed left-to-right like siblings of a virtual
   super-root, at `h_gap`.
 
-- **Rule D — married-in daughter.** A daughter who marries someone in the chart is placed
-  beside her husband (rule W); her link to her father is drawn as a **dashed secondary
-  edge**. This is the *only* dashed edge type.
+- **Rule D — married-in daughter.** A daughter who marries a placed man (one with his own
+  ancestry/line) is placed beside her husband (rule W); her link to her father is drawn as
+  a **dashed secondary edge**. This is the *only* dashed edge type.
+
+- **Rule D2 — married-out daughter (free-root husband).** If a daughter marries a **free
+  root** — a husband with no ancestry and no children of his own — the roles flip: the
+  *daughter stays a node under her father* (solid line, no dashed edge) and the husband is
+  drawn as a spouse tile **beside her**. Left/right is preserved: wife on the left, husband
+  on her **right**. (So the root is brought down next to the daughter, not the daughter
+  pulled up to the root.) e.g. 繆嬴 (秦莊公's daughter) and 西戎豐王.
 
 ---
 
-## 7. Descendant-only people (rule X — "note 3")
+## 7. Descendant-only people (rule X)
 
-For someone named only as a vague descendant (`descended_from`):
+Someone named only as a descendant (`descended_from`) is drawn as a **phantom youngest
+child of the ancestor**: the ancestor "pretends" to have one more child, junior to all the
+real ones (so in rtl it sits to their **left**), centers over the real children **and**
+this phantom, and a **solid** line is drawn to it (it may run further down than a normal
+child line). The descendant may itself have a normal subtree below it. Three placements,
+by what the edge carries:
 
-- **Horizontal** = the position of a **hypothetical youngest child of the ancestor**. We
-  pretend the ancestor had one more child, junior to all the real ones (so in rtl it sits
-  to their **left**); the ancestor centers over the real children **and** this phantom.
-- **Vertical** = the generation row of **`mentioned_with`** — the figure during whose
-  story the descendant appears (not the ancestor's child row).
-- **Line** = a **solid** line from the ancestor to the descendant, identical to a normal
-  child line except it **extends further down** to reach that lower row.
-
-Example: 劉累 is an unclear descendant of 帝堯, mentioned during the story of 夏孔甲帝.
-So 劉累 is drawn as 帝堯's phantom youngest child (left of 丹朱) but dropped down onto
-夏孔甲帝's row, joined to 帝堯 by a long solid line.
-
-If `mentioned_with` is missing or unknown, the descendant falls back to the ancestor's
-normal child row (and `validate` warns).
+- **Rule X-a — unclear (`depth`/`mentioned_with` both absent):** place as a plain **direct
+  youngest child** (one row down). Use when the exact descent is unknown. e.g. 女修 ←
+  帝顓頊; 趙衰 ← 造父.
+- **Rule X-b — known degree, missing intermediates (`depth: N`):** **preserve generation
+  depth** — render `N` rows below the ancestor, as if the missing fathers were there.
+  e.g. 費昌 is the great-great-grandson of 若木 → `depth: 4`; 孟戲/中衍 are great-great-
+  grandsons of 大廉 → `depth: 4`. A descendant placed this way carries its own subtree
+  (e.g. 中潏 `depth: 4` under 中衍, then the whole 秦 line hangs below 中潏).
+- **Rule X-c — mentioned with a known figure (`mentioned_with: X`):** render on **X's
+  generation row**. e.g. 劉累 ← 帝堯, mentioned during 夏孔甲's story → drops onto 夏孔甲's
+  row. (Packed at the ancestor's child row, then rendered down — so it reserves a slot even
+  when the ancestor also has real children there.)
 
 ---
 
@@ -175,6 +186,13 @@ normal child row (and `validate` warns).
 bottom edge — never from the husband–wife marriage tie, which is an independent horizontal
 segment between the spouses. (With no father, the busbar rises from the anchoring mother,
 rule N.)
+
+**Rule S — split height.** The busbar (where the line branches to the children) sits at the
+**vertical midpoint between the father and the CLOSEST child**. When children are at
+different depths (e.g. a real child one row down and a `depth: 4` descendant four rows
+down), the split is half-way to the *nearest* one; the farther drops simply extend down.
+So a father with descendants 2 and 8 rows down splits at 1 row down. (With uniform tile
+heights this equals the midpoint of the two tile centers.)
 
 Tiles are drawn last, on top of the edges.
 
@@ -215,20 +233,26 @@ deep-merged on top.
 - **Standardized spacing** — collapsed separate sibling/wife gaps into one `h_gap`;
   **husband–wife distance now equals the sibling gap**. Renamed `row_gap`→`v_gap`.
 - **Top-aligned names** — was vertically centered; now top-aligned with trailing space.
-- **Descendant rule (X)** — was a dashed edge with the person on the ancestor's row. Now
-  a phantom-youngest-child placement: solid line, x from the ancestor's child slot, y from
-  the new `mentioned_with` field. `descended_from` is no longer a dashed edge.
+- **Descendant rule (X)** — `descended_from` is a solid phantom-youngest-child placement
+  (not a dashed edge). Three forms: unclear → direct youngest child; `depth: N` → N rows
+  below the ancestor (missing intermediates); `mentioned_with: X` → on X's row.
+- **Busbar split (rule S)** — the lineage line branches at the vertical midpoint between
+  the father and the *closest* child (handles children at mixed depths).
+- **Married-out daughter (rule D2)** — a daughter who weds a free root keeps her place
+  under her father; the root husband is drawn as a spouse tile to her right.
 - **Per-person color** — emitted as an inline `style` (beats the `.tile` class); a dark
   fill auto-switches the text to a light shade (`text_light`). Two different people who
-  share a name get a suffixed id while the display `name` stays bare — e.g. the two 殷太丁
-  (湯's son / 武乙's son) are ids `殷太丁` and `殷太丁-武乙`, both shown as 殷太丁.
+  share a name get a suffixed id while the display `name` stays bare — e.g. the two 周定王
+  are ids `周定王-1` / `周定王-2`, both shown as 周定王 (give one a distinct display name,
+  like 殷子太丁, when you want to tell them apart on the chart).
 - **Review highlight** — `build --highlight "id,…"` outlines tiles (render-time only) so a
   new batch can be eyeballed before the outlines are cleared.
 
 ## 12. Known limitations / TODO
 
 - Rule N: multiple co-mothers under a single fatherless anchor (full rule 7) — basic only.
-- A descendant's reserved column is only enforced at the ancestor's child row, not all the
-  way down to its rendered row; with dense neighbors a long descendant line could pass
-  near other tiles. Revisit if it occurs in real data.
+- A `depth:` descendant packs at its own (deep) rendered row; a `mentioned_with:` one packs
+  at the ancestor's child row. If one ancestor has BOTH a near real child and a deep
+  descendant, their columns aren't separated across the gap and could collide — not yet
+  exercised. Revisit if it occurs.
 - Cycle detection in `validate` is recursive; fine for realistic depths.
