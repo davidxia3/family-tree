@@ -743,15 +743,15 @@ people:
     mother_id: 褒姒
     birth_order: 2
 
-  - id: 周太子洩父        # 周平王之子
-    name: 周太子洩父
+  - id: 周子洩父        # 周平王之子
+    name: 周子洩父
     father_id: 周平王
     birth_order: 1
 
-  - id: 周桓王            # 周太子洩父之子
+  - id: 周桓王            # 周子洩父之子
     name: 周桓王
     color: "#6E4B9E"
-    father_id: 周太子洩父
+    father_id: 周子洩父
     birth_order: 1
 
   - id: 周莊王            # 周桓王長子
@@ -833,8 +833,8 @@ people:
     father_id: 周靈王
     birth_order: 1
 
-  - id: 周太子聖          # 周景王長子
-    name: 周太子聖
+  - id: 周子聖          # 周景王長子
+    name: 周子聖
     father_id: 周景王
     birth_order: 1
 
@@ -1106,16 +1106,16 @@ people:
     father_id: 秦文公
     birth_order: 1
 
-  - id: 秦寧公            # 秦竫公之子
-    name: 秦寧公
+  - id: 秦憲公            # 秦竫公之子
+    name: 秦憲公
     color: "#1c1c1c"
     father_id: 秦竫公
     birth_order: 1
 
-  - id: 秦武公            # 秦寧公長子
+  - id: 秦武公            # 秦憲公長子
     name: 秦武公
     color: "#1c1c1c"
-    father_id: 秦寧公
+    father_id: 秦憲公
     birth_order: 1
 
   - id: 秦子白            # 秦武公之子
@@ -1123,16 +1123,16 @@ people:
     father_id: 秦武公
     birth_order: 1
 
-  - id: 秦德公            # 秦寧公次子
+  - id: 秦德公            # 秦憲公次子
     name: 秦德公
     color: "#1c1c1c"
-    father_id: 秦寧公
+    father_id: 秦憲公
     birth_order: 2
 
-  - id: 秦出子-1          # 秦寧公三子 (與秦惠公-2之子同名，另立 id)
+  - id: 秦出子-1          # 秦憲公三子 (與秦惠公-2之子同名，另立 id)
     name: 秦出子
     color: "#1c1c1c"
-    father_id: 秦寧公
+    father_id: 秦憲公
     birth_order: 3
 
   - id: 秦宣公            # 秦德公長子
@@ -1188,15 +1188,15 @@ people:
     father_id: 秦景公
     birth_order: 1
 
-  - id: 秦太子夷公        # 秦哀公之子
-    name: 秦太子夷公
+  - id: 秦子夷公        # 秦哀公之子
+    name: 秦子夷公
     father_id: 秦哀公
     birth_order: 1
 
-  - id: 秦惠公-1          # 秦太子夷公之子 (與秦簡公之子同名，另立 id)
+  - id: 秦惠公-1          # 秦子夷公之子 (與秦簡公之子同名，另立 id)
     name: 秦惠公
     color: "#1c1c1c"
-    father_id: 秦太子夷公
+    father_id: 秦子夷公
     birth_order: 1
 
   - id: 秦悼公            # 秦惠公-1 之子
@@ -1223,8 +1223,8 @@ people:
     father_id: 秦厲共公
     birth_order: 2
 
-  - id: 秦太子昭          # 秦懷公長子
-    name: 秦太子昭
+  - id: 秦子昭          # 秦懷公長子
+    name: 秦子昭
     father_id: 秦懷公
     birth_order: 1
 
@@ -1234,19 +1234,19 @@ people:
     father_id: 秦懷公
     birth_order: 2
 
-  - id: 秦靈公            # 秦太子昭之子
+  - id: 秦靈公            # 秦子昭之子
     name: 秦靈公
     color: "#1c1c1c"
-    father_id: 秦太子昭
+    father_id: 秦子昭
     birth_order: 1
 
-  - id: 秦惠公-2          # 秦簡公之子 (與秦太子夷公之子同名，另立 id)
+  - id: 秦惠公-2          # 秦簡公之子 (與秦子夷公之子同名，另立 id)
     name: 秦惠公
     color: "#1c1c1c"
     father_id: 秦簡公
     birth_order: 1
 
-  - id: 秦出子-2          # 秦惠公-2 之子 (與秦寧公三子同名，另立 id)
+  - id: 秦出子-2          # 秦惠公-2 之子 (與秦憲公三子同名，另立 id)
     name: 秦出子
     color: "#1c1c1c"
     father_id: 秦惠公-2
@@ -1295,29 +1295,50 @@ people:
     father_id: 秦昭襄王
     birth_order: 1
 
-  - id: 秦莊襄王          # 秦孝文王之子
+  - id: 夏太后            # 秦孝文王元妃；秦莊襄王之母
+    name: 夏太后
+
+  - id: 華陽太后          # 秦孝文王次妃 (無子)
+    name: 華陽太后
+
+  - id: 秦莊襄王          # 秦孝文王之子 (母夏太后)
     name: 秦莊襄王
     color: "#1c1c1c"
     father_id: 秦孝文王
+    mother_id: 夏太后
     birth_order: 1
 
-  - id: 秦始皇帝          # 秦莊襄王之子
+  - id: 趙太后            # 秦莊襄王之妻；秦始皇帝之母
+    name: 趙太后
+
+  - id: 秦始皇帝          # 秦莊襄王長子 (母趙太后)
     name: 秦始皇帝
     color: "#1c1c1c"
     father_id: 秦莊襄王
+    mother_id: 趙太后
     birth_order: 1
 
-  - id: 胡亥              # 秦始皇帝長子
-    name: 胡亥
-    color: "#1c1c1c"
+  - id: 長安君            # 秦莊襄王次子
+    name: 長安君
+    father_id: 秦莊襄王
+    birth_order: 2
+
+  - id: 秦公子扶蘇        # 秦始皇帝長子 (無色)
+    name: 秦公子扶蘇
     father_id: 秦始皇帝
     birth_order: 1
 
-  - id: 子嬰              # 秦始皇帝次子
-    name: 子嬰
+  - id: 秦二世皇帝        # 秦始皇帝次子 (原胡亥)
+    name: 秦二世皇帝
     color: "#1c1c1c"
     father_id: 秦始皇帝
     birth_order: 2
+
+  - id: 秦公子嬰          # 秦公子扶蘇之子 (原子嬰，秦末王)
+    name: 秦公子嬰
+    color: "#1c1c1c"
+    father_id: 秦公子扶蘇
+    birth_order: 1
 
   # === 少暤 (另一根) ===
   - id: 少暤
@@ -1341,6 +1362,9 @@ marriages:
   - {husband_id: 西戎豐王, wife_id: 繆嬴}
   - {husband_id: 秦惠文王, wife_id: 秦宣太后}
   - {husband_id: 秦昭襄王, wife_id: 秦唐太后}
+  - {husband_id: 秦孝文王, wife_id: 夏太后}
+  - {husband_id: 秦孝文王, wife_id: 華陽太后}
+  - {husband_id: 秦莊襄王, wife_id: 趙太后}
 
 # descended_from: someone named only as an (often vague) descendant of `ancestor_id`.
 #   Drawn as a phantom youngest child of the ancestor (solid line), but placed on
