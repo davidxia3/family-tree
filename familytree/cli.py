@@ -168,6 +168,8 @@ def cmd_add_marriage(args) -> int:
 def cmd_add_descent(args) -> int:
     lines = _edit.read_lines(args.data)
     fields = f"person_id: {_edit.scalar(args.person)}, ancestor_id: {_edit.scalar(args.ancestor)}"
+    if args.depth is not None:
+        fields += f", depth: {args.depth}"
     if args.mentioned_with:
         fields += f", mentioned_with: {_edit.scalar(args.mentioned_with)}"
     _edit.append_item(lines, "descended_from", [f"  - {{{fields}}}"])
@@ -234,6 +236,7 @@ def main(argv=None) -> int:
     ap_d = sub.add_parser("add-descent", parents=[common], help="append a descended-from link, then rebuild")
     ap_d.add_argument("--person", required=True)
     ap_d.add_argument("--ancestor", required=True)
+    ap_d.add_argument("--depth", type=int, help="generations below the ancestor (missing intermediates)")
     ap_d.add_argument("--with", dest="mentioned_with", help="figure whose generation row the descendant is drawn on")
     _build_flags(ap_d)
     ap_d.set_defaults(func=cmd_add_descent)

@@ -1349,6 +1349,34 @@ people:
     father_id: 少暤
     birth_order: 1
 
+  # === 西楚 (項氏；free root) ===
+  - id: 項燕              # free root
+    name: 項燕
+
+  - id: 項超              # 項燕長子
+    name: 項超
+    father_id: 項燕
+    birth_order: 1
+
+  - id: 項梁              # 項燕次子
+    name: 項梁
+    father_id: 項燕
+    birth_order: 2
+
+  - id: 項伯              # 項燕三子
+    name: 項伯
+    father_id: 項燕
+    birth_order: 3
+
+  - id: 西楚霸王          # 項超之子 (項羽)
+    name: 西楚霸王
+    color: "#6B8E23"
+    father_id: 項超
+    birth_order: 1
+
+  - id: 虞姬              # 西楚霸王之妻
+    name: 虞姬
+
 marriages:
   - {husband_id: 黃帝, wife_id: 嫘祖}
   - {husband_id: 昌意, wife_id: 昌僕}
@@ -1365,6 +1393,7 @@ marriages:
   - {husband_id: 秦孝文王, wife_id: 夏太后}
   - {husband_id: 秦孝文王, wife_id: 華陽太后}
   - {husband_id: 秦莊襄王, wife_id: 趙太后}
+  - {husband_id: 西楚霸王, wife_id: 虞姬}
 
 # descended_from: someone named only as an (often vague) descendant of `ancestor_id`.
 #   Drawn as a phantom youngest child of the ancestor (solid line), but placed on
@@ -1378,3 +1407,4 @@ descended_from:
   - {person_id: 孟戲, ancestor_id: 大廉, depth: 4}               # 玄孫
   - {person_id: 中衍, ancestor_id: 大廉, depth: 4}               # 玄孫
   - {person_id: 中潏, ancestor_id: 中衍, depth: 4}               # 玄孫
+  - {person_id: 女華, ancestor_id: 少典}                         # 少典之子，嫁大業 (married-in，虛線連少典)

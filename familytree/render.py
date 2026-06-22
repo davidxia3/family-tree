@@ -36,8 +36,6 @@ def _css(S: dict) -> str:
         + ".name{fill:%s;font-family:%s;font-size:%spx;}" % (S["text_color"], S["font_family"], S["font_size"])
         + ".edge-lineage{stroke:%s;stroke-width:%s;fill:none;}" % (S["lineage_stroke"], S["lineage_width"])
         + ".edge-marriage{stroke:%s;stroke-width:%s;fill:none;}" % (S["marriage_stroke"], S["marriage_width"])
-        + ".edge-secondary{stroke:%s;stroke-width:%s;stroke-dasharray:%s;fill:none;}"
-        % (S["secondary_stroke"], S["secondary_width"], S["secondary_dash"])
     )
 
 
@@ -54,7 +52,11 @@ def render_svg(lay: LayoutResult, cfg: dict, highlight=None) -> str:
         f'<rect class="bg" x="0" y="0" width="{_f(W)}" height="{_f(H)}"/>',
     ]
 
-    # --- lineage busbars: father down to a horizontal bar over all children, then drops ---
+    # --- lineage busbars (orthogonal): father down to a SPLIT bar over all children, then
+    # vertical drops to each. Bars are collected first so a drop can be broken with a small
+    # gap wherever it has to cross another bar (a clean "line hop"). ---
+    h_segs = []  # horizontal bars: (y, x_left, x_right)
+    v_segs = []  # verticals: (x, y_top, y_bot)  -- parent stems and child drops
     for father, kids in lay.families:
         if father not in t:
             continue
@@ -63,15 +65,28 @@ def render_svg(lay: LayoutResult, cfg: dict, highlight=None) -> str:
         if not ks:
             continue
         p_bottom = pf.top + pf.height
-        child_top = min(k.top for k in ks)
-        bus = (p_bottom + child_top) / 2.0
-        seg = [f"M {_f(pf.x)} {_f(p_bottom)} L {_f(pf.x)} {_f(bus)}"]
-        xmin = min(k.x for k in ks)
-        xmax = max(k.x for k in ks)
-        seg.append(f"M {_f(xmin)} {_f(bus)} L {_f(xmax)} {_f(bus)}")
+        bus = (p_bottom + min(k.top for k in ks)) / 2.0   # split at the CLOSEST child (rule S)
+        xmin = min(min(k.x for k in ks), pf.x)
+        xmax = max(max(k.x for k in ks), pf.x)
+        h_segs.append((bus, xmin, xmax))
+        v_segs.append((pf.x, p_bottom, bus))              # parent stem
         for k in ks:
-            seg.append(f"M {_f(k.x)} {_f(bus)} L {_f(k.x)} {_f(k.top)}")
-        out.append(f'<path class="edge-lineage" d="{" ".join(seg)}"/>')
+            v_segs.append((k.x, bus, k.top))              # drop to each child
+
+    for y, xa, xb in h_segs:
+        out.append(f'<line class="edge-lineage" x1="{_f(xa)}" y1="{_f(y)}" x2="{_f(xb)}" y2="{_f(y)}"/>')
+
+    HOP = 4.0  # half-gap a vertical leaves where it crosses a bar
+    for x, ya, yb in v_segs:
+        crossings = sorted(hy for hy, hxa, hxb in h_segs
+                           if ya + 1.0 < hy < yb - 1.0 and hxa + 1.0 < x < hxb - 1.0)
+        cur = ya
+        for cy in crossings:
+            if cy - HOP > cur:
+                out.append(f'<line class="edge-lineage" x1="{_f(x)}" y1="{_f(cur)}" x2="{_f(x)}" y2="{_f(cy - HOP)}"/>')
+            cur = cy + HOP
+        if yb > cur:
+            out.append(f'<line class="edge-lineage" x1="{_f(x)}" y1="{_f(cur)}" x2="{_f(x)}" y2="{_f(yb)}"/>')
 
     # --- marriage ties (husband -- wife), connecting facing edges ---
     for a, b in lay.marriages:
@@ -83,13 +98,7 @@ def render_svg(lay: LayoutResult, cfg: dict, highlight=None) -> str:
             x1, x2 = ta.x + ta.width / 2, tb.x - tb.width / 2
         out.append(f'<line class="edge-marriage" x1="{_f(x1)}" y1="{_f(y)}" x2="{_f(x2)}" y2="{_f(y)}"/>')
 
-    # --- secondary dashed edges (married-in daughter -> father, descended-of) ---
-    for a, b, _kind in lay.secondary:
-        ta, tb = t[a], t[b]
-        out.append(
-            f'<line class="edge-secondary" x1="{_f(ta.x)}" y1="{_f(ta.top + ta.height / 2)}" '
-            f'x2="{_f(tb.x)}" y2="{_f(tb.top + tb.height / 2)}"/>'
-        )
+    # (no dashed/secondary edges — every relationship is a solid orthogonal line)
 
     # --- tiles (drawn last, on top of the edges) ---
     cb = L["char_box"]

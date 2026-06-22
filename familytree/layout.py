@@ -183,10 +183,16 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
         if ref and ref in gen:
             render_gen[P] = gen[ref]
 
-    # married-in daughter keeps a dashed link to her father (primary-placement / DAG rule)
+    # A spouse-tile who is also a child/descendant of someone in the chart becomes an EXTRA
+    # busbar child of that ancestor: the ancestor centers over her too and a SOLID orthogonal
+    # lineage line runs to her (no dashed edges). She still sits beside her partner.
+    extra_busbar: Dict[str, List[str]] = {}
     for p in ds.people:
         if p.id in wife_persons and p.father_id and p.father_id in id_to:
-            secondary.append((p.father_id, p.id, "father"))
+            extra_busbar.setdefault(p.father_id, []).append(p.id)
+    for d in idx.descended:
+        if d.person_id in wife_persons and d.ancestor_id in id_to:
+            extra_busbar.setdefault(d.ancestor_id, []).append(d.person_id)
 
     # --- x via tidy layout (canonical, left-to-right) ---
     def place_wives(nid: str, X: Dict[str, float], base_x: float) -> float:
@@ -262,6 +268,56 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
             for pid, px in b.x.items():
                 final_x[pid] = px + o
 
+    # An ancestor centers over its busbar children INCLUDING extras (spouse children whose
+    # own x is fixed by their marriage). Safe for roots; a non-root would ideally re-center
+    # its parent too (not needed yet — see docs/PLACEMENT.md known limitations).
+    for anc, extras in extra_busbar.items():
+        kids = list(anchor_children.get(anc, [])) + extras
+        xs = [final_x[k] for k in kids if k in final_x]
+        if xs and anc in final_x:
+            final_x[anc] = (min(xs) + max(xs)) / 2.0
+
+    # Free (disconnected) components — roots not joined to the main tree by ANY edge
+    # (parent, marriage, or descent) — can sit anywhere, so move them clear of the main
+    # tree (off to one side; they keep their own top rows) so they never overlap it.
+    adj: Dict[str, Set[str]] = {p.id: set() for p in ds.people}
+
+    def _link(a, b):
+        if a in adj and b in adj:
+            adj[a].add(b)
+            adj[b].add(a)
+
+    for p in ds.people:
+        _link(p.id, p.father_id)
+        _link(p.id, p.mother_id)
+    for m in ds.marriages:
+        _link(m.husband_id, m.wife_id)
+    for d in ds.descended_from:
+        _link(d.person_id, d.ancestor_id)
+    seen_c: Set[str] = set()
+    comps: List[Set[str]] = []
+    for pid in adj:
+        if pid in seen_c:
+            continue
+        comp: Set[str] = set()
+        stack = [pid]
+        while stack:
+            x = stack.pop()
+            if x in seen_c:
+                continue
+            seen_c.add(x)
+            comp.add(x)
+            stack.extend(adj[x] - seen_c)
+        comps.append(comp)
+    if len(comps) > 1:
+        main_comp = max(comps, key=len)
+        free_ids = [pid for pid in final_x if pid not in main_comp]
+        main_ids = [pid for pid in final_x if pid in main_comp]
+        if free_ids and main_ids:
+            shift = min(final_x[p] for p in main_ids) - max(final_x[p] for p in free_ids) - (tile_w + 3 * h_gap)
+            for p in free_ids:
+                final_x[p] += shift
+
     # --- single horizontal mirror for rtl (glyphs stay upright) ---
     if cfg.get("orientation", "rtl") == "rtl":
         for k in list(final_x):
@@ -294,7 +350,11 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
     width = max((t.x + t.width / 2 for t in tiles.values()), default=margin) + margin
     height = max((t.top + t.height for t in tiles.values()), default=margin) + margin
 
-    families = [(f, kids[:]) for f, kids in anchor_children.items() if f in tiles]
+    families = []
+    for f in list(anchor_children) + [a for a in extra_busbar if a not in anchor_children]:
+        kids = [k for k in (list(anchor_children.get(f, [])) + extra_busbar.get(f, [])) if k in tiles]
+        if f in tiles and kids:
+            families.append((f, kids))
 
     marriages: List[Tuple[str, str]] = []
     for h, wives in idx.wives_of.items():

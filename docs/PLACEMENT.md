@@ -97,6 +97,12 @@ Glyphs are never transformed — only tile center-x is negated — so text stays
 - **Rule F — a father is centered** over the midpoint of his first and last child.
   Child lineage lines descend from the **father alone**, never from the husband–wife
   marriage tie.
+- **Rule E — descendants count for centering.** ALL of a person's descendants count as
+  "children" for rule F: phantom-child descendants (rule X) and extra busbar children
+  (married-in daughters, rule D; and spouse-descendants). The ancestor is centered over the
+  span of all of them. For an extra busbar child whose x is fixed by a marriage elsewhere,
+  the ancestor re-centers over it as a final step (exact for roots; e.g. 少典 ends up
+  between 黃帝 and 女華).
 
 ---
 
@@ -135,11 +141,14 @@ Glyphs are never transformed — only tile center-x is negated — so text stays
   5. else it is a **root**.
 
   Roots form a forest: they are packed left-to-right like siblings of a virtual
-  super-root, at `h_gap`.
+  super-root, at `h_gap`. A **free component** — a root whose whole tree shares no edge
+  (parent, marriage, or descent) with the main tree — can sit anywhere, so it is moved
+  clear of the main tree (off to one side, keeping its own top rows) and never overlaps.
 
 - **Rule D — married-in daughter.** A daughter who marries a placed man (one with his own
-  ancestry/line) is placed beside her husband (rule W); her link to her father is drawn as
-  a **dashed secondary edge**. This is the *only* dashed edge type.
+  ancestry/line) is placed beside her husband (rule W) but is still an **extra busbar child**
+  of her father: he centers over her too (rule 4 / rule E below) and a **solid orthogonal**
+  lineage line runs to her — no dashed edges. (Lines are never diagonal or dashed.)
 
 - **Rule D2 — married-out daughter (free-root husband).** If a daughter marries a **free
   root** — a husband with no ancestry and no children of his own — the roles flip: the
@@ -172,15 +181,25 @@ by what the edge carries:
   row. (Packed at the ancestor's child row, then rendered down — so it reserves a slot even
   when the ancestor also has real children there.)
 
+**Exception — a descendant who is also a married-in spouse.** If the `descended_from` person
+is a wife/spouse tile (placed beside their partner by rule W), they are *not* re-placed as a
+phantom child. Instead they stay beside their partner and become an **extra busbar child** of
+the ancestor: the ancestor centers over them (rule E) and a **solid orthogonal** lineage line
+runs to them. e.g. 女華 is 大業's wife and a descendant of 少典, so 少典 sits between 黃帝 and
+女華 with a solid line dropping down the left to 女華.
+
 ---
 
 ## 8. Edges & line styles
 
 | Edge | Style | Drawn between |
 |------|-------|---------------|
-| Lineage | **solid** busbar (parent ↓ to a horizontal bar over all children ↓ to each child) | parent → children (incl. descendant phantom children, rule X) |
+| Lineage | **solid** busbar (parent ↓ to a split bar over all children ↓ to each child) | parent → children: real children, phantom-child descendants (rule X), and extra busbar children — married-in daughters (rule D) and spouse-descendants |
 | Marriage | **solid** tie | husband → wife₁ → wife₂ … (consecutive slots) |
-| Secondary | **dashed** | married-in daughter → her father (rule D) only |
+
+**All lines are orthogonal and solid** — only horizontal/vertical segments, never diagonal,
+never dashed. Where a vertical drop is *forced* to cross another bar, it is broken with a
+small gap (a clean "line hop"); the crossed bar stays solid.
 
 **Children sprout from the father only.** The lineage busbar rises from the **father's**
 bottom edge — never from the husband–wife marriage tie, which is an independent horizontal
@@ -245,6 +264,12 @@ deep-merged on top.
   share a name get a suffixed id while the display `name` stays bare — e.g. the two 周定王
   are ids `周定王-1` / `周定王-2`, both shown as 周定王 (give one a distinct display name,
   like 殷子太丁, when you want to tell them apart on the chart).
+- **No dashed/diagonal lines (rules E + line-hop)** — married-in daughters and spouse-
+  descendants are no longer dashed diagonals; they are **extra busbar children** drawn with
+  solid orthogonal lines, and the ancestor centers over them too (rule E). Every line is
+  horizontal/vertical; a vertical that must cross a bar is broken with a small gap (line hop).
+- **Free components moved aside** — a root whose whole tree connects to the main tree by no
+  edge is shifted clear of it (kept at the top, off to one side) so it can never overlap.
 - **Review highlight** — `build --highlight "id,…"` outlines tiles (render-time only) so a
   new batch can be eyeballed before the outlines are cleared.
 
