@@ -90,7 +90,8 @@ def cmd_build(args) -> int:
     lay = compute_layout(ds, cfg)
     raw = getattr(args, "highlight", "") or ""
     highlight = {s for s in re.split(r"[,\s]+", raw.strip()) if s}
-    svg = render_svg(lay, cfg, highlight=highlight)
+    grid = bool(getattr(args, "grid", False))
+    svg = render_svg(lay, cfg, highlight=highlight, grid=grid)
     out_dir = os.path.dirname(args.out) or "."
     os.makedirs(out_dir, exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:
@@ -190,6 +191,7 @@ def main(argv=None) -> int:
     b = sub.add_parser("build", parents=[common], help="generate the SVG (+ PNG) and print status")
     b.add_argument("--out", default=DEFAULT_SVG, help="output SVG path (default: %(default)s)")
     b.add_argument("--highlight", default="", help="comma/space-separated ids to outline (transient new-batch review)")
+    b.add_argument("--grid", action="store_true", help="draw a background row/column grid for verifying placements")
     b.set_defaults(func=cmd_build)
 
     v = sub.add_parser("validate", parents=[common], help="print the integrity report")

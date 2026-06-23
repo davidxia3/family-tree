@@ -1377,11 +1377,106 @@ people:
   - id: 虞姬              # 西楚霸王之妻
     name: 虞姬
 
+  # === 漢本紀 (劉累之裔 漢太上皇 → 漢高祖 …)  [X = 漢帝, 淡紅 #D9776F] ===
+  - id: 漢太上皇          # 劉累之裔，與秦公子嬰同世 (見下 descended_from)
+    name: 漢太上皇
+
+  - id: 劉媼              # 漢太上皇之妻 (高祖之母)
+    name: 劉媼
+
+  - id: 代王劉仲          # 漢太上皇長子
+    name: 代王劉仲
+    father_id: 漢太上皇
+    birth_order: 1
+
+  - id: 漢高祖            # 漢太上皇次子，母劉媼 (X 淡紅)
+    name: 漢高祖
+    color: "#D9776F"
+    father_id: 漢太上皇
+    mother_id: 劉媼
+    birth_order: 2
+
+  - id: 楚王劉交          # 漢太上皇三子
+    name: 楚王劉交
+    father_id: 漢太上皇
+    birth_order: 3
+
+  - id: 沛侯劉濞          # 代王劉仲之子
+    name: 沛侯劉濞
+    father_id: 代王劉仲
+    birth_order: 1
+
+  - id: 呂后              # 漢高祖元配；周呂侯之妹 (父呂公不入族譜，見 siblings)
+    name: 呂后
+
+  - id: 周呂侯            # 呂后之兄 (父呂公不入族譜，見 siblings)
+    name: 周呂侯
+
+  - id: 薄后              # 漢高祖次妻
+    name: 薄后
+
+  - id: 戚夫人            # 漢高祖三妻
+    name: 戚夫人
+
+  - id: 齊悼惠王          # 漢高祖長子
+    name: 齊悼惠王
+    father_id: 漢高祖
+    birth_order: 1
+
+  - id: 漢孝惠帝          # 漢高祖次子，母呂后 (X 淡紅)
+    name: 漢孝惠帝
+    color: "#D9776F"
+    father_id: 漢高祖
+    mother_id: 呂后
+    birth_order: 2
+
+  - id: 魯元公主          # 漢高祖三 (長女)，母呂后
+    name: 魯元公主
+    father_id: 漢高祖
+    mother_id: 呂后
+    birth_order: 3
+
+  - id: 趙隱王            # 漢高祖四子，母戚夫人
+    name: 趙隱王
+    father_id: 漢高祖
+    mother_id: 戚夫人
+    birth_order: 4
+
+  - id: 漢孝文帝          # 漢高祖五子，母薄后 (X 淡紅)
+    name: 漢孝文帝
+    color: "#D9776F"
+    father_id: 漢高祖
+    mother_id: 薄后
+    birth_order: 5
+
+  - id: 趙共王            # 漢高祖六子
+    name: 趙共王
+    father_id: 漢高祖
+    birth_order: 6
+
+  - id: 趙幽王            # 漢高祖七子
+    name: 趙幽王
+    father_id: 漢高祖
+    birth_order: 7
+
+  - id: 淮南厲王          # 漢高祖八子
+    name: 淮南厲王
+    father_id: 漢高祖
+    birth_order: 8
+
+  - id: 燕王劉建          # 漢高祖九子
+    name: 燕王劉建
+    father_id: 漢高祖
+    birth_order: 9
+
+  - id: 劉賈              # 劉累之裔(其二)，與漢高祖同世
+    name: 劉賈
+
 marriages:
   - {husband_id: 黃帝, wife_id: 嫘祖}
   - {husband_id: 昌意, wife_id: 昌僕}
+  - {husband_id: 帝嚳, wife_id: 姜原}    # 姜原 first (slot 1) — wife order is the marriages-list order
   - {husband_id: 帝嚳, wife_id: 簡狄}
-  - {husband_id: 帝嚳, wife_id: 姜原}
   - {husband_id: 古公亶父, wife_id: 太姜}
   - {husband_id: 季歷, wife_id: 太任}
   - {husband_id: 周幽王, wife_id: 褒姒}
@@ -1394,6 +1489,10 @@ marriages:
   - {husband_id: 秦孝文王, wife_id: 華陽太后}
   - {husband_id: 秦莊襄王, wife_id: 趙太后}
   - {husband_id: 西楚霸王, wife_id: 虞姬}
+  - {husband_id: 漢太上皇, wife_id: 劉媼}
+  - {husband_id: 漢高祖, wife_id: 呂后}
+  - {husband_id: 漢高祖, wife_id: 薄后}
+  - {husband_id: 漢高祖, wife_id: 戚夫人}
 
 # descended_from: someone named only as an (often vague) descendant of `ancestor_id`.
 #   Drawn as a phantom youngest child of the ancestor (solid line), but placed on
@@ -1408,3 +1507,11 @@ descended_from:
   - {person_id: 中衍, ancestor_id: 大廉, depth: 4}               # 玄孫
   - {person_id: 中潏, ancestor_id: 中衍, depth: 4}               # 玄孫
   - {person_id: 女華, ancestor_id: 少典}                         # 少典之子，嫁大業 (married-in，虛線連少典)
+  - {person_id: 漢太上皇, ancestor_id: 劉累, mentioned_with: 秦公子嬰, order: 1}   # 劉累之裔(其一，右支)，與子嬰同世
+  - {person_id: 劉賈, ancestor_id: 劉累, mentioned_with: 漢高祖, order: 2}         # 劉累之裔(其二，左支)，與高祖同世
+
+# siblings: parentless sibling groups (Shiji names them as siblings but their shared parent is
+#   not a tile here). Each list is ELDEST FIRST. If one member married into the tree, the others
+#   attach beside that spouse's partner; a stub-less sibling busbar ties the group. (rule Sib)
+siblings:
+  - [周呂侯, 呂后]      # 呂后 married 漢高祖; her elder brother 周呂侯 sits just right of him

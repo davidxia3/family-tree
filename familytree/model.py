@@ -47,6 +47,7 @@ class DescendedFrom:
     ancestor_id: Optional[str] = None
     mentioned_with: Optional[str] = None   # render on this person's generation row
     depth: Optional[int] = None            # OR render this many generations below the ancestor
+    order: Optional[int] = None            # rank among an ancestor's phantom descendants (1 = senior/right)
 
 
 @dataclass
@@ -54,6 +55,9 @@ class Dataset:
     people: List[Person] = field(default_factory=list)
     marriages: List[Marriage] = field(default_factory=list)
     descended_from: List[DescendedFrom] = field(default_factory=list)
+    # Parentless sibling groups: each a list of member ids, ELDEST FIRST. Use when Shiji names
+    # people as siblings but their shared parent is not a tile in the tree (rule Sib).
+    siblings: List[List[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -66,6 +70,10 @@ class Index:
     husband_of: Dict[str, str]             # spouse-tile id -> the host node it attaches to
     wife_persons: Set[str]                 # all ids rendered as spouse-tiles (not standalone nodes)
     descended: List[DescendedFrom]
+    inlaw_sib_of: Dict[str, List[str]]     # host id -> parentless in-law sibs attached on its right (rtl)
+    sib_host: Dict[str, str]               # in-law sib id -> the host node it attaches to
+    inlaw_sib_persons: Set[str]            # in-law sibs rendered as attached tiles (not standalone nodes)
+    sibling_groups: List[List[str]]        # parentless sib-groups (member ids) for the sibling busbar
 
 
 def _s(v) -> Optional[str]:
@@ -139,12 +147,26 @@ def load_dataset(path: str) -> Tuple[Dataset, List[str]]:
                 except (TypeError, ValueError):
                     problems.append(f"descended_from: depth is not an integer: {dep!r}")
                     dep = None
+            ordr = d.get("order")
+            if ordr is not None:
+                try:
+                    ordr = int(ordr)
+                except (TypeError, ValueError):
+                    problems.append(f"descended_from: order is not an integer: {ordr!r}")
+                    ordr = None
             desc.append(DescendedFrom(person_id=_s(d.get("person_id")), ancestor_id=_s(d.get("ancestor_id")),
-                                      mentioned_with=_s(d.get("mentioned_with")), depth=dep))
+                                      mentioned_with=_s(d.get("mentioned_with")), depth=dep, order=ordr))
         else:
             problems.append(f"descended_from: entry is not a mapping: {d!r}")
 
-    return Dataset(people, marriages, desc), problems
+    sibs: List[List[str]] = []
+    for grp in (raw.get("siblings") or []):
+        if isinstance(grp, list) and len(grp) >= 2:
+            sibs.append([str(m) for m in grp])
+        else:
+            problems.append(f"siblings: entry is not a list of >=2 ids: {grp!r}")
+
+    return Dataset(people, marriages, desc, sibs), problems
 
 
 def build_index(ds: Dataset) -> Index:
@@ -190,15 +212,19 @@ def build_index(ds: Dataset) -> Index:
         if m.wife_id in id_to and m.husband_id in id_to and m.husband_id not in flip_husbands:
             wife_persons.add(m.wife_id)
 
-    # Wife slot order (rule 6): a wife's rank is the seniority of her most-senior
-    # child by that husband; childless wives sort after, by id.
-    rank: Dict[Tuple[str, str], int] = {}
+    # Wife slot order: David sets it MANUALLY via the order wives appear in `marriages`
+    # (slot 1 = beside the husband). A wife known only as a mother (no marriage entry) is
+    # appended after, by her most-senior child then id. (No auto child-seniority ordering.)
+    marriage_pos: Dict[Tuple[str, str], int] = {}
+    for i, m in enumerate(ds.marriages):
+        marriage_pos.setdefault((m.husband_id, m.wife_id), i)
+    child_rank: Dict[Tuple[str, str], int] = {}
     hus_wives: Dict[str, Set[str]] = {}
     for p in ds.people:
         if (p.mother_id and p.mother_id in id_to and p.father_id and p.father_id in id_to):
             key = (p.father_id, p.mother_id)
             r = p.birth_order if p.birth_order is not None else 10 ** 9
-            rank[key] = min(rank.get(key, 10 ** 18), r)
+            child_rank[key] = min(child_rank.get(key, 10 ** 18), r)
             hus_wives.setdefault(p.father_id, set()).add(p.mother_id)
     for m in ds.marriages:
         if m.wife_id in id_to and m.husband_id in id_to and m.husband_id not in flip_husbands:
@@ -207,7 +233,9 @@ def build_index(ds: Dataset) -> Index:
     wives_of: Dict[str, List[str]] = {}
     husband_of: Dict[str, str] = {}
     for h, wives in hus_wives.items():
-        ordered = sorted(wives, key=lambda w: (rank.get((h, w), 10 ** 18), w))
+        ordered = sorted(wives, key=lambda w: (
+            marriage_pos.get((h, w), 10 ** 9),          # manual order via `marriages` list
+            child_rank.get((h, w), 10 ** 18), w))        # fallback: mother-only wives
         wives_of[h] = ordered
         for w in ordered:
             husband_of.setdefault(w, h)
@@ -219,5 +247,27 @@ def build_index(ds: Dataset) -> Index:
         husband_of.setdefault(hbnd, wife)
         wife_persons.add(hbnd)
 
+    # Parentless sibling groups (rule Sib): if one member married INTO the tree (a spouse tile),
+    # the others attach to that member's partner on the partner's senior (right, rtl) side, in
+    # eldest-first order; the whole group is tied by a stub-less sibling busbar (drawn in render).
+    inlaw_sib_of: Dict[str, List[str]] = {}
+    sib_host: Dict[str, str] = {}
+    inlaw_sib_persons: Set[str] = set()
+    sibling_groups: List[List[str]] = []
+    for grp in ds.siblings:
+        members = [m for m in grp if m in id_to]
+        if len(members) < 2:
+            continue
+        sibling_groups.append(members)
+        anchor = next((m for m in members if m in husband_of), None)   # the married-in member
+        if anchor is None:
+            continue
+        host = husband_of[anchor]
+        for m in members:
+            if m != anchor:
+                inlaw_sib_persons.add(m)
+                sib_host[m] = host
+                inlaw_sib_of.setdefault(host, []).append(m)
+
     return Index(id_to, children_of, wives_of, husbands_of, husband_of, wife_persons,
-                 list(ds.descended_from))
+                 list(ds.descended_from), inlaw_sib_of, sib_host, inlaw_sib_persons, sibling_groups)

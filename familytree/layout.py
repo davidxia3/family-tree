@@ -20,7 +20,7 @@ dashed SECONDARY edges.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set, Tuple
 
 from .model import Dataset, Index, build_index
@@ -56,6 +56,7 @@ class LayoutResult:
     height: float
     roots: List[str]
     unplaced: List[str]
+    sibling_groups: List[List[str]] = field(default_factory=list)   # parentless sib busbars
 
 
 def _shift_block(b: Block, dx: float) -> None:
@@ -104,8 +105,11 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
     idx = build_index(ds)
     id_to = idx.id_to_person
     wife_persons = idx.wife_persons
+    inlaw_sib_persons = idx.inlaw_sib_persons      # parentless in-law sibs: attached tiles, not nodes
 
-    node_ids = [p.id for p in ds.people if p.id not in wife_persons]
+    # wife tiles AND in-law sibling tiles are attached beside a host, never standalone nodes/roots
+    attached = wife_persons | inlaw_sib_persons
+    node_ids = [p.id for p in ds.people if p.id not in attached]
     node_set = set(node_ids)
 
     def parent_of(pid: str) -> Optional[str]:
@@ -133,20 +137,26 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
     #   neither         -> a plain direct youngest child                             [rule 1]
     descendant_render_ref: Dict[str, Optional[str]] = {}
     depth_offset: Dict[str, int] = {}
+    phantom_order: Dict[str, int] = {}        # rank among an ancestor's phantom descendants
     for d in idx.descended:
         P, anc = d.person_id, d.ancestor_id
         if P in node_set and anc in node_set:
             if P in roots:
                 roots.remove(P)
             anchor_children.setdefault(anc, []).append(P)
+            if d.order is not None:
+                phantom_order[P] = d.order
             if d.depth is not None and d.depth >= 1:
                 depth_offset[P] = d.depth
             elif d.mentioned_with:
                 descendant_render_ref[P] = d.mentioned_with
 
     def child_sort_key(cid: str):
+        # real children sort by birth_order; phantom descendants (no birth_order) sort AFTER them,
+        # among themselves by their explicit `order` (1 = senior/right), then name/id.
         c = id_to[cid]
-        return (c.birth_order if c.birth_order is not None else 10 ** 9, c.name, c.id)
+        bo = c.birth_order if c.birth_order is not None else 10 ** 9
+        return (bo, phantom_order.get(cid, 0), c.name, c.id)
 
     for k in anchor_children:
         anchor_children[k].sort(key=child_sort_key)
@@ -168,6 +178,58 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
     for r in roots:
         assign_gen(r)
 
+    # Rule X-c: a `mentioned_with` descendant renders on its referent's row — and so must
+    # everything beneath it (its children one row below, etc.). assign_gen placed it a single
+    # generation under its ancestor; re-base it AND its whole natal subtree onto the referent's
+    # row so the subtree's depths stay correct (without this, a mentioned_with person with
+    # children would sit deep while the children rendered shallow — a vertical split). Iterate
+    # to a fixpoint so chained references settle (a descendant mentioned with a person who is
+    # themselves re-based).
+    if descendant_render_ref:
+        order = sorted(descendant_render_ref, key=lambda p: gen.get(p, 0))
+        for _ in range(len(descendant_render_ref) + 1):
+            changed = False
+            for P in order:
+                ref = descendant_render_ref[P]
+                if P in gen and ref in gen and gen[P] != gen[ref]:
+                    delta = gen[ref] - gen[P]
+                    stack, seen = [P], set()
+                    while stack:
+                        n = stack.pop()
+                        if n in seen:
+                            continue
+                        seen.add(n)
+                        gen[n] += delta
+                        stack.extend(anchor_children.get(n, []))
+                    changed = True
+            if not changed:
+                break
+
+    # In-law family (rule L): a ROOT whose daughter married into the tree (she is a wife-tile
+    # beside her husband) would otherwise sit at row 0, scattering her parents/siblings to the
+    # top of the chart with a full-height connector. Hang the root ONE row above the daughter's
+    # marriage row instead, and shift its whole natal subtree by the same delta, so her natal
+    # family (parents + siblings) lands beside her. (Single married-in daughter per root;
+    # multiple would over-constrain — not yet needed.) X-anchoring happens after layout, below.
+    inlaw_roots: Dict[str, str] = {}      # in-law root id -> its married-in daughter id
+    for r in list(roots):
+        for p in ds.people:
+            if p.id in wife_persons and r in (p.father_id, p.mother_id):
+                h = idx.husband_of.get(p.id)
+                if h is not None and h in gen:
+                    inlaw_roots[r] = p.id
+                    delta = (gen[h] - 1) - gen.get(r, 0)
+                    if delta:
+                        stack, seen = [r], set()
+                        while stack:
+                            n = stack.pop()
+                            if n in seen:
+                                continue
+                            seen.add(n)
+                            gen[n] += delta
+                            stack.extend(anchor_children.get(n, []))
+                    break
+
     secondary: List[Tuple[str, str, str]] = []
 
     # wife tiles share the husband's row (rules 6-7)
@@ -175,6 +237,11 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
         h = idx.husband_of.get(w)
         if h is not None and h in gen:
             gen[w] = gen[h]
+
+    # in-law sibling tiles share their host's row (rule Sib)
+    for sib, host in idx.sib_host.items():
+        if host in gen:
+            gen[sib] = gen[host]
 
     # Note 3: a descendant-only person is RENDERED on the row of the person it was
     # mentioned with (its x already comes from being a phantom child of the ancestor).
@@ -220,6 +287,20 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
             left = X[h] - half
         return left
 
+    def place_inlaw_sibs(nid: str, X: Dict[str, float], base_x: float) -> float:
+        """Attach parentless in-law sibling tiles to this node's left (canonical) -> right after
+        the mirror, past any husband tiles — so an ELDER in-law sib sits on the senior (right)
+        side, beyond the host (rule Sib). e.g. 周呂侯 lands just right of 漢高祖. Return left edge."""
+        j = sum(1 for h in idx.husbands_of.get(nid, []) if h in id_to)
+        left = base_x - half
+        for s in idx.inlaw_sib_of.get(nid, []):
+            if s not in id_to:
+                continue
+            j += 1
+            X[s] = base_x - j * slot
+            left = X[s] - half
+        return left
+
     visiting: Set[str] = set()
 
     def layout_block(nid: str) -> Block:
@@ -232,12 +313,21 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
             X = {nid: 0.0}
             wright = place_wives(nid, X, 0.0)
             hleft = place_husbands(nid, X, 0.0)
+            sleft = place_inlaw_sibs(nid, X, 0.0)
             visiting.discard(nid)
-            return Block(X, {g: min(-half, hleft)}, {g: max(half, wright)})
+            return Block(X, {g: min(-half, hleft, sleft)}, {g: max(half, wright)})
 
         blocks = [layout_block(c) for c in kids]
         for c, b in zip(kids, blocks):
             _shift_block(b, -b.x[c])             # normalize child head to 0
+        # A `mentioned_with` phantom renders on a deep row, but it is still a youngest CHILD of
+        # nid: reserve a slot at nid's child-row so it spaces beside nid's real children (rule X
+        # — it sits to their left) instead of sliding up underneath one of them.
+        child_row = g + 1
+        for c, b in zip(kids, blocks):
+            if c in descendant_render_ref:
+                b.left[child_row] = min(b.left.get(child_row, half), -half)
+                b.right[child_row] = max(b.right.get(child_row, -half), half)
         offsets, mL, mR = _pack(blocks, h_gap)
         node_x = (offsets[0] + offsets[-1]) / 2.0  # center over first..last child (rule 4)
 
@@ -250,16 +340,33 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
 
         wright = place_wives(nid, X, 0.0)
         hleft = place_husbands(nid, X, 0.0)
-        Lc[g] = min(Lc.get(g, -half), -half, hleft)
+        sleft = place_inlaw_sibs(nid, X, 0.0)
+        Lc[g] = min(Lc.get(g, -half), -half, hleft, sleft)
         Rc[g] = max(Rc.get(g, half), max(half, wright))
+
+        # Long descent (rule X-c with a deep subtree, e.g. 劉累 → the 漢 line ~40 rows below):
+        # the connecting busbar runs through many EMPTY intermediate rows. Reserve its x-lane on
+        # those rows so a neighbouring column (e.g. 周) cannot slide underneath the line and cross
+        # it. The tidy-tree packer then keeps the lane clear with the minimal shift and re-centers
+        # the ancestors automatically (no manual coordinates).
+        if nid in descendant_render_ref:
+            cgs = [gen.get(c, g) for c in kids]
+            if cgs and min(cgs) - g > 1:
+                xs = [X[c] for c in kids if c in X]
+                lo, hi = min(xs) - half, max(xs) + half
+                for gg in range(g + 1, min(cgs)):    # reserve the descent's full x-span
+                    Lc[gg] = min(Lc.get(gg, lo), lo)
+                    Rc[gg] = max(Rc.get(gg, hi), hi)
         visiting.discard(nid)
         return Block(X, Lc, Rc)
 
     root_blocks: List[Block] = []
+    block_members: Dict[str, Set[str]] = {}
     for r in roots:
         b = layout_block(r)
         _shift_block(b, -b.x[r])
         root_blocks.append(b)
+        block_members[r] = set(b.x)
 
     final_x: Dict[str, float] = {}
     if root_blocks:
@@ -272,10 +379,38 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
     # own x is fixed by their marriage). Safe for roots; a non-root would ideally re-center
     # its parent too (not needed yet — see docs/PLACEMENT.md known limitations).
     for anc, extras in extra_busbar.items():
+        if anc in inlaw_roots:        # in-law roots are X-anchored below, not here
+            continue
         kids = list(anchor_children.get(anc, [])) + extras
         xs = [final_x[k] for k in kids if k in final_x]
         if xs and anc in final_x:
             final_x[anc] = (min(xs) + max(xs)) / 2.0
+
+    # Rule L (X-anchoring): an in-law root sits at row 0's left after packing — far from its
+    # married-in daughter. The daughter's marriage row is the densest in the chart (her co-wives
+    # and in-laws fill it), so there is no adjacent slot. Park the natal block just past the
+    # right edge of that row (clear of the cluster, on the rows fixed in Part 1), then center the
+    # root over [its real children + the daughter] so the busbar reaches her, and slide the
+    # root's wife along with it so she stays beside him.
+    for r, daughter in inlaw_roots.items():
+        if r not in final_x or daughter not in final_x:
+            continue
+        members = block_members.get(r, {r})
+        drow = render_gen.get(daughter, gen.get(daughter))
+        row_xs = [final_x[t] for t in final_x
+                  if t not in members and render_gen.get(t, gen.get(t)) == drow]
+        edge = max(row_xs) if row_xs else final_x[daughter]
+        real_kids = [k for k in anchor_children.get(r, []) if k in final_x]
+        anchor = real_kids[0] if real_kids else r
+        shift = (edge + slot) - final_x[anchor]
+        for m in members:
+            final_x[m] += shift
+        kids_x = [final_x[k] for k in real_kids] + [final_x[daughter]]
+        drift = (min(kids_x) + max(kids_x)) / 2.0 - final_x[r]
+        final_x[r] += drift
+        for w in idx.wives_of.get(r, []):
+            if w in final_x:
+                final_x[w] += drift
 
     # Free (disconnected) components — roots not joined to the main tree by ANY edge
     # (parent, marriage, or descent) — can sit anywhere, so move them clear of the main
@@ -294,6 +429,9 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
         _link(m.husband_id, m.wife_id)
     for d in ds.descended_from:
         _link(d.person_id, d.ancestor_id)
+    for grp in idx.sibling_groups:               # parentless sibs are joined to each other
+        for s in grp[1:]:
+            _link(grp[0], s)
     seen_c: Set[str] = set()
     comps: List[Set[str]] = []
     for pid in adj:
@@ -371,4 +509,8 @@ def compute_layout(ds: Dataset, cfg: dict) -> LayoutResult:
     secondary = [(a, b, k) for (a, b, k) in secondary if a in tiles and b in tiles]
     unplaced = [p.id for p in ds.people if p.id not in tiles]
 
-    return LayoutResult(tiles, families, marriages, secondary, width, height, roots, unplaced)
+    sib_groups = [[m for m in g if m in tiles] for g in idx.sibling_groups]
+    sib_groups = [g for g in sib_groups if len(g) >= 2]
+
+    return LayoutResult(tiles, families, marriages, secondary, width, height, roots, unplaced,
+                        sib_groups)
