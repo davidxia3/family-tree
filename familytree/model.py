@@ -58,6 +58,9 @@ class Dataset:
     # Parentless sibling groups: each a list of member ids, ELDEST FIRST. Use when Shiji names
     # people as siblings but their shared parent is not a tile in the tree (rule Sib).
     siblings: List[List[str]] = field(default_factory=list)
+    # Manual layer ordering: each entry is an explicit LEFT-TO-RIGHT list of tile ids that share a
+    # generation row, pinned in that order (overrides the auto x for those tiles). See rule LO.
+    layer_order: List[List[str]] = field(default_factory=list)
 
 
 @dataclass
@@ -166,7 +169,16 @@ def load_dataset(path: str) -> Tuple[Dataset, List[str]]:
         else:
             problems.append(f"siblings: entry is not a list of >=2 ids: {grp!r}")
 
-    return Dataset(people, marriages, desc, sibs), problems
+    layer_order: List[List[str]] = []
+    for grp in (raw.get("layer_order") or []):
+        if isinstance(grp, list) and len(grp) >= 2:
+            layer_order.append([str(m) for m in grp])
+        else:
+            problems.append(f"layer_order: entry is not a list of >=2 ids: {grp!r}")
+
+    ds = Dataset(people, marriages, desc, sibs)
+    ds.layer_order = layer_order
+    return ds, problems
 
 
 def build_index(ds: Dataset) -> Index:
@@ -187,26 +199,31 @@ def build_index(ds: Dataset) -> Index:
         if p.mother_id in id_to:
             parents.add(p.mother_id)
 
-    def free_root(pid: str) -> bool:        # no ancestry and no children of their own
+    def no_ancestry(pid: str) -> bool:      # no parent in the tree (may still have children)
         p = id_to[pid]
-        return p.father_id not in id_to and p.mother_id not in id_to and pid not in parents
+        return p.father_id not in id_to and p.mother_id not in id_to
 
     def rooted(pid: str) -> bool:           # has a place in the tree via a parent
         p = id_to[pid]
         return p.father_id in id_to or p.mother_id in id_to
 
-    # FLIP (married-out daughter): a free-root husband married to a rooted wife becomes a
-    # RIGHT-side tile beside her — she stays a node under her father, wife-left/husband-right.
+    # FLIP (married-out daughter, rule D2): a husband with NO ANCESTRY married to a rooted wife
+    # becomes a RIGHT-side tile beside her — she stays a node under her father, wife-left/husband-
+    # right. He may have his OWN children (e.g. 宣平侯張敖 → 魯王張偃 …); they descend from him,
+    # beside her, at her row. (So the son-in-law sits among the daughter's generation, not at row 0.)
     flip_husbands: Dict[str, str] = {}      # husband id -> wife (host)
     for m in ds.marriages:
         if m.husband_id in id_to and m.wife_id in id_to:
-            if free_root(m.husband_id) and rooted(m.wife_id):
+            if no_ancestry(m.husband_id) and rooted(m.wife_id):
                 flip_husbands[m.husband_id] = m.wife_id
 
-    # LEFT-side wife tiles: named mothers (present father) + non-flip marriage wives.
+    # LEFT-side wife tiles: named mothers (present father) + non-flip marriage wives. A mother
+    # whose husband is a FLIP-husband (rule D2) is NOT a wife tile — she is the rooted node and HE
+    # is drawn beside her (e.g. 魯元公主, mother of 魯王張偃 by the flip-husband 宣平侯張敖).
     wife_persons: Set[str] = set()
     for p in ds.people:
-        if (p.mother_id and p.mother_id in id_to and p.father_id and p.father_id in id_to):
+        if (p.mother_id and p.mother_id in id_to and p.father_id and p.father_id in id_to
+                and p.father_id not in flip_husbands):
             wife_persons.add(p.mother_id)
     for m in ds.marriages:
         if m.wife_id in id_to and m.husband_id in id_to and m.husband_id not in flip_husbands:

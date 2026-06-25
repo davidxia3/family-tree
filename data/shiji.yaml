@@ -1384,8 +1384,8 @@ people:
   - id: 劉媼              # 漢太上皇之妻 (高祖之母)
     name: 劉媼
 
-  - id: 代王劉仲          # 漢太上皇長子
-    name: 代王劉仲
+  - id: 代頃王          # 漢太上皇長子
+    name: 代頃王
     father_id: 漢太上皇
     birth_order: 1
 
@@ -1396,21 +1396,23 @@ people:
     mother_id: 劉媼
     birth_order: 2
 
-  - id: 楚王劉交          # 漢太上皇三子
-    name: 楚王劉交
+  - id: 楚元王          # 漢太上皇三子
+    name: 楚元王
     father_id: 漢太上皇
     birth_order: 3
 
-  - id: 沛侯劉濞          # 代王劉仲之子
-    name: 沛侯劉濞
-    father_id: 代王劉仲
+  - id: 吳王濞          # 代頃王之子
+    name: 吳王濞
+    father_id: 代頃王
     birth_order: 1
 
-  - id: 呂后              # 漢高祖元配；周呂侯之妹 (父呂公不入族譜，見 siblings)
-    name: 呂后
+  - id: 呂太后              # 漢高祖元配；呂悼武王之妹 (父呂公不入族譜，見 siblings) (Y 淡橙)
+    name: 呂太后
+    color: "#E3A155"
 
-  - id: 周呂侯            # 呂后之兄 (父呂公不入族譜，見 siblings)
-    name: 周呂侯
+  - id: 呂悼武王            # 呂太后之兄 (父呂公不入族譜，見 siblings) (Y 淡橙)
+    name: 呂悼武王
+    color: "#E3A155"
 
   - id: 薄后              # 漢高祖次妻
     name: 薄后
@@ -1423,17 +1425,17 @@ people:
     father_id: 漢高祖
     birth_order: 1
 
-  - id: 漢孝惠帝          # 漢高祖次子，母呂后 (X 淡紅)
+  - id: 漢孝惠帝          # 漢高祖次子，母呂太后 (X 淡紅)
     name: 漢孝惠帝
     color: "#D9776F"
     father_id: 漢高祖
-    mother_id: 呂后
+    mother_id: 呂太后
     birth_order: 2
 
-  - id: 魯元公主          # 漢高祖三 (長女)，母呂后
+  - id: 魯元公主          # 漢高祖三 (長女)，母呂太后
     name: 魯元公主
     father_id: 漢高祖
-    mother_id: 呂后
+    mother_id: 呂太后
     birth_order: 3
 
   - id: 趙隱王            # 漢高祖四子，母戚夫人
@@ -1472,6 +1474,264 @@ people:
   - id: 劉賈              # 劉累之裔(其二)，與漢高祖同世
     name: 劉賈
 
+  # === 漢 batch 2: 諸子孫 + 外戚(呂/薄/王) + 張敖 (X=漢帝淡紅, Y=呂黨淡橙) ===
+
+  # --- 楚元王 (劉交) 一支 ---
+  - id: 楚王劉藝          # 楚元王長子
+    name: 楚王劉藝
+    father_id: 楚元王
+    birth_order: 1
+  - id: 楚王劉戊          # 楚王劉藝之子
+    name: 楚王劉戊
+    father_id: 楚王劉藝
+    birth_order: 1
+  - id: 平陸侯劉禮        # 楚元王次子
+    name: 平陸侯劉禮
+    father_id: 楚元王
+    birth_order: 2
+
+  # --- 呂氏 外戚 (呂太后之兄弟姊妹，皆無父於譜中；見 siblings) ---
+  - id: 呂肅王            # 呂悼武王長子
+    name: 呂肅王
+    color: "#E3A155"
+    father_id: 呂悼武王
+    birth_order: 1
+  - id: 梁王呂產          # 呂悼武王次子
+    name: 梁王呂產
+    color: "#E3A155"
+    father_id: 呂悼武王
+    birth_order: 2
+  - id: 呂王嘉            # 呂肅王長子
+    name: 呂王嘉
+    color: "#E3A155"
+    father_id: 呂肅王
+    birth_order: 1
+  - id: 燕王呂通          # 呂肅王次子
+    name: 燕王呂通
+    color: "#E3A155"
+    father_id: 呂肅王
+    birth_order: 2
+  - id: 東平侯呂莊        # 呂肅王三子
+    name: 東平侯呂莊
+    color: "#E3A155"
+    father_id: 呂肅王
+    birth_order: 3
+  - id: 建成侯呂釋之      # 呂太后之兄，呂悼武王之弟 (見 siblings)
+    name: 建成侯呂釋之
+    color: "#E3A155"
+  - id: 胡陵侯呂祿        # 建成侯呂釋之長子
+    name: 胡陵侯呂祿
+    color: "#E3A155"
+    father_id: 建成侯呂釋之
+    birth_order: 1
+  - id: 沛侯呂種          # 建成侯呂釋之次子
+    name: 沛侯呂種
+    color: "#E3A155"
+    father_id: 建成侯呂釋之
+    birth_order: 2
+  - id: 臨光侯呂媭        # 呂太后之妹(其一) (見 siblings)
+    name: 臨光侯呂媭
+    color: "#E3A155"
+  - id: 瑯邪后            # 臨光侯呂媭之女；嫁瑯邪王劉澤
+    name: 瑯邪后
+    color: "#E3A155"
+    mother_id: 臨光侯呂媭
+  - id: 瑯邪王劉澤        # 瑯邪后之夫 (劉宗室，David 標 Y 呂黨色)
+    name: 瑯邪王劉澤
+    color: "#E3A155"
+  - id: 扶柳侯呂平        # 呂太后之妹(其二) (見 siblings)
+    name: 扶柳侯呂平
+    color: "#E3A155"
+
+  # --- 薄氏 (薄昭 = 薄后之弟；見 siblings) ---
+  - id: 薄昭              # 薄后之弟
+    name: 薄昭
+
+  # --- 齊悼惠王 諸子 ---
+  - id: 齊哀王            # 齊悼惠王長子
+    name: 齊哀王
+    father_id: 齊悼惠王
+    birth_order: 1
+  - id: 朱虛侯劉章        # 齊悼惠王次子
+    name: 朱虛侯劉章
+    father_id: 齊悼惠王
+    birth_order: 2
+  - id: 東牟侯劉興居      # 齊悼惠王三子
+    name: 東牟侯劉興居
+    father_id: 齊悼惠王
+    birth_order: 3
+  - id: 濟北王劉志        # 齊悼惠王四子
+    name: 濟北王劉志
+    father_id: 齊悼惠王
+    birth_order: 4
+  - id: 膠西王劉卬        # 齊悼惠王五子
+    name: 膠西王劉卬
+    father_id: 齊悼惠王
+    birth_order: 5
+  - id: 濟南王劉辟光      # 齊悼惠王六子
+    name: 濟南王劉辟光
+    father_id: 齊悼惠王
+    birth_order: 6
+  - id: 菑川王劉賢        # 齊悼惠王七子
+    name: 菑川王劉賢
+    father_id: 齊悼惠王
+    birth_order: 7
+  - id: 膠東王劉雄渠      # 齊悼惠王八子
+    name: 膠東王劉雄渠
+    father_id: 齊悼惠王
+    birth_order: 8
+
+  # --- 魯元公主 × 宣平侯張敖 (張敖 = 根；孝惠皇后嫁孝惠帝=甥舅婚) ---
+  - id: 宣平侯張敖        # 魯元公主之夫 (根，無父於譜)
+    name: 宣平侯張敖
+  - id: 孝惠皇后          # 張敖×魯元公主之女；嫁漢孝惠帝 (其舅，近親婚)
+    name: 孝惠皇后
+    father_id: 宣平侯張敖
+    mother_id: 魯元公主
+  - id: 魯王張偃          # 張敖長子，母魯元公主
+    name: 魯王張偃
+    father_id: 宣平侯張敖
+    mother_id: 魯元公主
+    birth_order: 1
+  - id: 新都侯張侈        # 張敖次子
+    name: 新都侯張侈
+    father_id: 宣平侯張敖
+    birth_order: 2
+  - id: 樂昌侯張壽        # 張敖三子
+    name: 樂昌侯張壽
+    father_id: 宣平侯張敖
+    birth_order: 3
+
+  # --- 趙幽王 諸子 ---
+  - id: 趙王劉遂          # 趙幽王長子
+    name: 趙王劉遂
+    father_id: 趙幽王
+    birth_order: 1
+  - id: 河閒王劉辟彊      # 趙幽王次子
+    name: 河閒王劉辟彊
+    father_id: 趙幽王
+    birth_order: 2
+
+  # --- 淮南厲王 諸子 (僅稱王號) ---
+  - id: 淮南王            # 淮南厲王長子
+    name: 淮南王
+    father_id: 淮南厲王
+    birth_order: 1
+  - id: 衡山王            # 淮南厲王次子
+    name: 衡山王
+    father_id: 淮南厲王
+    birth_order: 2
+  - id: 廬江王            # 淮南厲王三子
+    name: 廬江王
+    father_id: 淮南厲王
+    birth_order: 3
+
+  # --- 漢孝惠帝 諸子 (+ 後少帝之子 平昌侯劉太) ---
+  - id: 漢前少帝          # 漢孝惠帝長子 (X 淡紅)
+    name: 漢前少帝
+    color: "#D9776F"
+    father_id: 漢孝惠帝
+    birth_order: 1
+  - id: 淮陽王劉彊        # 漢孝惠帝次子
+    name: 淮陽王劉彊
+    father_id: 漢孝惠帝
+    birth_order: 2
+  - id: 常山王劉不疑      # 漢孝惠帝三子
+    name: 常山王劉不疑
+    father_id: 漢孝惠帝
+    birth_order: 3
+  - id: 漢後少帝          # 漢孝惠帝四子 (X 淡紅)
+    name: 漢後少帝
+    color: "#D9776F"
+    father_id: 漢孝惠帝
+    birth_order: 4
+  - id: 平昌侯劉太        # 漢後少帝之子
+    name: 平昌侯劉太
+    father_id: 漢後少帝
+    birth_order: 1
+  - id: 濟川王劉太        # 漢孝惠帝五子 (與平昌侯劉太同名異人)
+    name: 濟川王劉太
+    father_id: 漢孝惠帝
+    birth_order: 5
+  - id: 淮陽王劉武        # 漢孝惠帝六子 (與孝文帝子代王劉武同名異人)
+    name: 淮陽王劉武
+    father_id: 漢孝惠帝
+    birth_order: 6
+  - id: 常山王劉朝        # 漢孝惠帝七子
+    name: 常山王劉朝
+    father_id: 漢孝惠帝
+    birth_order: 7
+
+  # --- 漢孝文帝 后妃 + 諸子 + 王太后之弟 ---
+  - id: 竇太后            # 漢孝文帝元配
+    name: 竇太后
+  - id: 慎夫人            # 漢孝文帝次妻
+    name: 慎夫人
+  - id: 漢孝景帝          # 漢孝文帝長子 (X 淡紅；母未指明)
+    name: 漢孝景帝
+    color: "#D9776F"
+    father_id: 漢孝文帝
+    birth_order: 1
+  - id: 王太后            # 漢孝景帝之后 (武帝之母)
+    name: 王太后
+  - id: 代王劉武          # 漢孝文帝次子 (梁孝王；與孝惠帝子淮陽王劉武同名異人)
+    name: 代王劉武
+    father_id: 漢孝文帝
+    birth_order: 2
+  - id: 太原王劉參        # 漢孝文帝三子
+    name: 太原王劉參
+    father_id: 漢孝文帝
+    birth_order: 3
+  - id: 梁王劉揖          # 漢孝文帝四子
+    name: 梁王劉揖
+    father_id: 漢孝文帝
+    birth_order: 4
+  - id: 武安侯王蚡        # 王太后之弟(其一) (見 siblings；史記作田蚡，David 標王)
+    name: 武安侯王蚡
+  - id: 周陽侯王勝        # 王太后之弟(其二) (見 siblings；史記作田勝)
+    name: 周陽侯王勝
+
+  # --- 漢孝景帝 諸子 (+ 武帝一支) ---
+  - id: 臨江王劉栗        # 漢孝景帝長子
+    name: 臨江王劉栗
+    father_id: 漢孝景帝
+    birth_order: 1
+  - id: 膠西王劉端        # 漢孝景帝次子
+    name: 膠西王劉端
+    father_id: 漢孝景帝
+    birth_order: 2
+  - id: 中山王劉勝        # 漢孝景帝三子
+    name: 中山王劉勝
+    father_id: 漢孝景帝
+    birth_order: 3
+  - id: 漢孝武帝          # 漢孝景帝四子 (X 淡紅；母未指明)
+    name: 漢孝武帝
+    color: "#D9776F"
+    father_id: 漢孝景帝
+    birth_order: 4
+  - id: 王夫人            # 漢孝武帝之妻
+    name: 王夫人
+  - id: 衛長公主          # 漢孝武帝之女
+    name: 衛長公主
+    father_id: 漢孝武帝
+    birth_order: 1
+  - id: 樂通侯            # 衛長公主之夫 (根，無子)
+    name: 樂通侯
+  - id: 廣川王劉越        # 漢孝景帝五子
+    name: 廣川王劉越
+    father_id: 漢孝景帝
+    birth_order: 5
+  - id: 膠東王劉寄        # 漢孝景帝六子
+    name: 膠東王劉寄
+    father_id: 漢孝景帝
+    birth_order: 6
+  - id: 常山王劉舜        # 漢孝景帝七子
+    name: 常山王劉舜
+    father_id: 漢孝景帝
+    birth_order: 7
+  - id: 隆慮侯蟜          # 漢孝景帝之裔(孫)；史記實為景帝甥(館陶之子陳蟜)，David 作孫
+    name: 隆慮侯蟜
+
 marriages:
   - {husband_id: 黃帝, wife_id: 嫘祖}
   - {husband_id: 昌意, wife_id: 昌僕}
@@ -1490,9 +1750,17 @@ marriages:
   - {husband_id: 秦莊襄王, wife_id: 趙太后}
   - {husband_id: 西楚霸王, wife_id: 虞姬}
   - {husband_id: 漢太上皇, wife_id: 劉媼}
-  - {husband_id: 漢高祖, wife_id: 呂后}
+  - {husband_id: 漢高祖, wife_id: 呂太后}
   - {husband_id: 漢高祖, wife_id: 薄后}
   - {husband_id: 漢高祖, wife_id: 戚夫人}
+  - {husband_id: 漢孝文帝, wife_id: 竇太后}
+  - {husband_id: 漢孝文帝, wife_id: 慎夫人}
+  - {husband_id: 漢孝景帝, wife_id: 王太后}
+  - {husband_id: 漢孝武帝, wife_id: 王夫人}
+  - {husband_id: 宣平侯張敖, wife_id: 魯元公主}
+  - {husband_id: 漢孝惠帝, wife_id: 孝惠皇后}    # 甥舅近親婚 (孝惠皇后為魯元公主之女)
+  - {husband_id: 瑯邪王劉澤, wife_id: 瑯邪后}
+  - {husband_id: 樂通侯, wife_id: 衛長公主}
 
 # descended_from: someone named only as an (often vague) descendant of `ancestor_id`.
 #   Drawn as a phantom youngest child of the ancestor (solid line), but placed on
@@ -1509,9 +1777,22 @@ descended_from:
   - {person_id: 女華, ancestor_id: 少典}                         # 少典之子，嫁大業 (married-in，虛線連少典)
   - {person_id: 漢太上皇, ancestor_id: 劉累, mentioned_with: 秦公子嬰, order: 1}   # 劉累之裔(其一，右支)，與子嬰同世
   - {person_id: 劉賈, ancestor_id: 劉累, mentioned_with: 漢高祖, order: 2}         # 劉累之裔(其二，左支)，與高祖同世
+  - {person_id: 隆慮侯蟜, ancestor_id: 漢孝景帝, depth: 2}                          # 景帝之孫 (David)
 
 # siblings: parentless sibling groups (Shiji names them as siblings but their shared parent is
 #   not a tile here). Each list is ELDEST FIRST. If one member married into the tree, the others
 #   attach beside that spouse's partner; a stub-less sibling busbar ties the group. (rule Sib)
 siblings:
-  - [周呂侯, 呂后]      # 呂后 married 漢高祖; her elder brother 周呂侯 sits just right of him
+  # 呂氏五同胞 (eldest→youngest)；anchor 呂太后 嫁漢高祖。呂悼武王/建成侯/臨光侯各有子孫
+  - [呂悼武王, 建成侯呂釋之, 呂太后, 臨光侯呂媭, 扶柳侯呂平]
+  - [薄后, 薄昭]                       # 薄后 嫁漢孝文帝; 薄昭其弟
+  - [王太后, 武安侯王蚡, 周陽侯王勝]    # 王太后 嫁漢孝景帝; 王蚡/王勝其弟
+
+# layer_order: manual LEFT-TO-RIGHT ordering for a generation row (rule LO). Overrides the auto x
+#   for the listed tiles, anchored on the listed tile with the largest subtree. David sets these
+#   to hand-arrange the dense 漢-外戚 rows; connectors to the next row stretch until it is ordered.
+layer_order:
+  # row 54 (漢高祖's generation): brothers + wives + 呂/薄 in-laws, per David
+  - [劉賈, 楚元王, 扶柳侯呂平, 臨光侯呂媭, 薄昭, 戚夫人, 薄后, 呂太后, 漢高祖, 建成侯呂釋之, 呂悼武王, 代頃王]
+  # row 56 (漢孝文帝's children + 王 外戚), per David — 王 siblings 周陽侯王勝/武安侯王蚡/王太后
+  - [周陽侯王勝, 武安侯王蚡, 梁王劉揖, 太原王劉參, 代王劉武, 王太后, 漢孝景帝]

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><title>family-tree editor</title>
+<style>
+  *{box-sizing:border-box;} html,body{margin:0;height:100%;}
+  body{font-family:ui-monospace,Menlo,Consolas,monospace;background:#000;color:#eee;overflow:hidden;}
+  #bar{position:fixed;top:0;left:0;right:0;height:42px;background:#111;border-bottom:1px solid #333;
+       display:flex;align-items:center;gap:8px;padding:0 12px;z-index:10;font-size:13px;}
+  #bar button{background:#222;color:#ddd;border:1px solid #444;border-radius:4px;padding:5px 10px;cursor:pointer;}
+  #bar button:hover{background:#333;} #bar .sp{flex:1;} #bar .div{width:1px;height:22px;background:#333;}
+  #mode{position:fixed;left:10px;bottom:10px;z-index:10;background:rgba(20,20,20,.92);border:1px solid #444;
+        border-radius:6px;padding:8px 12px;font-size:13px;max-width:60vw;line-height:1.45;}
+  #mode b{color:#5aa0ff;} #mode .msg{color:#ffd23a;}
+  #coord{position:fixed;right:10px;bottom:10px;z-index:10;background:rgba(20,20,20,.95);border:1px solid #444;
+         border-radius:6px;padding:8px 12px;font-size:13px;display:none;}
+  #coord b{color:#5aa0ff;} #coord .t{color:#888;font-size:11px;}
+  #coord label{display:inline-block;margin:5px 8px 0 0;color:#bbb;}
+  #coord input{width:74px;background:#111;color:#eee;border:1px solid #555;border-radius:3px;padding:3px 5px;margin-left:5px;font-family:inherit;}
+  #coord input:disabled{color:#999;background:#0a0a0a;border-color:#333;cursor:not-allowed;}
+  #coord .lock{color:#c98a3a;}
+  #wrap{position:absolute;top:42px;left:0;right:0;bottom:0;overflow:auto;background:#000;}
+  svg{display:block;}
+  .solid{stroke:#fff;stroke-width:1;opacity:.4;fill:none;}
+  .dash{stroke:#fff;stroke-width:.7;opacity:.2;stroke-dasharray:4 5;}
+  .ent{cursor:grab;}
+  .trect{fill:#fff;stroke:#000;stroke-width:1.5;}
+  .ttext{fill:#000;font-family:"Songti SC",STSong,serif;}
+  .seg{stroke:#fff;stroke-width:2.5;}
+  .hit{stroke:#000;stroke-opacity:0;stroke-width:16;fill:none;}
+  .handle{fill:#000;stroke:#fff;stroke-width:1.5;cursor:crosshair;}
+</style></head>
+<body>
+<div id="bar">
+  <button id="addH">+ H line</button><button id="addV">+ V line</button>
+  <span class="div"></span>
+  <button id="pack">Pack subtrees</button><button id="bus">Busbar</button><button id="mar">Marriage</button>
+  <span class="div"></span>
+  <button id="del">Delete line</button>
+  <span class="sp"></span>
+  <button id="zo">−</button><button id="zi">+</button>
+  <button id="save">Save positions.yaml</button>
+</div>
+<div id="wrap"><svg id="cv" xmlns="http://www.w3.org/2000/svg"></svg></div>
+<div id="mode"></div>
+<div id="coord"></div>
+<script>
+const D={"tiles": [{"id": "少典", "name": "少典", "col": 30, "row": 0}, {"id": "黃帝", "name": "黃帝", "col": 44, "row": 1}, {"id": "玄囂", "name": "玄囂", "col": 70, "row": 2}, {"id": "蟜極", "name": "蟜極", "col": 70, "row": 3}, {"id": "帝嚳", "name": "帝嚳", "col": 70, "row": 4}, {"id": "帝堯", "name": "帝堯", "col": 102, "row": 5}, {"id": "丹朱", "name": "丹朱", "col": 104, "row": 6}, {"id": "劉累", "name": "劉累", "col": 104, "row": 15}, {"id": "漢太上皇", "name": "漢太上皇", "col": 110, "row": 53}, {"id": "代頃王", "name": "代頃王", "col": 146, "row": 54}, {"id": "吳王濞", "name": "吳王濞", "col": 146, "row": 55}, {"id": "漢高祖", "name": "漢高祖", "col": 116, "row": 54}, {"id": "齊悼惠王", "name": "齊悼惠王", "col": 132, "row": 55}, {"id": "齊哀王", "name": "齊哀王", "col": 140, "row": 56}, {"id": "朱虛侯劉章", "name": "朱虛侯劉章", "col": 138, "row": 56}, {"id": "東牟侯劉興居", "name": "東牟侯劉興居", "col": 136, "row": 56}, {"id": "濟北王劉志", "name": "濟北王劉志", "col": 134, "row": 56}, {"id": "膠西王劉卬", "name": "膠西王劉卬", "col": 132, "row": 56}, {"id": "濟南王劉辟光", "name": "濟南王劉辟光", "col": 130, "row": 56}, {"id": "菑川王劉賢", "name": "菑川王劉賢", "col": 128, "row": 56}, {"id": "膠東王劉雄渠", "name": "膠東王劉雄渠", "col": 126, "row": 56}, {"id": "漢孝惠帝", "name": "漢孝惠帝", "col": 118, "row": 55}, {"id": "漢前少帝", "name": "漢前少帝", "col": 124, "row": 56}, {"id": "淮陽王劉彊", "name": "淮陽王劉彊", "col": 122, "row": 56}, {"id": "常山王劉不疑", "name": "常山王劉不疑", "col": 120, "row": 56}, {"id": "漢後少帝", "name": "漢後少帝", "col": 118, "row": 56}, {"id": "平昌侯劉太", "name": "平昌侯劉太", "col": 118, "row": 57}, {"id": "濟川王劉太", "name": "濟川王劉太", "col": 116, "row": 56}, {"id": "淮陽王劉武", "name": "淮陽王劉武", "col": 114, "row": 56}, {"id": "常山王劉朝", "name": "常山王劉朝", "col": 112, "row": 56}, {"id": "孝惠皇后", "name": "孝惠皇后", "col": 116, "row": 55}, {"id": "魯元公主", "name": "魯元公主", "col": 106, "row": 55}, {"id": "宣平侯張敖", "name": "宣平侯張敖", "col": 108, "row": 55}, {"id": "魯王張偃", "name": "魯王張偃", "col": 110, "row": 56}, {"id": "新都侯張侈", "name": "新都侯張侈", "col": 108, "row": 56}, {"id": "樂昌侯張壽", "name": "樂昌侯張壽", "col": 106, "row": 56}, {"id": "趙隱王", "name": "趙隱王", "col": 104, "row": 55}, {"id": "漢孝文帝", "name": "漢孝文帝", "col": 100, "row": 55}, {"id": "漢孝景帝", "name": "漢孝景帝", "col": 104, "row": 56}, {"id": "臨江王劉栗", "name": "臨江王劉栗", "col": 110, "row": 57}, {"id": "膠西王劉端", "name": "膠西王劉端", "col": 108, "row": 57}, {"id": "中山王劉勝", "name": "中山王劉勝", "col": 106, "row": 57}, {"id": "漢孝武帝", "name": "漢孝武帝", "col": 104, "row": 57}, {"id": "衛長公主", "name": "衛長公主", "col": 104, "row": 58}, {"id": "樂通侯", "name": "樂通侯", "col": 106, "row": 58}, {"id": "王夫人", "name": "王夫人", "col": 102, "row": 57}, {"id": "廣川王劉越", "name": "廣川王劉越", "col": 100, "row": 57}, {"id": "膠東王劉寄", "name": "膠東王劉寄", "col": 98, "row": 57}, {"id": "常山王劉舜", "name": "常山王劉舜", "col": 96, "row": 57}, {"id": "隆慮侯蟜", "name": "隆慮侯蟜", "col": 94, "row": 58}, {"id": "王太后", "name": "王太后", "col": 102, "row": 56}, {"id": "武安侯王蚡", "name": "武安侯王蚡", "col": 94, "row": 56}, {"id": "周陽侯王勝", "name": "周陽侯王勝", "col": 92, "row": 56}, {"id": "代王劉武", "name": "代王劉武", "col": 100, "row": 56}, {"id": "太原王劉參", "name": "太原王劉參", "col": 98, "row": 56}, {"id": "梁王劉揖", "name": "梁王劉揖", "col": 96, "row": 56}, {"id": "竇太后", "name": "竇太后", "col": 98, "row": 55}, {"id": "慎夫人", "name": "慎夫人", "col": 96, "row": 55}, {"id": "趙共王", "name": "趙共王", "col": 94, "row": 55}, {"id": "趙幽王", "name": "趙幽王", "col": 88, "row": 55}, {"id": "趙王劉遂", "name": "趙王劉遂", "col": 90, "row": 56}, {"id": "河閒王劉辟彊", "name": "河閒王劉辟彊", "col": 88, "row": 56}, {"id": "淮南厲王", "name": "淮南厲王", "col": 84, "row": 55}, {"id": "淮南王", "name": "淮南王", "col": 86, "row": 56}, {"id": "衡山王", "name": "衡山王", "col": 84, "row": 56}, {"id": "廬江王", "name": "廬江王", "col": 82, "row": 56}, {"id": "燕王劉建", "name": "燕王劉建", "col": 82, "row": 55}, {"id": "呂太后", "name": "呂太后", "col": 114, "row": 54}, {"id": "薄后", "name": "薄后", "col": 112, "row": 54}, {"id": "戚夫人", "name": "戚夫人", "col": 110, "row": 54}, {"id": "呂悼武王", "name": "呂悼武王", "col": 142, "row": 54}, {"id": "呂肅王", "name": "呂肅王", "col": 144, "row": 55}, {"id": "呂王嘉", "name": "呂王嘉", "col": 146, "row": 56}, {"id": "燕王呂通", "name": "燕王呂通", "col": 144, "row": 56}, {"id": "東平侯呂莊", "name": "東平侯呂莊", "col": 142, "row": 56}, {"id": "梁王呂產", "name": "梁王呂產", "col": 142, "row": 55}, {"id": "建成侯呂釋之", "name": "建成侯呂釋之", "col": 136, "row": 54}, {"id": "胡陵侯呂祿", "name": "胡陵侯呂祿", "col": 136, "row": 55}, {"id": "沛侯呂種", "name": "沛侯呂種", "col": 134, "row": 55}, {"id": "臨光侯呂媭", "name": "臨光侯呂媭", "col": 78, "row": 54}, {"id": "瑯邪后", "name": "瑯邪后", "col": 78, "row": 55}, {"id": "瑯邪王劉澤", "name": "瑯邪王劉澤", "col": 80, "row": 55}, {"id": "扶柳侯呂平", "name": "扶柳侯呂平", "col": 76, "row": 54}, {"id": "薄昭", "name": "薄昭", "col": 108, "row": 54}, {"id": "楚元王", "name": "楚元王", "col": 74, "row": 54}, {"id": "楚王劉藝", "name": "楚王劉藝", "col": 74, "row": 55}, {"id": "楚王劉戊", "name": "楚王劉戊", "col": 74, "row": 56}, {"id": "平陸侯劉禮", "name": "平陸侯劉禮", "col": 72, "row": 55}, {"id": "劉媼", "name": "劉媼", "col": 108, "row": 53}, {"id": "劉賈", "name": "劉賈", "col": 72, "row": 54}, {"id": "摯", "name": "摯", "col": 100, "row": 5}, {"id": "后稷", "name": "后稷", "col": 54, "row": 5}, {"id": "不窋", "name": "不窋", "col": 54, "row": 6}, {"id": "鞠", "name": "鞠", "col": 54, "row": 7}, {"id": "公劉", "name": "公劉", "col": 54, "row": 8}, {"id": "慶節", "name": "慶節", "col": 54, "row": 9}, {"id": "皇僕", "name": "皇僕", "col": 54, "row": 10}, {"id": "差弗", "name": "差弗", "col": 54, "row": 11}, {"id": "毀隃", "name": "毀隃", "col": 54, "row": 12}, {"id": "公非", "name": "公非", "col": 54, "row": 13}, {"id": "高圉", "name": "高圉", "col": 54, "row": 14}, {"id": "亞圉", "name": "亞圉", "col": 54, "row": 15}, {"id": "公叔祖類", "name": "公叔祖類", "col": 54, "row": 16}, {"id": "古公亶父", "name": "古公亶父", "col": 54, "row": 17}, {"id": "太伯", "name": "太伯", "col": 56, "row": 18}, {"id": "虞仲", "name": "虞仲", "col": 54, "row": 18}, {"id": "季歷", "name": "季歷", "col": 52, "row": 18}, {"id": "周文王", "name": "周文王", "col": 52, "row": 19}, {"id": "周武王", "name": "周武王", "col": 62, "row": 20}, {"id": "周成王", "name": "周成王", "col": 62, "row": 21}, {"id": "周康王", "name": "周康王", "col": 62, "row": 22}, {"id": "周昭王", "name": "周昭王", "col": 62, "row": 23}, {"id": "周穆王", "name": "周穆王", "col": 62, "row": 24}, {"id": "周共王", "name": "周共王", "col": 62, "row": 25}, {"id": "周懿王", "name": "周懿王", "col": 62, "row": 26}, {"id": "周夷王", "name": "周夷王", "col": 62, "row": 27}, {"id": "周厲王", "name": "周厲王", "col": 62, "row": 28}, {"id": "周宣王", "name": "周宣王", "col": 62, "row": 29}, {"id": "周幽王", "name": "周幽王", "col": 62, "row": 30}, {"id": "周平王", "name": "周平王", "col": 64, "row": 31}, {"id": "周子洩父", "name": "周子洩父", "col": 64, "row": 32}, {"id": "周桓王", "name": "周桓王", "col": 64, "row": 33}, {"id": "周莊王", "name": "周莊王", "col": 66, "row": 34}, {"id": "周釐王", "name": "周釐王", "col": 66, "row": 35}, {"id": "周惠王", "name": "周惠王", "col": 66, "row": 36}, {"id": "周襄王", "name": "周襄王", "col": 68, "row": 37}, {"id": "周頃王", "name": "周頃王", "col": 66, "row": 38}, {"id": "周匡王", "name": "周匡王", "col": 70, "row": 39}, {"id": "周定王-1", "name": "周定王", "col": 62, "row": 39}, {"id": "周簡王", "name": "周簡王", "col": 62, "row": 40}, {"id": "周靈王", "name": "周靈王", "col": 62, "row": 41}, {"id": "周景王", "name": "周景王", "col": 62, "row": 42}, {"id": "周子聖", "name": "周子聖", "col": 64, "row": 43}, {"id": "周悼王", "name": "周悼王", "col": 62, "row": 43}, {"id": "周子朝", "name": "周子朝", "col": 60, "row": 43}, {"id": "周敬王", "name": "周敬王", "col": 58, "row": 43}, {"id": "周元王", "name": "周元王", "col": 58, "row": 44}, {"id": "周定王-2", "name": "周定王", "col": 58, "row": 45}, {"id": "周哀王", "name": "周哀王", "col": 62, "row": 46}, {"id": "周思王", "name": "周思王", "col": 60, "row": 46}, {"id": "周考王", "name": "周考王", "col": 58, "row": 46}, {"id": "周威烈王", "name": "周威烈王", "col": 58, "row": 47}, {"id": "周安王", "name": "周安王", "col": 58, "row": 48}, {"id": "周烈王", "name": "周烈王", "col": 58, "row": 49}, {"id": "周顯王", "name": "周顯王", "col": 56, "row": 49}, {"id": "周慎靚王", "name": "周慎靚王", "col": 56, "row": 50}, {"id": "周赧王", "name": "周赧王", "col": 56, "row": 51}, {"id": "周子南君", "name": "周子南君", "col": 56, "row": 52}, {"id": "西周桓公", "name": "西周桓公", "col": 54, "row": 46}, {"id": "西周威公", "name": "西周威公", "col": 54, "row": 47}, {"id": "西周惠公", "name": "西周惠公", "col": 56, "row": 48}, {"id": "東周惠公", "name": "東周惠公", "col": 54, "row": 48}, {"id": "周叔帶", "name": "周叔帶", "col": 66, "row": 37}, {"id": "周子穨", "name": "周子穨", "col": 64, "row": 35}, {"id": "姚", "name": "姚", "col": 64, "row": 34}, {"id": "周子克", "name": "周子克", "col": 62, "row": 34}, {"id": "周子伯服", "name": "周子伯服", "col": 62, "row": 31}, {"id": "褒姒", "name": "褒姒", "col": 60, "row": 30}, {"id": "周孝王", "name": "周孝王", "col": 60, "row": 25}, {"id": "周公旦", "name": "周公旦", "col": 60, "row": 20}, {"id": "召公奭", "name": "召公奭", "col": 58, "row": 20}, {"id": "畢公", "name": "畢公", "col": 56, "row": 20}, {"id": "叔振鐸", "name": "叔振鐸", "col": 54, "row": 20}, {"id": "毛叔鄭", "name": "毛叔鄭", "col": 52, "row": 20}, {"id": "衛康叔", "name": "衛康叔", "col": 50, "row": 20}, {"id": "管叔鮮", "name": "管叔鮮", "col": 48, "row": 20}, {"id": "蔡叔度", "name": "蔡叔度", "col": 46, "row": 20}, {"id": "南宮括", "name": "南宮括", "col": 44, "row": 20}, {"id": "太任", "name": "太任", "col": 50, "row": 18}, {"id": "太姜", "name": "太姜", "col": 52, "row": 17}, {"id": "契", "name": "契", "col": 36, "row": 5}, {"id": "昭明", "name": "昭明", "col": 36, "row": 6}, {"id": "相土", "name": "相土", "col": 36, "row": 7}, {"id": "昌若", "name": "昌若", "col": 36, "row": 8}, {"id": "曹圉", "name": "曹圉", "col": 36, "row": 9}, {"id": "冥", "name": "冥", "col": 36, "row": 10}, {"id": "振", "name": "振", "col": 36, "row": 11}, {"id": "微", "name": "微", "col": 36, "row": 12}, {"id": "報丁", "name": "報丁", "col": 36, "row": 13}, {"id": "報乙", "name": "報乙", "col": 36, "row": 14}, {"id": "報丙", "name": "報丙", "col": 36, "row": 15}, {"id": "主壬", "name": "主壬", "col": 36, "row": 16}, {"id": "主癸", "name": "主癸", "col": 36, "row": 17}, {"id": "殷湯", "name": "殷湯", "col": 36, "row": 18}, {"id": "殷子太丁", "name": "殷子太丁", "col": 38, "row": 19}, {"id": "殷太甲", "name": "殷太甲", "col": 36, "row": 20}, {"id": "殷沃丁", "name": "殷沃丁", "col": 42, "row": 21}, {"id": "殷太庚", "name": "殷太庚", "col": 32, "row": 21}, {"id": "殷小甲", "name": "殷小甲", "col": 34, "row": 22}, {"id": "殷雍己", "name": "殷雍己", "col": 32, "row": 22}, {"id": "殷太戊", "name": "殷太戊", "col": 28, "row": 22}, {"id": "殷中丁", "name": "殷中丁", "col": 30, "row": 23}, {"id": "殷外壬", "name": "殷外壬", "col": 28, "row": 23}, {"id": "殷河亶甲", "name": "殷河亶甲", "col": 26, "row": 23}, {"id": "殷祖乙", "name": "殷祖乙", "col": 26, "row": 24}, {"id": "殷祖辛", "name": "殷祖辛", "col": 26, "row": 25}, {"id": "殷祖丁", "name": "殷祖丁", "col": 26, "row": 26}, {"id": "殷陽甲", "name": "殷陽甲", "col": 28, "row": 27}, {"id": "殷盤庚", "name": "殷盤庚", "col": 26, "row": 27}, {"id": "殷小辛", "name": "殷小辛", "col": 24, "row": 27}, {"id": "殷小乙", "name": "殷小乙", "col": 22, "row": 27}, {"id": "殷武丁", "name": "殷武丁", "col": 22, "row": 28}, {"id": "殷祖庚", "name": "殷祖庚", "col": 26, "row": 29}, {"id": "殷甲", "name": "殷甲", "col": 20, "row": 29}, {"id": "殷廩辛", "name": "殷廩辛", "col": 24, "row": 30}, {"id": "殷庚丁", "name": "殷庚丁", "col": 18, "row": 30}, {"id": "殷武乙", "name": "殷武乙", "col": 18, "row": 31}, {"id": "殷太丁", "name": "殷太丁", "col": 18, "row": 32}, {"id": "殷乙", "name": "殷乙", "col": 20, "row": 33}, {"id": "微子啟", "name": "微子啟", "col": 22, "row": 34}, {"id": "殷紂", "name": "殷紂", "col": 20, "row": 34}, {"id": "殷子武庚", "name": "殷子武庚", "col": 20, "row": 35}, {"id": "比干", "name": "比干", "col": 18, "row": 33}, {"id": "箕子", "name": "箕子", "col": 16, "row": 33}, {"id": "殷沃甲", "name": "殷沃甲", "col": 24, "row": 25}, {"id": "殷南庚", "name": "殷南庚", "col": 24, "row": 26}, {"id": "殷外丙", "name": "殷外丙", "col": 36, "row": 19}, {"id": "殷中壬", "name": "殷中壬", "col": 34, "row": 19}, {"id": "姜原", "name": "姜原", "col": 68, "row": 4}, {"id": "簡狄", "name": "簡狄", "col": 66, "row": 4}, {"id": "昌意", "name": "昌意", "col": 24, "row": 2}, {"id": "帝顓頊", "name": "帝顓頊", "col": 24, "row": 3}, {"id": "窮蟬", "name": "窮蟬", "col": 30, "row": 4}, {"id": "敬康", "name": "敬康", "col": 30, "row": 5}, {"id": "句望", "name": "句望", "col": 30, "row": 6}, {"id": "橋牛", "name": "橋牛", "col": 30, "row": 7}, {"id": "瞽叟", "name": "瞽叟", "col": 30, "row": 8}, {"id": "帝舜", "name": "帝舜", "col": 30, "row": 9}, {"id": "商均", "name": "商均", "col": 30, "row": 10}, {"id": "象", "name": "象", "col": 28, "row": 9}, {"id": "檮杌", "name": "檮杌", "col": 28, "row": 4}, {"id": "鯀", "name": "鯀", "col": 26, "row": 4}, {"id": "夏禹", "name": "夏禹", "col": 26, "row": 5}, {"id": "夏啟", "name": "夏啟", "col": 26, "row": 6}, {"id": "夏太康", "name": "夏太康", "col": 28, "row": 7}, {"id": "夏中康", "name": "夏中康", "col": 24, "row": 7}, {"id": "夏相", "name": "夏相", "col": 24, "row": 8}, {"id": "夏少康", "name": "夏少康", "col": 24, "row": 9}, {"id": "夏予", "name": "夏予", "col": 24, "row": 10}, {"id": "夏槐", "name": "夏槐", "col": 24, "row": 11}, {"id": "夏芒", "name": "夏芒", "col": 24, "row": 12}, {"id": "夏泄", "name": "夏泄", "col": 24, "row": 13}, {"id": "夏不降", "name": "夏不降", "col": 26, "row": 14}, {"id": "夏孔甲", "name": "夏孔甲", "col": 26, "row": 15}, {"id": "夏皋", "name": "夏皋", "col": 26, "row": 16}, {"id": "夏發", "name": "夏發", "col": 26, "row": 17}, {"id": "夏桀", "name": "夏桀", "col": 26, "row": 18}, {"id": "夏扃", "name": "夏扃", "col": 24, "row": 14}, {"id": "夏廑", "name": "夏廑", "col": 24, "row": 15}, {"id": "女修", "name": "女修", "col": 16, "row": 4}, {"id": "大業", "name": "大業", "col": 16, "row": 5}, {"id": "柏翳", "name": "柏翳", "col": 16, "row": 6}, {"id": "大廉", "name": "大廉", "col": 18, "row": 7}, {"id": "孟戲", "name": "孟戲", "col": 22, "row": 11}, {"id": "中衍", "name": "中衍", "col": 16, "row": 11}, {"id": "中潏", "name": "中潏", "col": 16, "row": 15}, {"id": "蜚廉", "name": "蜚廉", "col": 16, "row": 16}, {"id": "惡來", "name": "惡來", "col": 16, "row": 17}, {"id": "女防", "name": "女防", "col": 16, "row": 18}, {"id": "旁皋", "name": "旁皋", "col": 16, "row": 19}, {"id": "太幾", "name": "太幾", "col": 16, "row": 20}, {"id": "大駱", "name": "大駱", "col": 16, "row": 21}, {"id": "成", "name": "成", "col": 20, "row": 22}, {"id": "秦嬴", "name": "秦嬴", "col": 14, "row": 22}, {"id": "秦侯", "name": "秦侯", "col": 14, "row": 23}, {"id": "秦公伯", "name": "秦公伯", "col": 14, "row": 24}, {"id": "秦仲", "name": "秦仲", "col": 14, "row": 25}, {"id": "秦莊公", "name": "秦莊公", "col": 14, "row": 26}, {"id": "秦子世父", "name": "秦子世父", "col": 18, "row": 27}, {"id": "秦襄公", "name": "秦襄公", "col": 12, "row": 27}, {"id": "秦文公", "name": "秦文公", "col": 12, "row": 28}, {"id": "秦竫公", "name": "秦竫公", "col": 12, "row": 29}, {"id": "秦憲公", "name": "秦憲公", "col": 12, "row": 30}, {"id": "秦武公", "name": "秦武公", "col": 16, "row": 31}, {"id": "秦子白", "name": "秦子白", "col": 16, "row": 32}, {"id": "秦德公", "name": "秦德公", "col": 10, "row": 31}, {"id": "秦宣公", "name": "秦宣公", "col": 10, "row": 32}, {"id": "秦成公", "name": "秦成公", "col": 8, "row": 32}, {"id": "秦繆公", "name": "秦繆公", "col": 6, "row": 32}, {"id": "秦康公", "name": "秦康公", "col": 6, "row": 33}, {"id": "秦共公", "name": "秦共公", "col": 6, "row": 34}, {"id": "秦桓公", "name": "秦桓公", "col": 6, "row": 35}, {"id": "秦景公", "name": "秦景公", "col": 8, "row": 36}, {"id": "秦哀公", "name": "秦哀公", "col": 8, "row": 37}, {"id": "秦子夷公", "name": "秦子夷公", "col": 8, "row": 38}, {"id": "秦惠公-1", "name": "秦惠公", "col": 8, "row": 39}, {"id": "秦悼公", "name": "秦悼公", "col": 8, "row": 40}, {"id": "秦厲共公", "name": "秦厲共公", "col": 8, "row": 41}, {"id": "秦躁公", "name": "秦躁公", "col": 10, "row": 42}, {"id": "秦懷公", "name": "秦懷公", "col": 6, "row": 42}, {"id": "秦子昭", "name": "秦子昭", "col": 6, "row": 43}, {"id": "秦靈公", "name": "秦靈公", "col": 6, "row": 44}, {"id": "秦獻公", "name": "秦獻公", "col": 6, "row": 45}, {"id": "秦孝公", "name": "秦孝公", "col": 6, "row": 46}, {"id": "秦惠文王", "name": "秦惠文王", "col": 6, "row": 47}, {"id": "秦武王", "name": "秦武王", "col": 8, "row": 48}, {"id": "秦昭襄王", "name": "秦昭襄王", "col": 4, "row": 48}, {"id": "秦孝文王", "name": "秦孝文王", "col": 4, "row": 49}, {"id": "秦莊襄王", "name": "秦莊襄王", "col": 4, "row": 50}, {"id": "秦始皇帝", "name": "秦始皇帝", "col": 6, "row": 51}, {"id": "秦公子扶蘇", "name": "秦公子扶蘇", "col": 6, "row": 52}, {"id": "秦公子嬰", "name": "秦公子嬰", "col": 6, "row": 53}, {"id": "秦二世皇帝", "name": "秦二世皇帝", "col": 4, "row": 52}, {"id": "長安君", "name": "長安君", "col": 4, "row": 51}, {"id": "趙太后", "name": "趙太后", "col": 2, "row": 50}, {"id": "夏太后", "name": "夏太后", "col": 2, "row": 49}, {"id": "華陽太后", "name": "華陽太后", "col": 0, "row": 49}, {"id": "秦唐太后", "name": "秦唐太后", "col": 2, "row": 48}, {"id": "秦宣太后", "name": "秦宣太后", "col": 4, "row": 47}, {"id": "秦簡公", "name": "秦簡公", "col": 4, "row": 43}, {"id": "秦惠公-2", "name": "秦惠公", "col": 4, "row": 44}, {"id": "秦出子-2", "name": "秦出子", "col": 4, "row": 45}, {"id": "秦子鍼", "name": "秦子鍼", "col": 6, "row": 36}, {"id": "秦出子-1", "name": "秦出子", "col": 8, "row": 31}, {"id": "繆嬴", "name": "繆嬴", "col": 8, "row": 27}, {"id": "西戎豐王", "name": "西戎豐王", "col": 10, "row": 27}, {"id": "季勝", "name": "季勝", "col": 14, "row": 17}, {"id": "孟增", "name": "孟增", "col": 14, "row": 18}, {"id": "衡父", "name": "衡父", "col": 14, "row": 19}, {"id": "造父", "name": "造父", "col": 14, "row": 20}, {"id": "趙衰", "name": "趙衰", "col": 14, "row": 21}, {"id": "若木", "name": "若木", "col": 14, "row": 7}, {"id": "費昌", "name": "費昌", "col": 14, "row": 11}, {"id": "女華", "name": "女華", "col": 14, "row": 5}, {"id": "昌僕", "name": "昌僕", "col": 22, "row": 2}, {"id": "渾沌", "name": "渾沌", "col": 20, "row": 2}, {"id": "嫘祖", "name": "嫘祖", "col": 42, "row": 1}, {"id": "少暤", "name": "少暤", "col": 208, "row": 0}, {"id": "窮奇", "name": "窮奇", "col": 208, "row": 1}, {"id": "項燕", "name": "項燕", "col": 182, "row": 0}, {"id": "項超", "name": "項超", "col": 184, "row": 1}, {"id": "西楚霸王", "name": "西楚霸王", "col": 184, "row": 2}, {"id": "虞姬", "name": "虞姬", "col": 182, "row": 2}, {"id": "項梁", "name": "項梁", "col": 182, "row": 1}, {"id": "項伯", "name": "項伯", "col": 180, "row": 1}], "cellW": 54, "cellH": 234, "gap": 108, "charBox": 36, "pad": 9};
+const CW=D.cellW, CH=D.cellH, GAP=D.gap, PITCH=CH+GAP, CB=D.charBox, PAD=D.pad;
+const GFRACS=[1/2,3/4,7/8];                                  // gap horizontals: 1/2, 1/4, 1/8 from the BOTTOM
+const cv=document.getElementById('cv'), modeEl=document.getElementById('mode'), wrap=document.getElementById('wrap'), coordEl=document.getElementById('coord');
+
+const ents={};
+for(const t of D.tiles) ents[t.id]={id:t.id,type:'tile',anchor:null,name:t.name,x:t.col*CW,y:t.row*PITCH};
+let segN=0, scale=0.4, target=null, selSet=new Set(), elMap={}, boxEl=null, msg='';  // target = the anchor we attach TO
+
+const deps=id=>Object.values(ents).filter(e=>e.anchor===id).map(e=>e.id);
+function subtree(id){ const out=[],st=[id]; while(st.length){ const n=st.pop();
+  for(const c of deps(n)) if(!out.includes(c)){ out.push(c); st.push(c);} } return out; }
+function ancestors(id){ const out=[]; let a=ents[id].anchor; while(a&&!out.includes(a)){ out.push(a); a=ents[a].anchor; } return out; }
+function center(e){ return e.type==='tile'?[e.x+CW/2,e.y+CH/2]:e.type==='hseg'?[(e.x1+e.x2)/2,e.y]:[e.x,(e.y1+e.y2)/2]; }
+const isFree=id=>ents[id].anchor===null;                    // ONLY free => blue / movable
+function moveEnt(e,dx,dy){ if(e.type==='tile'){e.x+=dx;e.y+=dy;}
+  else if(e.type==='hseg'){e.y+=dy;e.x1+=dx;e.x2+=dx;} else {e.x+=dx;e.y1+=dy;e.y2+=dy;} }
+function moveSubtree(id,dx,dy){ for(const m of [id,...subtree(id)]) moveEnt(ents[m],dx,dy); }
+function bbox(e){ return e.type==='tile'?[e.x,e.y,CW,CH]
+  : e.type==='hseg'?[Math.min(e.x1,e.x2),e.y-3,Math.abs(e.x2-e.x1),6]
+  : [e.x-3,Math.min(e.y1,e.y2),6,Math.abs(e.y2-e.y1)]; }
+function rightEdge(e){ return e.type==='tile'?e.x+CW : e.type==='hseg'?Math.max(e.x1,e.x2) : e.x; }
+function leftEdge(e){ return e.type==='tile'?e.x : e.type==='hseg'?Math.min(e.x1,e.x2) : e.x; }
+const rowOf=e=>Math.round(e.y/PITCH);
+function ySpan(e){ return e.type==='tile'?[e.y,e.y+CH] : e.type==='hseg'?[e.y,e.y] : [Math.min(e.y1,e.y2),Math.max(e.y1,e.y2)]; }
+function subBands(e){                                        // HALF-row bands: 2r = tile of row r, 2r+1 = the gap below it
+  const [yt,yb]=ySpan(e), o=[];                              // (so a busbar in the gap can't block a TILE in the row above it)
+  for(let r=Math.max(0,Math.floor(yt/PITCH)-1); r<=Math.floor(yb/PITCH)+1; r++){
+    const tT=r*PITCH, tB=tT+CH, gB=(r+1)*PITCH;
+    if(yt<tB && yb>tT) o.push(2*r);                          // overlaps the tile band [tT,tB]
+    if(yt<gB && yb>tB) o.push(2*r+1); }                      // overlaps the gap band [tB,gB]
+  return o; }
+
+// snapping. tiles: X free, Y -> rows. segments: Y -> horizontal grid lines, X free.
+const snapCell=(v,p)=>Math.round(v/p)*p;
+const HYoff=[0, CH/2, CH, CH+GAP/2, CH+3*GAP/4, CH+7*GAP/8];  // tile top, tile centre, tile bottom, + 3 gap lines
+function snapHY(y){ let best=y,bd=1e9,r=Math.floor(y/PITCH);
+  for(let k=r-1;k<=r+1;k++) for(const o of HYoff){ const t=k*PITCH+o; if(Math.abs(t-y)<bd){bd=Math.abs(t-y);best=t;} } return best; }
+function moveDelta(d,rdx,rdy){ const s=d.start[d.id], e0=ents[d.id];
+  if(e0.type==='tile') return [rdx, snapCell(rdy,PITCH)];                 // X free, Y -> row
+  if(e0.type==='hseg') return [rdx, snapHY(s.y+rdy)-s.y];
+  return [rdx, snapHY(s.y1+rdy)-s.y1]; }
+function dims(){ let W=CW,H=PITCH; for(const e of Object.values(ents)){ const[x,y,w,h]=bbox(e); W=Math.max(W,x+w); H=Math.max(H,y+h);} return [W+3*CW,H+2*PITCH]; }
+
+let DIS=new Set();                                          // entities that would create a cycle (target's ancestors)
+function hlColor(id){
+  if(target){ if(id===target) return '#3a86ff';             // the anchor we attach to
+              if(ents[id].anchor===target) return '#19d219'; // already attached (green)
+              return null; }
+  if(selSet.has(id)) return '#ffd23a';                       // in the selection (yellow)
+  return isFree(id)?'#3a86ff':null;                          // free => blue / movable
+}
+function entSvg(e){
+  const col=hlColor(e.id); const HW=6/scale; let s=`<g class="ent" data-id="${e.id}"${DIS.has(e.id)?' opacity="0.28"':''}>`;
+  if(col){ const[bx,by,bw,bh]=bbox(e);
+    s+=`<rect x="${bx-HW}" y="${by-HW}" width="${bw+2*HW}" height="${bh+2*HW}" fill="none" stroke="${col}" stroke-width="${HW}" rx="${HW}"/>`; }
+  if(e.type==='tile'){ const cx=e.x+CW/2; let txt='';
+    [...e.name].forEach((ch,i)=>{ txt+=`<tspan x="${cx}" y="${e.y+PAD+CB*(i+0.78)}">${ch}</tspan>`; });
+    s+=`<rect class="trect" x="${e.x}" y="${e.y}" width="${CW}" height="${CH}" rx="3"/><text class="ttext" text-anchor="middle" font-size="30">${txt}</text>`;
+  } else { const H=e.type==='hseg', x1=H?e.x1:e.x, y1=H?e.y:e.y1, x2=H?e.x2:e.x, y2=H?e.y:e.y2;
+    s+=`<line class="seg" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><line class="hit" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    if(e.anchor===null) s+=`<rect class="handle" data-end="1" x="${x1-7}" y="${y1-7}" width="14" height="14"/><rect class="handle" data-end="2" x="${x2-7}" y="${y2-7}" width="14" height="14"/>`; }  // endpoints draggable only when FREE
+  return s+'</g>';
+}
+function render(){
+  DIS = new Set();                                          // greyed + NON-selectable while ANCHORING:
+  if(target){ const anc=new Set(ancestors(target));          //   already anchored elsewhere, or an ancestor (would cycle)
+    for(const id in ents){ const a=ents[id].anchor;
+      if(id!==target && ((a!==null && a!==target) || anc.has(id))) DIS.add(id); } }
+  const [W,H]=dims(); cv.setAttribute('width',W*scale); cv.setAttribute('height',H*scale); cv.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  let grid=''; const nrows=Math.ceil(H/PITCH)+1;            // horizontal grid only (tiles have arbitrary X)
+  for(let r=0;r<nrows;r++){ const y0=r*PITCH;
+    grid+=`<line class="solid" x1="0" y1="${y0}" x2="${W}" y2="${y0}"/>`            // tile top
+        +`<line class="solid" x1="0" y1="${y0+CH}" x2="${W}" y2="${y0+CH}"/>`       // tile bottom
+        +`<line class="dash" x1="0" y1="${y0+CH/2}" x2="${W}" y2="${y0+CH/2}"/>`;   // tile centre
+    for(const f of GFRACS) grid+=`<line class="dash" x1="0" y1="${y0+CH+GAP*f}" x2="${W}" y2="${y0+CH+GAP*f}"/>`; }
+  let e=''; for(const k in ents) e+=entSvg(ents[k]);
+  cv.innerHTML = `<rect x="0" y="0" width="${W}" height="${H}" fill="#000"/>`
+    + `<g id="grid">${grid}</g>` + `<g id="ents">${e}</g>`
+    + `<rect id="boxsel" fill="#3a86ff" fill-opacity="0.12" stroke="#3a86ff" stroke-dasharray="6 4" visibility="hidden"/>`;
+  elMap={}; for(const g of cv.querySelectorAll('.ent')) elMap[g.dataset.id]=g; boxEl=cv.querySelector('#boxsel');
+  updateMode();
+}
+function updateMode(){
+  const m = msg?`<br><span class="msg">${msg}</span>`:'';
+  if(target){
+    modeEl.innerHTML = `<b>ANCHORING → ${target}</b> (blue) · left-click or box-drag entities to attach (green) · click green to detach`
+      + `<br>dimmed = already anchored, or its ancestors (would cycle) · <b>Esc</b> or right-click <b>${target}</b> to finish` + m;
+  } else modeEl.innerHTML = `<b>EDIT</b> · left-click = select (yellow) · drag blue = move (X free, Y snaps) · <b>right-click</b> = ANCHOR`
+    + `<br><b>Pack</b>: 2+ same-row roots · <b>Busbar</b>: parent + children · <b>Marriage</b>: 2 same-row tiles · +H/+V lines · Delete removes selected lines`
+    + (selSet.size===1?` · <b style="color:#ffd23a">1 selected — edit coords ↘</b>`:selSet.size?` · <b style="color:#ffd23a">${selSet.size} selected</b>`:'') + m;
+  updateCoordPanel();
+}
+// ---- manual coordinate entry (only for a single, FREE entity; anchored ones follow their anchor) ----
+function updateCoordPanel(){
+  const ids=[...selSet], e=(!target && ids.length===1)?ents[ids[0]]:null;
+  if(!e){ coordEl.style.display='none'; return; }
+  coordEl.style.display='block';
+  const locked = e.anchor!==null;                            // anchored: still SHOW coords, just read-only
+  const f=(lbl,k,v)=>`<label>${lbl}<input data-k="${k}" type="number" step="1" value="${Math.round(v)}"${locked?' disabled':''}></label>`;
+  const fields = e.type==='tile' ? f('x','x',e.x)+f('row','row',e.y/PITCH)
+               : e.type==='hseg' ? f('y','y',e.y)+f('x1','x1',e.x1)+f('x2','x2',e.x2)
+               :                   f('x','x',e.x)+f('y1','y1',e.y1)+f('y2','y2',e.y2);
+  coordEl.innerHTML=`<b>${e.id}</b> <span class="t">${e.type}</span>`
+    + (locked?` <span class="lock">⚓ ${e.anchor} (read-only)</span>`:'') + `<br>${fields}`;
+  if(!locked) for(const inp of coordEl.querySelectorAll('input'))
+    inp.addEventListener('change',ev=>applyCoord(e.id, ev.target.dataset.k, ev.target.value));
+}
+function applyCoord(id,key,raw){
+  const e=ents[id]; if(!e || e.anchor!==null) return;        // never edit an anchored entity
+  const v=parseFloat(raw); if(isNaN(v)) return;
+  if(e.type==='tile'){ const nx=key==='x'?v:e.x, ny=key==='row'?Math.round(v)*PITCH:e.y;
+    moveSubtree(id, nx-e.x, ny-e.y); }                       // a tile MOVES (carries its subtree, like a drag)
+  else e[key]=v;                                             // a line endpoint is set directly (reshape)
+  render();
+}
+render();
+
+// ---- interaction ----
+let drag=null;
+const userXY=e=>{ const r=cv.getBoundingClientRect(); return [(e.clientX-r.left)/scale,(e.clientY-r.top)/scale]; };
+cv.addEventListener('mousedown',e=>{
+  if(e.button!==0) return;                                   // ONLY left button drags / picks up / clicks; right button → contextmenu
+  msg='';
+  const entEl=e.target.closest('.ent'); const id=entEl?entEl.dataset.id:null;
+  if(target){ const[ux,uy]=userXY(e); drag={kind:'box',id,sx:e.clientX,sy:e.clientY,ux,uy}; e.preventDefault(); return; }  // ANCHORING: drag = box-select
+  if(!id){ if(selSet.size){selSet.clear();} render(); return; }   // empty click: clear selection
+  const handle=e.target.closest('.handle');
+  if(handle && isFree(id)){ drag={kind:'resize',id,end:handle.dataset.end,sx:e.clientX,sy:e.clientY,start:{...ents[id]}}; e.preventDefault(); return; }  // anchored line endpoints can't be dragged
+  if(isFree(id)){ const ids=[id,...subtree(id)]; const start={}; for(const m of ids)start[m]={...ents[m]};
+    drag={kind:'move',id,ids,sx:e.clientX,sy:e.clientY,start}; }
+  else drag={kind:'noop',id,sx:e.clientX,sy:e.clientY};
+  e.preventDefault();
+});
+window.addEventListener('mousemove',e=>{
+  if(!drag)return;
+  if(drag.kind==='box'){ const[ux,uy]=userXY(e);
+    boxEl.setAttribute('x',Math.min(ux,drag.ux)); boxEl.setAttribute('y',Math.min(uy,drag.uy));
+    boxEl.setAttribute('width',Math.abs(ux-drag.ux)); boxEl.setAttribute('height',Math.abs(uy-drag.uy));
+    boxEl.setAttribute('stroke-width',2/scale); boxEl.setAttribute('visibility','visible'); return; }
+  if(drag.kind==='noop')return;
+  const rdx=(e.clientX-drag.sx)/scale, rdy=(e.clientY-drag.sy)/scale;
+  if(drag.kind==='move'){ const [dx,dy]=moveDelta(drag,rdx,rdy);
+    for(const m of drag.ids){ const g=elMap[m]; if(g) g.setAttribute('transform',`translate(${dx} ${dy})`); }
+  } else { const o=ents[drag.id], s=drag.start, g=elMap[drag.id];
+    if(o.type==='hseg'){ if(drag.end==='1')o.x1=s.x1+rdx; else o.x2=s.x2+rdx;     // hseg endpoint: X free
+      g.querySelectorAll('.seg,.hit').forEach(l=>{l.setAttribute('x1',o.x1);l.setAttribute('x2',o.x2);});
+      const h=g.querySelectorAll('.handle'); h[0].setAttribute('x',o.x1-7); h[1].setAttribute('x',o.x2-7);
+    } else { if(drag.end==='1')o.y1=snapHY(s.y1+rdy); else o.y2=snapHY(s.y2+rdy);  // vseg endpoint: Y -> grid line
+      g.querySelectorAll('.seg,.hit').forEach(l=>{l.setAttribute('y1',o.y1);l.setAttribute('y2',o.y2);});
+      const h=g.querySelectorAll('.handle'); h[0].setAttribute('y',o.y1-7); h[1].setAttribute('y',o.y2-7); }
+  }
+});
+window.addEventListener('mouseup',e=>{
+  if(!drag)return;
+  const moved = drag.kind!=='noop' && (Math.abs(e.clientX-drag.sx)>4||Math.abs(e.clientY-drag.sy)>4);
+  if(drag.kind==='box'){
+    if(moved){ const[ux,uy]=userXY(e); const xl=Math.min(ux,drag.ux),xh=Math.max(ux,drag.ux),yl=Math.min(uy,drag.uy),yh=Math.max(uy,drag.uy);
+      for(const id in ents){ if(id===target||DIS.has(id))continue; const[cx,cy]=center(ents[id]);
+        if(cx>=xl&&cx<=xh&&cy>=yl&&cy<=yh) ents[id].anchor=target; } }
+    else anchorClick(drag.id);
+    render();
+  }
+  else if(drag.kind==='move' && moved){ const [dx,dy]=moveDelta(drag,(e.clientX-drag.sx)/scale,(e.clientY-drag.sy)/scale);
+    for(const m of drag.ids) moveEnt(ents[m],dx,dy); render(); }
+  else if(drag.kind==='resize' && moved){ render(); }
+  else if(!moved){ editClick(drag.id); }
+  drag=null;
+});
+cv.addEventListener('contextmenu',e=>{                       // RIGHT-click drives ANCHORING (no browser menu)
+  e.preventDefault();
+  const entEl=e.target.closest('.ent'); const id=entEl?entEl.dataset.id:null; msg='';
+  if(target){ target=(!id||id===target)?null:id; render(); return; }   // in ANCHORING: switch anchor, or (self/empty) finish
+  if(id){ target=id; selSet.clear(); }                       // in EDIT: make THIS the anchor → ANCHORING mode
+  render();
+});
+function editClick(id){                                      // a LEFT-click while in EDIT mode: toggle the yellow selection
+  if(selSet.has(id)) selSet.delete(id); else selSet.add(id); // (tiles AND lines)
+  render();
+}
+function anchorClick(id){                                    // a LEFT-click while ANCHORING (onto `target`)
+  if(!id || id===target || DIS.has(id)) return;              // self / locked / would-cycle: ignore
+  ents[id].anchor = (ents[id].anchor===target) ? null : target;    // attach (green) ⇄ detach
+  render();
+}
+function delLines(){                                         // delete selected SEGMENTS only — never tiles
+  let n=0; for(const id of [...selSet]){ const e=ents[id]; if(!e||e.type==='tile') continue;
+    for(const k in ents) if(ents[k].anchor===id) ents[k].anchor=null;              // orphans become free
+    delete ents[id]; selSet.delete(id); n++; }
+  if(target&&!ents[target]) target=null;
+  msg = n?`Deleted ${n} line(s).`:'No lines in the selection to delete.'; render();
+}
+window.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ target=null; selSet.clear(); msg=''; render(); }
+  else if((e.key==='Delete'||e.key==='Backspace')&&selSet.size){ e.preventDefault(); delLines(); }
+});
+
+// ---- Pack subtrees: place two selected root subtrees side by side at the minimum distance ----
+function packSubtrees(){                                     // pack 2+ same-row roots left→right, chaining anchors T1→T2→…→Tn
+  const roots=[...selSet].filter(id=>ents[id]&&ents[id].type==='tile'&&ents[id].anchor===null);
+  if(roots.length<2){ msg='Pack needs 2+ ROOT tiles selected (no anchor).'; render(); return; }
+  const r0=rowOf(ents[roots[0]]);
+  if(!roots.every(id=>rowOf(ents[id])===r0)){ msg='Pack: all selected tiles must be in the same row.'; render(); return; }
+  const T=roots.sort((a,b)=>center(ents[a])[0]-center(ents[b])[0]);     // T[0] leftmost … T[n-1] rightmost
+  for(let i=T.length-2;i>=0;i--){ packPair(T[i],T[i+1]); ents[T[i+1]].anchor=T[i]; }  // from the RIGHT pair leftward; chain Tn→…→T1
+  selSet.clear(); msg=`Packed ${T.length} subtrees into a chain rooted at ${T[0]}.`; render();
+}
+function packPair(L,R){                                      // place R's subtree one tile-gap right of L's GROUP (per HALF-row contour)
+  const ext=(root,side)=>{ const cx=center(ents[root])[0], rb=2*rowOf(ents[root]), o={};   // contour is re-derived over the FULL subtree
+    for(const id of [root,...subtree(root)]){ const e=ents[id]; const v=side>0?rightEdge(e)-cx:cx-leftEdge(e);
+      for(const b of subBands(e)){ const i=b-rb; o[i]=Math.max(o[i]??-Infinity,v); } } return o; };
+  const Le=ext(L,1), Re=ext(R,-1);                           // L's rightward reach / R's leftward reach
+  let M=-Infinity; for(const i in Le) if(i in Re) M=Math.max(M,Le[i]+Re[i]);   // tightest shared half-row
+  if(M===-Infinity) M=0;                                     // no shared band → one tile-width apart
+  const tr=Math.min(rowOf(ents[L]),rowOf(ents[R]));          // (same-row in practice; raise the lower root defensively)
+  moveSubtree(L,0,(tr-rowOf(ents[L]))*PITCH);
+  moveSubtree(R,(center(ents[L])[0]+M+CW)-center(ents[R])[0],(tr-rowOf(ents[R]))*PITCH);   // centres exactly M+W apart
+}
+
+// ---- Busbar: centre a parent over its children and draw the n+2 lineage lines ----
+function drawBusbar(){
+  const tiles=[...selSet].filter(id=>ents[id]&&ents[id].type==='tile');
+  if(tiles.length<2){ msg='Busbar needs 1 parent + its children selected (≥2 tiles).'; render(); return; }
+  const byRow={}; for(const id of tiles){ const r=rowOf(ents[id]); (byRow[r]=byRow[r]||[]).push(id); }
+  const rows=Object.keys(byRow).map(Number).sort((a,b)=>a-b);
+  if(rows.length!==2 || byRow[rows[0]].length!==1 || rows[1]!==rows[0]+1){
+    msg='Busbar needs exactly 1 parent and its children in the row directly below it.'; render(); return; }
+  const parent=byRow[rows[0]][0], kids=byRow[rows[1]].sort((a,b)=>center(ents[a])[0]-center(ents[b])[0]);
+  const kcx=kids.map(k=>center(ents[k])[0]), c1=kcx[0], cn=kcx[kcx.length-1], pcx=(c1+cn)/2;
+  ents[parent].x = pcx-CW/2;                                 // centre the parent over C1..Cn
+  const busY=ents[parent].y+CH+GAP/2;                        // halfway parent-bottom ↔ child-top (= gap centre)
+  const mk=o=>{ const id='seg'+(++segN); ents[id]={id,anchor:parent,...o}; };   // every new line is anchored to the parent
+  if(kids.length===1){                                       // single child: one full-gap vertical, no busbar
+    mk({type:'vseg',x:pcx,y1:ents[parent].y+CH,y2:ents[kids[0]].y});
+  } else {
+    mk({type:'hseg',y:busY,x1:c1,x2:cn});                    // busbar
+    mk({type:'vseg',x:pcx,y1:ents[parent].y+CH,y2:busY});    // parent drop
+    for(let i=0;i<kids.length;i++) mk({type:'vseg',x:kcx[i],y1:busY,y2:ents[kids[i]].y});   // child drops
+  }
+  const anc=new Set(ancestors(parent));                      // anchor every still-FREE child to the parent
+  let nf=0; for(const k of kids) if(ents[k].anchor===null && !anc.has(k)){ ents[k].anchor=parent; nf++; }  // (keep existing anchors; skip would-be cycles)
+  selSet.clear(); msg=`Busbar: ${parent} → ${kids.length} child(ren); anchored the new lines + ${nf} free child(ren) to ${parent}.`; render();
+}
+
+// ---- Marriage: a horizontal line between two same-row tiles (left-tile right edge ↔ right-tile left edge) ----
+function drawMarriage(){
+  const tiles=[...selSet].filter(id=>ents[id]&&ents[id].type==='tile');
+  if(tiles.length!==2){ msg='Marriage needs exactly 2 tiles selected.'; render(); return; }
+  const [a,b]=tiles.sort((p,q)=>center(ents[p])[0]-center(ents[q])[0]);   // a = left, b = right
+  if(rowOf(ents[a])!==rowOf(ents[b])){ msg='Marriage: both tiles must be in the same row.'; render(); return; }
+  const id='seg'+(++segN); ents[id]={id,type:'hseg',anchor:null,y:ents[a].y+CH/2,x1:ents[a].x+CW,x2:ents[b].x};
+  selSet.clear(); msg=`Marriage line: ${a} — ${b}.`; render();
+}
+
+function vc(){ return [(wrap.scrollLeft+wrap.clientWidth/2)/scale,(wrap.scrollTop+wrap.clientHeight/2)/scale]; }
+document.getElementById('addH').onclick=()=>{ const[cx,cy]=vc(),id='seg'+(++segN);
+  ents[id]={id,type:'hseg',anchor:null,y:snapHY(cy),x1:cx-CW,x2:cx+CW}; render(); };
+document.getElementById('addV').onclick=()=>{ const[cx,cy]=vc(),id='seg'+(++segN);
+  const r=Math.max(0,Math.round((cy-CH)/PITCH));             // V line = GAP/2 tall: tile-bottom → gap-centre (1/2 the short gap-cell)
+  ents[id]={id,type:'vseg',anchor:null,x:cx,y1:r*PITCH+CH,y2:r*PITCH+CH+GAP/2}; render(); };
+document.getElementById('pack').onclick=packSubtrees;
+document.getElementById('bus').onclick=drawBusbar;
+document.getElementById('mar').onclick=drawMarriage;
+document.getElementById('del').onclick=delLines;
+document.getElementById('zi').onclick=()=>{scale=Math.min(2,scale*1.25);render();};
+document.getElementById('zo').onclick=()=>{scale=Math.max(0.05,scale/1.25);render();};
+document.getElementById('save').onclick=()=>{
+  let y='# semi-manual positions. each entity has an optional anchor (one max). px coords; tiles also row.\n';
+  y+=`cell: {w: ${CW}, h: ${CH}, pitch: ${PITCH}}\nentities:\n`;
+  for(const id in ents){ const e=ents[id], a=e.anchor||'~';
+    let geo = e.type==='tile' ? `x: ${Math.round(e.x)}, row: ${Math.round(e.y/PITCH)}`
+            : e.type==='hseg' ? `y: ${Math.round(e.y)}, x1: ${Math.round(e.x1)}, x2: ${Math.round(e.x2)}`
+            :                   `x: ${Math.round(e.x)}, y1: ${Math.round(e.y1)}, y2: ${Math.round(e.y2)}`;
+    y+=`  ${JSON.stringify(id)}: {type: ${e.type}, anchor: ${a}, ${geo}}\n`; }
+  const b=new Blob([y],{type:'text/yaml'}), a=document.createElement('a');
+  a.href=URL.createObjectURL(b); a.download='positions.yaml'; a.click();
+};
+</script></body></html>

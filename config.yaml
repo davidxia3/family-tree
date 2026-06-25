@@ -6,9 +6,9 @@ orientation: rtl          # rtl = senior/primary on the RIGHT (classical reading
 
 layout:
   char_box: 36            # px per stacked character
-  tile_pad: 9
-  h_gap: 30               # standardized horizontal gap: siblings AND husband-wife AND wife-wife
-  v_gap: 60               # standardized vertical gap between a tile and the next generation row
+  tile_pad: 9             # tile_w = char_box + 2*pad = 54
+  h_gap: 54               # = one tile width: min horizontal gap (siblings / husband-wife / wife-wife)
+  v_gap: 108              # = two tile widths: gap-cells are 54x108 (height = 2x width)
   margin: 70
   tile_radius: 8
 

@@ -82,6 +82,20 @@ def _render_png(svg_path: str, png_path: str) -> bool:
         return False
 
 
+def cmd_edit(args) -> int:
+    from .editor import build_editor_html
+    ds, cfg, _problems = _load(args)
+    lay = compute_layout(ds, cfg)
+    html = build_editor_html(ds, cfg, lay)
+    out_dir = os.path.dirname(args.out) or "."
+    os.makedirs(out_dir, exist_ok=True)
+    with open(args.out, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"wrote {args.out}  ({len(lay.tiles)} tiles)")
+    print(f"open it in a browser:  open {args.out}")
+    return 0
+
+
 def cmd_build(args) -> int:
     ds, cfg, problems = _load(args)
     issues = [(ERROR, m) for m in problems] + validate(ds)
@@ -193,6 +207,10 @@ def main(argv=None) -> int:
     b.add_argument("--highlight", default="", help="comma/space-separated ids to outline (transient new-batch review)")
     b.add_argument("--grid", action="store_true", help="draw a background row/column grid for verifying placements")
     b.set_defaults(func=cmd_build)
+
+    e = sub.add_parser("edit", parents=[common], help="generate a standalone HTML grid-positioning editor")
+    e.add_argument("--out", default="build/editor.html", help="output HTML path (default: %(default)s)")
+    e.set_defaults(func=cmd_edit)
 
     v = sub.add_parser("validate", parents=[common], help="print the integrity report")
     v.set_defaults(func=cmd_validate)

@@ -43,6 +43,8 @@ CSS inside the SVG `<defs>`; all sizes/spacing/colors come from `config.yaml`.
   descendants, 1 = senior/rightmost). See rule X.
 - **`siblings`** — a list of parentless sibling groups, each a list of member ids **eldest
   first**, for people named as siblings whose shared parent is not a tile here. See rule Sib.
+- **`layer_order`** — a list of explicit **left-to-right** id orderings, each pinning one
+  generation row's tiles in that order (manual override for dense rows). See rule LO.
 
 This is a **DAG**, not a tree: a daughter may be both a child (of her father) and a
 wife (married elsewhere). Each person is drawn exactly once — see rule P.
@@ -100,12 +102,13 @@ Glyphs are never transformed — only tile center-x is negated — so text stays
 - **Rule F — a father is centered** over the midpoint of his first and last child.
   Child lineage lines descend from the **father alone**, never from the husband–wife
   marriage tie.
-- **Rule E — descendants count for centering.** ALL of a person's descendants count as
-  "children" for rule F: phantom-child descendants (rule X) and extra busbar children
-  (married-in daughters, rule D; and spouse-descendants). The ancestor is centered over the
-  span of all of them. For an extra busbar child whose x is fixed by a marriage elsewhere,
-  the ancestor re-centers over it as a final step (exact for roots; e.g. 少典 ends up
-  between 黃帝 and 女華).
+- **Rule E — descendants count for centering — EXCEPT married-out daughters.** A person is
+  centered (rule F) over the children who remain in **their** family: real children, phantom-child
+  descendants (rule X), and **spouse-descendants** (a wife who is also a `descended_from`
+  descendant, e.g. 女華 — 少典 ends up between 黃帝 and 女華). A daughter who **married out** (rule
+  MO) — placed beside a husband off in his family's part of the chart — does **not** count, so the
+  father stays centered over his own line (e.g. 宣平侯張敖 centers over his 3 sons, not over
+  孝惠皇后 who married 漢孝惠帝).
 
 ---
 
@@ -149,17 +152,26 @@ Glyphs are never transformed — only tile center-x is negated — so text stays
   (parent, marriage, or descent) with the main tree — can sit anywhere, so it is moved
   clear of the main tree (off to one side, keeping its own top rows) and never overlaps.
 
-- **Rule D — married-in daughter.** A daughter who marries a placed man (one with his own
-  ancestry/line) is placed beside her husband (rule W) but is still an **extra busbar child**
-  of her father: he centers over her too (rule 4 / rule E below) and a **solid orthogonal**
-  lineage line runs to her — no dashed edges. (Lines are never diagonal or dashed.)
+- **Rule MO — married-out daughter.** A daughter who marries a man placed elsewhere in the chart
+  (she becomes a wife-tile beside him, in *his* family's area) is connected to her father by a
+  **separate "up-and-over" line**, and she does **not** pull his centering (rule E). The line is an
+  **upward extension of the father's own child busbar**: it rises from the busbar END nearest the
+  daughter (continuing straight up the drop to the nearest in-family child), crosses the top
+  (hopping any verticals it meets), and drops to her — it does NOT start at the father's tile. So
+  his busbar stays compact over his in-family children and doesn't collide with the husband's
+  busbar. e.g. 孝惠皇后 (張敖's daughter) married her uncle 漢孝惠帝: the connector continues up from
+  魯王張偃's drop (張敖's rightmost son) and over to 孝惠皇后, while 張敖's busbar holds just
+  樂昌侯張壽/新都侯張侈/魯王張偃.
 
-- **Rule D2 — married-out daughter (free-root husband).** If a daughter marries a **free
-  root** — a husband with no ancestry and no children of his own — the roles flip: the
-  *daughter stays a node under her father* (solid line, no dashed edge) and the husband is
-  drawn as a spouse tile **beside her**. Left/right is preserved: wife on the left, husband
-  on her **right**. (So the root is brought down next to the daughter, not the daughter
-  pulled up to the root.) e.g. 繆嬴 (秦莊公's daughter) and 西戎豐王.
+- **Rule D2 — married-out daughter (root husband).** If a daughter marries a husband with **no
+  ancestry** (a root), the roles flip: the *daughter stays a node under her father* (solid line,
+  no dashed edge) and the husband is drawn as a spouse tile **beside her**, on her row. Left/right
+  is preserved: wife on the left, husband on her **right**. The husband may have **his own
+  children** — they descend from him, beside her, and he **carries that subtree** (so the
+  son-in-law's family sits at the daughter's generation, not at row 0). A daughter of *that*
+  union who herself marries out goes beside *her* husband in turn (e.g. 孝惠皇后 ← 宣平侯張敖 ×
+  魯元公主, married to her uncle 漢孝惠帝, lands on his row — her parents' row). e.g. 繆嬴 (秦莊公's
+  daughter) × 西戎豐王 (childless); 魯元公主 (漢高祖's daughter) × 宣平侯張敖 (with sons).
 
 - **Rule L — in-law family (a wife's natal kin).** When a **root** has a daughter who married
   **into** the main tree (she is a wife-tile beside her husband, rule W) and the root has his
@@ -187,8 +199,60 @@ Glyphs are never transformed — only tile center-x is negated — so text stays
   one that **hops** where it crosses a real lineage drop — the crossed lineage line (e.g.
   漢太上皇 → 漢高祖) stays fully **solid**. The bar sits at `top - v_gap/4` (not the usual
   `-v_gap/2`) so it clears the row's parent busbar and crosses the straddled drop in its interior.
-  e.g. 周呂侯 (elder) sits right of 漢高祖, tied to his sister 呂后 (who married 漢高祖) by a bar
+  e.g. 呂悼武王 (elder) sits right of 漢高祖, tied to his sister 呂太后 (who married 漢高祖) by a bar
   that hops over 漢高祖's drop.
+
+  An in-law sib may itself **have descendants** (e.g. 呂悼武王 → 呂肅王 → …): the sib carries its
+  whole subtree (laid out as a block), and the gen of that subtree is propagated from the sib's
+  (host-shared) row. To avoid colliding with the host's own children — which are centered *under*
+  the host and span the same rows — the in-law family is **parked clear, past the host block's
+  left extent**. *First-pass rough:* this prevents tile overlap but leaves the in-law family off
+  to the side with a long sibling busbar rather than tidily nested beside the married-in member.
+
+- **Rule LO — manual layer ordering (the `layer_order` edge).** For dense rows the automatic
+  rules can't always produce the arrangement we want (e.g. interleaving a sibling group onto
+  **both** sides of a husband). A `layer_order` entry is an explicit **left-to-right** list of
+  tile ids on one generation row. After layout + mirror, each listed tile **carries its whole
+  subtree** (descendants + their attached spouse/sib tiles, stopping at any other listed tile);
+  those subtree-blocks are **contour-packed** in the given order (`h_gap` at every shared row, so
+  nothing overlaps and lineage lines don't collide), then shifted so the listed tile with the
+  **largest subtree stays put** (the rest of the chart doesn't move). So ordering a row also
+  re-spreads everything beneath it. Hand-tune a region top-down. e.g. row 54 =
+  `[劉賈, 楚元王, 扶柳侯呂平, …, 漢高祖, …, 代頃王]`. Splitting a sibling group across a husband (as
+  here) leaves their sibling busbar spanning his whole subtree — a long but single, clean line.
+  - **A listed wife is NOT her own block** — she rides immediately beside her husband (rule W)
+    *inside* his block, so even a very wide husband subtree can't strand the wife over his leftmost
+    child. This is what lets 呂太后 (and 戚夫人/薄后) sit directly left of 漢高祖, packed tight. A
+    **sibling of one of his wives listed directly beside the wife block** rides along just outside the
+    wives (e.g. 薄昭, 薄后's brother, sits immediately left of 戚夫人), so wife-kin hug the wives.
+  - A **partial** layer_order (only some of a row's tiles, e.g. just the 王 外戚 cluster) is anchored
+    on one tile and widens to the other side; any neighbouring auto-placed family it overruns is
+    pushed **outward by the overhang as one rigid group** (so the families clear it without
+    interleaving) — e.g. the 王 cluster shoving 趙幽王's sons left. A pinned tile sitting **entirely**
+    on the pushed side rides along too (keeping its centering and row-gaps); one whose subtree is
+    **split** across the cut (漢高祖, anchoring the cluster from the right) stays put.
+  - Then every father **one row above a re-ordered row** is **re-centered over his (re-packed)
+    children**, bottom-up (e.g. 漢太上皇 over 楚元王/漢高祖/代頃王); his **wives ride along** so they stay
+    beside him (劉媼 stays immediately left of 漢太上皇). Tiles inside a pinned block (already rigidly
+    centered) and descent ANCESTORS (whose rule-X lane placement is deliberate) are skipped.
+  - Finally, because the layer_order packed each side of its anchor BEFORE the tuck (rule TUCK)
+    closed the anchor's subtree, the listed tiles beyond the anchor are now too far out. Each is
+    **compacted back toward the anchor** (its whole subtree, per-row, nearest-first so it cascades:
+    closing one gap opens room for the next) — e.g. 建成侯呂釋之 slides in against 漢高祖's now-tightened
+    brood, then 呂悼武王, then 代頃王. The parent of any compacted tile is re-centered afterward.
+
+- **Rule TUCK — a childless child stranded over a deep junior subtree.** A child with **no
+  descendants** placed between a junior sibling whose subtree runs **deeper** and a shallower senior
+  sibling tends to float in the wiggle-room above the deep junior subtree. It is instead **pinned one
+  gap left of its senior sibling**, and that senior side **slides in** to close the float. The clear
+  it has to give the junior is measured by the junior's **per-row contour** (rule H — its tile edge
+  **at the child's own row**), *not* its bounding box, so the child and the senior side nest against
+  the overhang instead of clearing the whole subtree. The slide is capped so it never crosses any tile
+  on its left. e.g. 虞仲/太伯 (古公亶父's leaves) nest immediately beside 季歷 rather than clearing the
+  whole 周 line; 趙隱王 sits immediately left of 魯元公主 with the 魯元公主/漢孝惠帝/齊悼惠王 group sliding
+  left against 漢孝文帝's subtree. Afterwards the affected parents are **re-centered up their chain**
+  over the tightened spans (each move clamped clear of its row-neighbours, so a side-childed chain
+  can't drift into them) — e.g. 古公亶父 ends up centred over 季歷/虞仲/太伯.
 
 ---
 
@@ -211,7 +275,10 @@ by what the edge carries:
   depth** — render `N` rows below the ancestor, as if the missing fathers were there.
   e.g. 費昌 is the great-great-grandson of 若木 → `depth: 4`; 孟戲/中衍 are great-great-
   grandsons of 大廉 → `depth: 4`. A descendant placed this way carries its own subtree
-  (e.g. 中潏 `depth: 4` under 中衍, then the whole 秦 line hangs below 中潏).
+  (e.g. 中潏 `depth: 4` under 中衍, then the whole 秦 line hangs below 中潏). It also **reserves a
+  slot at the ancestor's child row** (like rule X-c), so it sits left of the real children and
+  drops straight from the ancestor — e.g. 隆慮侯蟜 (`depth: 2`) is 漢孝景帝's leftmost descendant and
+  drops two rows from 景帝, not from a tile one row up (王夫人).
 - **Rule X-c — mentioned with a known figure (`mentioned_with: X`):** render on **X's
   generation row** — and re-base the descendant's **whole natal subtree** with it, so its
   children land one row below it, and so on. (Without this, a `mentioned_with` person who has
@@ -266,6 +333,13 @@ below, or 大廉 → 孟戲/中衍 four rows below) the bar stays **high** (just
 drops run long — rather than the bar sinking to the midpoint of the deep gap. (Earlier rule:
 split at the midpoint to the *closest* child — changed because a deep-only descent then put the
 bar halfway down the chart.)
+
+**Bar staggering.** Two horizontal bars at the same height that overlap in x would merge into one
+ambiguous line. So both **family** busbars (two parents on the same row whose child-spans overlap)
+and **sibling** busbars (rule Sib — e.g. the 薄昭-薄后 line nested inside 呂太后's 5-sibling line) are
+collected first and overlapping ones pushed to **distinct heights**: the narrower bar keeps its
+height (shorter drops), the wider rises (longer drops). (Usually avoidable by keeping married-out
+daughters off the main busbar, rule MO — that is what keeps 張敖's and 孝惠帝's busbars apart.)
 
 Tiles are drawn last, on top of the edges.
 
@@ -367,8 +441,16 @@ deep-merged on top.
   does not yet — add it there too if a crossing appears.
 - **Parentless siblings (rule Sib)** assume **one** member married into the tree (the others
   attach beside that partner). A group where none married in (free-floating siblings) would fall
-  back to roots and is not specially placed yet. **In-law parents (rule L)** handle a single
-  married-in daughter per root; two would over-constrain the row shift.
+  back to roots and is not specially placed yet. A sib WITH descendants is carried (block) but
+  **parked off to the side** of the host, not nested (first-pass rough — needs tidying).
+- **In-law parents (rule L)** handle a single married-in **daughter** per root (two would
+  over-constrain).
+- **Manual layer ordering (rule LO)** contour-packs each listed tile's whole subtree in the given
+  order, anchored on the largest subtree, so the row and everything beneath it spread out with no
+  overlaps. A split sibling group still leaves one long (clean) sibling busbar across the husband.
+- **Married-out daughter with a root husband who has children (rule D2)** carries the husband's
+  subtree beside the daughter; his children that are themselves married-out daughters go beside
+  their own husbands (an incest marriage then lands a granddaughter on her parents' row).
 - The sibling / in-law busbar can share the inter-row band with the crossed family's busbar
   (cosmetic, unavoidable when the married-in member sits interior to that span); rule Sib's bar
   is dropped to `top - v_gap/4` to keep the crossing clean.

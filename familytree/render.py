@@ -17,6 +17,22 @@ def _esc(s: str) -> str:
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def _stagger(spans, step):
+    """Given horizontal bars (y, xa, xb), return adjusted y's so that bars overlapping in x sit at
+    DISTINCT heights instead of merging. Narrower bars keep their y; wider overlapping ones are
+    pushed up by multiples of `step`."""
+    order = sorted(range(len(spans)), key=lambda i: spans[i][2] - spans[i][1])
+    adj = [s[0] for s in spans]
+    placed = []  # (xa, xb, y)
+    for i in order:
+        y, xa, xb = spans[i]
+        while any(abs(py - y) < step * 0.75 and not (pxb <= xa or pxa >= xb) for pxa, pxb, py in placed):
+            y -= step
+        adj[i] = y
+        placed.append((xa, xb, y))
+    return adj
+
+
 def _luminance(hexstr: str) -> float:
     """Perceived brightness 0..1 of a #rrggbb color (unparseable -> 1.0 = light)."""
     h = hexstr.lstrip("#")
@@ -55,32 +71,36 @@ def render_svg(lay: LayoutResult, cfg: dict, highlight=None, grid=False) -> str:
         f'<rect class="bg" x="0" y="0" width="{_f(W)}" height="{_f(H)}"/>',
     ]
 
-    # --- optional verification grid (behind everything): a horizontal line + number at each
-    # generation row, and faint verticals one TILE-WIDTH apart. Toggled with --grid. ---
+    # --- optional grid (behind everything): tile-sized cells. Each generation gets a horizontal at
+    # the tile TOP and tile BOTTOM (so the cell is exactly one tile tall); verticals are one tile
+    # WIDTH apart (so each cell is one tile wide). Every tile occupies exactly one cell. --grid. ---
     if grid and t:
         any_tile = next(iter(t.values()))
         th, tw = any_tile.height, any_tile.width
         margin = L["margin"]
         gen_gap = th + v_gap
-        col_step = tw                                       # vertical-line pitch = one tile width
         nrows = max(tile.gen for tile in t.values()) + 1
-        for g in range(nrows + 1):
-            y = margin + g * gen_gap
-            cls = "grid-row" if g % 5 == 0 else "grid"     # emphasise every 5th row
-            out.append(f'<line class="{cls}" x1="0" y1="{_f(y)}" x2="{_f(W)}" y2="{_f(y)}"/>')
-            if g < nrows:
-                out.append(f'<text class="grid-label" x="3" y="{_f(y + 15)}">{g}</text>')
+        for g in range(nrows):
+            y0 = margin + g * gen_gap                        # tile top of this generation
+            cls = "grid-row" if g % 5 == 0 else "grid"      # emphasise every 5th generation
+            out.append(f'<line class="{cls}" x1="0" y1="{_f(y0)}" x2="{_f(W)}" y2="{_f(y0)}"/>')
+            out.append(f'<line class="grid" x1="0" y1="{_f(y0 + th)}" x2="{_f(W)}" y2="{_f(y0 + th)}"/>')
+            out.append(f'<text class="grid-label" x="3" y="{_f(y0 + 15)}">{g}</text>')
         x, k = margin, 0
-        while x <= W:
+        while x <= W:                                       # column verticals, one tile width apart
             out.append(f'<line class="grid" x1="{_f(x)}" y1="0" x2="{_f(x)}" y2="{_f(H)}"/>')
             k += 1
-            x = margin + k * col_step
+            x = margin + k * tw
 
     # --- lineage busbars (orthogonal): father down to a SPLIT bar over all children, then
     # vertical drops to each. Bars are collected first so a drop can be broken with a small
     # gap wherever it has to cross another bar (a clean "line hop"). ---
     h_segs = []  # horizontal bars: (y, x_left, x_right)
     v_segs = []  # verticals: (x, y_top, y_bot)  -- parent stems and child drops
+    # Rule S: each split bar sits ONE ROW below the parent (drops then run down to the children's
+    # real depth). Two parents on the same row whose bars overlap would merge into one bar, so the
+    # bars are collected first and overlapping ones are STAGGERED to distinct heights.
+    fam = []
     for father, kids in lay.families:
         if father not in t:
             continue
@@ -89,18 +109,17 @@ def render_svg(lay: LayoutResult, cfg: dict, highlight=None, grid=False) -> str:
         if not ks:
             continue
         p_bottom = pf.top + pf.height
-        # Rule S: the split bar sits ONE ROW below the parent — at the height it would have if the
-        # children were direct children one tile down — regardless of how far the actual (possibly
-        # descendant) children render. The drops then extend down to each child's real depth. (For
-        # ordinary children one row below this is unchanged; for long descendant-of lines, e.g.
-        # 劉累 → 漢/劉賈 or 大廉 → 孟戲/中衍, the bar stays high and the drops run long.)
         bus = p_bottom + v_gap / 2.0
         xmin = min(min(k.x for k in ks), pf.x)
         xmax = max(max(k.x for k in ks), pf.x)
+        fam.append((bus, xmin, xmax, pf, ks, p_bottom))
+    fam_bus = _stagger([(f[0], f[1], f[2]) for f in fam], v_gap / 6.0)
+    for (bus0, xmin, xmax, pf, ks, p_bottom), bus in zip(fam, fam_bus):
         h_segs.append((bus, xmin, xmax))
-        v_segs.append((pf.x, p_bottom, bus))              # parent stem
+        v_segs.append((pf.x, min(p_bottom, bus), max(p_bottom, bus)))     # parent stem
         for k in ks:
-            v_segs.append((k.x, bus, k.top))              # drop to each child
+            cy = k.top if k.top >= bus else k.top + k.height   # a same-row child connects at its BOTTOM
+            v_segs.append((k.x, min(bus, cy), max(bus, cy)))   # drop to each child
 
     for y, xa, xb in h_segs:
         out.append(f'<line class="edge-lineage" x1="{_f(xa)}" y1="{_f(y)}" x2="{_f(xb)}" y2="{_f(y)}"/>')
@@ -117,21 +136,21 @@ def render_svg(lay: LayoutResult, cfg: dict, highlight=None, grid=False) -> str:
         if yb > cur:
             out.append(f'<line class="edge-lineage" x1="{_f(x)}" y1="{_f(cur)}" x2="{_f(x)}" y2="{_f(yb)}"/>')
 
-    # --- parentless sibling busbars (rule Sib): like a family busbar but with NO parent stem
-    # (no vertical rising from the bar's middle). The bar is NOT added to h_segs, so a crossing
-    # lineage vertical (e.g. 漢太上皇 -> 漢高祖) stays SOLID; instead THIS bar hops over it. ---
+    # --- parentless sibling busbars (rule Sib): like a family busbar but with NO parent stem.
+    # Default height top - v_gap/4 (clear of the row's parent busbar at top - v_gap/2). Overlapping
+    # sibling bars (e.g. the 薄昭-薄后 line nested inside 呂太后's 5-sibling line) are STAGGERED so
+    # they don't merge — the narrower one stays low (shorter), wider ones rise. The bars are NOT in
+    # h_segs, so a crossing lineage vertical (e.g. 漢太上皇 -> 漢高祖) stays SOLID; the bar hops it. ---
+    sib = []
     for grp in lay.sibling_groups:
         gs = [t[m] for m in grp if m in t]
         if len(gs) < 2:
             continue
         top = min(k.top for k in gs)
-        # A parent one row up would put the bar at top - v_gap/2 — but that is exactly the row's
-        # PARENT busbar height, so it would coincide with it and only touch the crossed drop at
-        # its endpoint. Drop the sibling bar to top - v_gap/4 so it sits clear of the parent bar
-        # and crosses any straddled lineage drop in that drop's interior (a clean hop).
-        bus = top - v_gap / 4.0
         xa, xb = min(k.x for k in gs), max(k.x for k in gs)
-        # horizontal bar, broken where a (solid) lineage vertical crosses it
+        sib.append((top - v_gap / 4.0, xa, xb, gs))
+    sib_bus = _stagger([(s[0], s[1], s[2]) for s in sib], v_gap / 6.0)
+    for (bus0, xa, xb, gs), bus in zip(sib, sib_bus):
         cxs = sorted(x for x, ya, yb in v_segs if ya + 1.0 < bus < yb - 1.0 and xa + 1.0 < x < xb - 1.0)
         cur = xa
         for cx in cxs:
@@ -142,6 +161,31 @@ def render_svg(lay: LayoutResult, cfg: dict, highlight=None, grid=False) -> str:
             out.append(f'<line class="edge-lineage" x1="{_f(cur)}" y1="{_f(bus)}" x2="{_f(xb)}" y2="{_f(bus)}"/>')
         for k in gs:                            # drop from the bar to each sibling
             out.append(f'<line class="edge-lineage" x1="{_f(k.x)}" y1="{_f(bus)}" x2="{_f(k.x)}" y2="{_f(k.top)}"/>')
+
+    # --- married-out daughter connectors (rule MO): a separate line to a daughter who married into
+    # another family (she sits beside her husband, off in his part of the chart). It rises from the
+    # father's CHILD BUSBAR — an upward extension of the drop to the busbar's nearest child (the one
+    # closest to the daughter) — then crosses OVER (hopping any verticals) and down to the daughter. ---
+    fam_kids = {f: [t[k] for k in ks if k in t] for f, ks in lay.families}
+    for father, daughter in lay.married_out:
+        if father not in t or daughter not in t:
+            continue
+        pf, dt = t[father], t[daughter]
+        bus_y = pf.top + pf.height + v_gap / 2.0          # the father's child busbar (rule S)
+        ends = [k.x for k in fam_kids.get(father, [])] + [pf.x]
+        near_x = max(ends) if dt.x > max(ends) else min(ends)   # busbar end nearest the daughter
+        bar = min(pf.top, dt.top) - v_gap * 0.3
+        out.append(f'<line class="edge-lineage" x1="{_f(near_x)}" y1="{_f(bar)}" x2="{_f(near_x)}" y2="{_f(bus_y)}"/>')
+        xa, xb = sorted((near_x, dt.x))
+        cxs = sorted(x for x, ya, yb in v_segs if ya + 1.0 < bar < yb - 1.0 and xa + 1.0 < x < xb - 1.0)
+        cur = xa
+        for cx in cxs:
+            if cx - HOP > cur:
+                out.append(f'<line class="edge-lineage" x1="{_f(cur)}" y1="{_f(bar)}" x2="{_f(cx - HOP)}" y2="{_f(bar)}"/>')
+            cur = cx + HOP
+        if xb > cur:
+            out.append(f'<line class="edge-lineage" x1="{_f(cur)}" y1="{_f(bar)}" x2="{_f(xb)}" y2="{_f(bar)}"/>')
+        out.append(f'<line class="edge-lineage" x1="{_f(dt.x)}" y1="{_f(bar)}" x2="{_f(dt.x)}" y2="{_f(dt.top)}"/>')
 
     # --- marriage ties (husband -- wife), connecting facing edges ---
     for a, b in lay.marriages:
