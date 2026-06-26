@@ -1,11 +1,15 @@
-"""史记 family tree — data-driven SVG genealogy.
+"""史记 family tree — semi-manual SVG genealogy.
 
-Modules are intentionally separate:
-  model    — dataclasses + YAML loader + relationship index
-  validate — integrity checks (never crashes on partial data)
-  layout   — tidy-tree + genealogy rules -> (x, y) per tile
-  render   — positions -> SVG (all styling in <defs>/CSS)
-  cli      — build | validate | status
+There is no genealogy database. positions.yaml is the single, self-contained data
+file: one entity per tile (carrying its own name + color) plus the connector lines
+you draw. Tiles are placed by hand in a standalone HTML editor; a renderer emits
+the SVG.
+
+Modules:
+  config   — load config.yaml (sizes + colour pairs); derive the rest
+  editor   — generate the standalone HTML grid-positioning editor
+  render   — positions.yaml -> SVG (all styling in <defs>/CSS)
+  cli      — edit | render
 """
 
-__version__ = "0.1.0"
+__version__ = "0.3.0"

@@ -10,7 +10,8 @@ exactly between any two children. Tile Y still snaps to the tall generation rows
 snaps to the horizontal grid lines; segment X is free (the auto-tools place them at tile centres).
 
 Interactions (black & white, for debugging):
-  * LEFT-drag a BLUE (free) entity -> moves it + its dependents (Y snaps to rows, X is free).
+  * SHIFT+LEFT-drag a BLUE (free) entity -> moves it + its dependents (Y snaps to rows, X is free).
+    Moving is gated behind SHIFT so a plain click never nudges anything; anchored entities never move.
   * LEFT-click an entity -> toggle it in the yellow SELECTION (drives the tools + line deletion).
   * with exactly one entity selected, the bottom-right panel shows its coordinates (tile: x + row;
     line: endpoint px) — editable if FREE, read-only (disabled) if anchored. Anchored LINES also
@@ -26,34 +27,59 @@ Interactions (black & white, for debugging):
     that already have an anchor keep it). A single child -> one full-gap vertical, no bar.
   * Marriage: select 2 same-row tiles; draws a horizontal line between their facing edges (free).
     Pack chains anchors and Busbar anchors its lines+free children; Marriage just draws.
+  * Top stub: select 1 tile; spawns a 32px vertical line standing on the centre of its TOP edge
+    (bottom endpoint at the tile, growing up), anchored to that tile.
+  * + Hop: select ONE line; prompts for a hop CENTRE (x on an H line, y on a V line, must lie on the
+    line) and cuts a small gap (layout.line_hop_length px) there so a line can hop over a crossing.
+    Multiple hops per line; the line stays ONE entity. Edit/remove hops in the bottom-right panel.
   * +H / +V spawn segments; drag endpoints to resize. Delete / the Delete button removes selected
-    LINES (never tiles). Save -> downloads positions.yaml.
+    LINES (never tiles). Tiles are labelled by their ID (not the display name). Save -> positions.yaml.
+  * Persistence: every change autosaves to localStorage, so closing and reopening this editor.html
+    restores your work with no extra steps. Save -> downloads positions.yaml (the single, durable,
+    git-tracked data file; each tile carries its own name + color); put it in the repo and run
+    `python -m familytree edit` to re-seed, or `render` to emit the SVG. The baked seed carries a
+    fingerprint (sig): if positions.yaml changes, the fresh seed wins over stale localStorage;
+    otherwise localStorage (your latest in-browser edits) wins. Reset discards localStorage.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 from typing import List
 
-from .layout import LayoutResult
 
-
-def build_editor_html(ds, cfg: dict, lay: LayoutResult) -> str:
+def build_editor_html(cfg: dict, positions: dict | None = None) -> str:
     L = cfg["layout"]
-    char_box = L["char_box"]
-    pad = L["tile_pad"]
-    tile_w = char_box + 2 * pad
-    margin = L["margin"]
-    any_tile = next(iter(lay.tiles.values()))
-    tile_h = any_tile.height
+    char_box = L["char_box"]                 # vertical pitch between stacked characters (derived)
+    tile_w = L["tile_width"]
+    tile_h = L["tile_height"]
     v_gap = L["v_gap"]
+    font_size = cfg["style"]["font_size"]
 
-    tiles: List[dict] = []
-    for t in lay.tiles.values():
-        tiles.append({"id": t.id, "name": t.name,
-                      "col": round((t.x - margin) / tile_w), "row": t.gen})
+    # positions.yaml is the ONLY data source: each tile carries its own name + color.
+    # Tiles are labelled in the editor by their ID (the unique key); name/color ride along.
+    entities: List[dict] = []
+    for eid, e in (positions or {}).items():
+        anc = e.get("anchor"); anc = None if anc in ("~", None) else anc
+        t = e.get("type")
+        if t == "tile":
+            col = e.get("color"); col = None if col in ("~", None) else col
+            entities.append({"id": eid, "type": "tile", "name": e.get("name") or eid,
+                             "color": col, "anchor": anc, "x": e["x"], "row": e["row"]})
+        elif t == "hseg":
+            entities.append({"id": eid, "type": "hseg", "anchor": anc,
+                             "y": e["y"], "x1": e["x1"], "x2": e["x2"], "hops": e.get("hops") or []})
+        elif t == "vseg":
+            entities.append({"id": eid, "type": "vseg", "anchor": anc,
+                             "x": e["x"], "y1": e["y1"], "y2": e["y2"], "hops": e.get("hops") or []})
 
-    data = {"tiles": tiles, "cellW": tile_w, "cellH": tile_h, "gap": v_gap,
-            "charBox": char_box, "pad": pad}
+    entities.sort(key=lambda e: str(e["id"]))                  # deterministic order -> stable sig
+    sig = hashlib.sha1(json.dumps(entities, sort_keys=True, ensure_ascii=False)
+                       .encode("utf-8")).hexdigest()[:12]      # seed fingerprint; change => seed beats stale localStorage
+
+    data = {"entities": entities, "sig": sig, "cellW": tile_w, "cellH": tile_h, "gap": v_gap,
+            "charBox": char_box, "font": font_size,
+            "hop": L["line_hop_length"], "lineWidth": L["line_width"], "borderWidth": L["border_width"]}
     return _HTML.replace("/*__DATA__*/", json.dumps(data, ensure_ascii=False))
 
 
@@ -75,14 +101,15 @@ _HTML = r"""<!DOCTYPE html>
   #coord label{display:inline-block;margin:5px 8px 0 0;color:#bbb;}
   #coord input{width:74px;background:#111;color:#eee;border:1px solid #555;border-radius:3px;padding:3px 5px;margin-left:5px;font-family:inherit;}
   #coord input:disabled{color:#999;background:#0a0a0a;border-color:#333;cursor:not-allowed;}
+  #coord button{background:#222;color:#ddd;border:1px solid #444;border-radius:3px;padding:2px 6px;margin-left:3px;cursor:pointer;font-family:inherit;}
   #coord .lock{color:#c98a3a;}
   #wrap{position:absolute;top:42px;left:0;right:0;bottom:0;overflow:auto;background:#000;}
   svg{display:block;}
   .solid{stroke:#fff;stroke-width:1;opacity:.4;fill:none;}
   .dash{stroke:#fff;stroke-width:.7;opacity:.2;stroke-dasharray:4 5;}
-  .ent{cursor:grab;}
+  .ent{cursor:pointer;}                                       /* click = select; SHIFT+drag = move (set in JS) */
   .trect{fill:#fff;stroke:#000;stroke-width:1.5;}
-  .ttext{fill:#000;font-family:"Songti SC",STSong,serif;}
+  .ttext{fill:#000;font-family:"Songti SC",STSong,"SimSun",serif;}
   .seg{stroke:#fff;stroke-width:2.5;}
   .hit{stroke:#000;stroke-opacity:0;stroke-width:16;fill:none;}
   .handle{fill:#000;stroke:#fff;stroke-width:1.5;cursor:crosshair;}
@@ -91,25 +118,35 @@ _HTML = r"""<!DOCTYPE html>
 <div id="bar">
   <button id="addH">+ H line</button><button id="addV">+ V line</button>
   <span class="div"></span>
-  <button id="pack">Pack subtrees</button><button id="bus">Busbar</button><button id="mar">Marriage</button>
+  <button id="pack">Pack subtrees</button><button id="bus">Busbar</button><button id="mar">Marriage</button><button id="stub">Top stub</button><button id="hop">+ Hop</button>
   <span class="div"></span>
   <button id="del">Delete line</button>
   <span class="sp"></span>
   <button id="zo">−</button><button id="zi">+</button>
-  <button id="save">Save positions.yaml</button>
+  <button id="reset">Reset</button><button id="save">Save positions.yaml</button>
 </div>
 <div id="wrap"><svg id="cv" xmlns="http://www.w3.org/2000/svg"></svg></div>
 <div id="mode"></div>
 <div id="coord"></div>
 <script>
 const D=/*__DATA__*/;
-const CW=D.cellW, CH=D.cellH, GAP=D.gap, PITCH=CH+GAP, CB=D.charBox, PAD=D.pad;
+const CW=D.cellW, CH=D.cellH, GAP=D.gap, PITCH=CH+GAP, CB=D.charBox, FS=D.font;
+const LW=D.lineWidth, BW=D.borderWidth, HOP=D.hop;            // line stroke, tile border, line-hop gap (config)
 const GFRACS=[1/2,3/4,7/8];                                  // gap horizontals: 1/2, 1/4, 1/8 from the BOTTOM
 const cv=document.getElementById('cv'), modeEl=document.getElementById('mode'), wrap=document.getElementById('wrap'), coordEl=document.getElementById('coord');
 
-const ents={};
-for(const t of D.tiles) ents[t.id]={id:t.id,type:'tile',anchor:null,name:t.name,x:t.col*CW,y:t.row*PITCH};
-let segN=0, scale=0.4, target=null, selSet=new Set(), elMap={}, boxEl=null, msg='';  // target = the anchor we attach TO
+const ents={}; let segN=0;
+for(const e of D.entities){                                  // seed entities (positions.yaml + any unplaced people)
+  if(e.type==='tile') ents[e.id]={id:e.id,type:'tile',anchor:e.anchor,name:e.name,color:e.color||null,x:e.x,y:e.row*PITCH};
+  else if(e.type==='hseg') ents[e.id]={id:e.id,type:'hseg',anchor:e.anchor,y:e.y,x1:e.x1,x2:e.x2,hops:e.hops||[]};
+  else ents[e.id]={id:e.id,type:'vseg',anchor:e.anchor,x:e.x,y1:e.y1,y2:e.y2,hops:e.hops||[]};
+  const m=/^seg(\d+)$/.exec(e.id); if(m) segN=Math.max(segN,+m[1]); }
+const LS_KEY='familytree:editor:'+location.pathname;          // autosave key (per editor.html location)
+function persist(){ try{ localStorage.setItem(LS_KEY,JSON.stringify({sig:D.sig,segN,ents})); }catch(_){} }
+(function restore(){ try{ const r=localStorage.getItem(LS_KEY); if(!r) return;        // resume an in-browser session…
+  const s=JSON.parse(r); if(!s||s.sig!==D.sig) return;                                 // …unless the seed changed (data / positions.yaml) -> seed wins
+  for(const k in ents) delete ents[k]; Object.assign(ents,s.ents); segN=s.segN||segN; }catch(_){} })();
+let scale=0.4, target=null, selSet=new Set(), elMap={}, boxEl=null, msg='';  // target = the anchor we attach TO
 
 const deps=id=>Object.values(ents).filter(e=>e.anchor===id).map(e=>e.id);
 function subtree(id){ const out=[],st=[id]; while(st.length){ const n=st.pop();
@@ -118,7 +155,8 @@ function ancestors(id){ const out=[]; let a=ents[id].anchor; while(a&&!out.inclu
 function center(e){ return e.type==='tile'?[e.x+CW/2,e.y+CH/2]:e.type==='hseg'?[(e.x1+e.x2)/2,e.y]:[e.x,(e.y1+e.y2)/2]; }
 const isFree=id=>ents[id].anchor===null;                    // ONLY free => blue / movable
 function moveEnt(e,dx,dy){ if(e.type==='tile'){e.x+=dx;e.y+=dy;}
-  else if(e.type==='hseg'){e.y+=dy;e.x1+=dx;e.x2+=dx;} else {e.x+=dx;e.y1+=dy;e.y2+=dy;} }
+  else if(e.type==='hseg'){e.y+=dy;e.x1+=dx;e.x2+=dx; if(e.hops)e.hops=e.hops.map(h=>h+dx);}   // hops are x's
+  else {e.x+=dx;e.y1+=dy;e.y2+=dy; if(e.hops)e.hops=e.hops.map(h=>h+dy);} }                     // hops are y's
 function moveSubtree(id,dx,dy){ for(const m of [id,...subtree(id)]) moveEnt(ents[m],dx,dy); }
 function bbox(e){ return e.type==='tile'?[e.x,e.y,CW,CH]
   : e.type==='hseg'?[Math.min(e.x1,e.x2),e.y-3,Math.abs(e.x2-e.x1),6]
@@ -145,6 +183,13 @@ function moveDelta(d,rdx,rdy){ const s=d.start[d.id], e0=ents[d.id];
   if(e0.type==='hseg') return [rdx, snapHY(s.y+rdy)-s.y];
   return [rdx, snapHY(s.y1+rdy)-s.y1]; }
 function dims(){ let W=CW,H=PITCH; for(const e of Object.values(ents)){ const[x,y,w,h]=bbox(e); W=Math.max(W,x+w); H=Math.max(H,y+h);} return [W+3*CW,H+2*PITCH]; }
+function lineRange(e){ return e.type==='hseg'?[Math.min(e.x1,e.x2),Math.max(e.x1,e.x2)]:[Math.min(e.y1,e.y2),Math.max(e.y1,e.y2)]; }
+function hopPieces(a,b,hops,g){                               // [a,b] minus a g-wide gap centred on each hop -> [[s,e],…]
+  const lo=Math.min(a,b),hi=Math.max(a,b);
+  const cuts=(hops||[]).filter(h=>h>=lo&&h<=hi).map(h=>[h-g/2,h+g/2]).sort((p,q)=>p[0]-q[0]);
+  const out=[]; let cur=lo;
+  for(const [cs,ce] of cuts){ if(cs>cur) out.push([cur,Math.min(cs,hi)]); cur=Math.max(cur,ce); }
+  if(cur<hi) out.push([cur,hi]); return out; }
 
 let DIS=new Set();                                          // entities that would create a cycle (target's ancestors)
 function hlColor(id){
@@ -158,11 +203,13 @@ function entSvg(e){
   const col=hlColor(e.id); const HW=6/scale; let s=`<g class="ent" data-id="${e.id}"${DIS.has(e.id)?' opacity="0.28"':''}>`;
   if(col){ const[bx,by,bw,bh]=bbox(e);
     s+=`<rect x="${bx-HW}" y="${by-HW}" width="${bw+2*HW}" height="${bh+2*HW}" fill="none" stroke="${col}" stroke-width="${HW}" rx="${HW}"/>`; }
-  if(e.type==='tile'){ const cx=e.x+CW/2; let txt='';
-    [...e.name].forEach((ch,i)=>{ txt+=`<tspan x="${cx}" y="${e.y+PAD+CB*(i+0.78)}">${ch}</tspan>`; });
-    s+=`<rect class="trect" x="${e.x}" y="${e.y}" width="${CW}" height="${CH}" rx="3"/><text class="ttext" text-anchor="middle" font-size="30">${txt}</text>`;
+  if(e.type==='tile'){ const cx=e.x+CW/2, top0=e.y+CB*0.25; let txt='';   // labelled by ID, TOP-aligned (inset CB*0.25)
+    [...e.id].forEach((ch,i)=>{ txt+=`<tspan x="${cx}" y="${top0+CB*(i+0.78)}">${ch}</tspan>`; });
+    s+=`<rect class="trect" x="${e.x}" y="${e.y}" width="${CW}" height="${CH}" rx="3" stroke-width="${BW}"/><text class="ttext" text-anchor="middle" font-size="${FS}">${txt}</text>`;
   } else { const H=e.type==='hseg', x1=H?e.x1:e.x, y1=H?e.y:e.y1, x2=H?e.x2:e.x, y2=H?e.y:e.y2;
-    s+=`<line class="seg" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><line class="hit" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+    const pieces = H ? hopPieces(e.x1,e.x2,e.hops,HOP).map(([a,b])=>`<line class="seg" x1="${a}" y1="${e.y}" x2="${b}" y2="${e.y}" stroke-width="${LW}"/>`).join('')
+                     : hopPieces(e.y1,e.y2,e.hops,HOP).map(([a,b])=>`<line class="seg" x1="${e.x}" y1="${a}" x2="${e.x}" y2="${b}" stroke-width="${LW}"/>`).join('');
+    s+=pieces+`<line class="hit" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;       // hit area is the FULL line
     if(e.anchor===null) s+=`<rect class="handle" data-end="1" x="${x1-7}" y="${y1-7}" width="14" height="14"/><rect class="handle" data-end="2" x="${x2-7}" y="${y2-7}" width="14" height="14"/>`; }  // endpoints draggable only when FREE
   return s+'</g>';
 }
@@ -183,15 +230,15 @@ function render(){
     + `<g id="grid">${grid}</g>` + `<g id="ents">${e}</g>`
     + `<rect id="boxsel" fill="#3a86ff" fill-opacity="0.12" stroke="#3a86ff" stroke-dasharray="6 4" visibility="hidden"/>`;
   elMap={}; for(const g of cv.querySelectorAll('.ent')) elMap[g.dataset.id]=g; boxEl=cv.querySelector('#boxsel');
-  updateMode();
+  updateMode(); persist();                                   // autosave every committed state to localStorage
 }
 function updateMode(){
   const m = msg?`<br><span class="msg">${msg}</span>`:'';
   if(target){
     modeEl.innerHTML = `<b>ANCHORING → ${target}</b> (blue) · left-click or box-drag entities to attach (green) · click green to detach`
       + `<br>dimmed = already anchored, or its ancestors (would cycle) · <b>Esc</b> or right-click <b>${target}</b> to finish` + m;
-  } else modeEl.innerHTML = `<b>EDIT</b> · left-click = select (yellow) · drag blue = move (X free, Y snaps) · <b>right-click</b> = ANCHOR`
-    + `<br><b>Pack</b>: 2+ same-row roots · <b>Busbar</b>: parent + children · <b>Marriage</b>: 2 same-row tiles · +H/+V lines · Delete removes selected lines`
+  } else modeEl.innerHTML = `<b>EDIT</b> · left-click = select (yellow) · <b>shift</b>+drag blue = move (X free, Y snaps) · <b>right-click</b> = ANCHOR`
+    + `<br><b>Pack</b>: 2+ same-row roots · <b>Busbar</b>: parent + children · <b>Marriage</b>: 2 same-row tiles · <b>+Hop</b>: gap on a line · +H/+V lines · Delete removes lines`
     + (selSet.size===1?` · <b style="color:#ffd23a">1 selected — edit coords ↘</b>`:selSet.size?` · <b style="color:#ffd23a">${selSet.size} selected</b>`:'') + m;
   updateCoordPanel();
 }
@@ -205,11 +252,33 @@ function updateCoordPanel(){
   const fields = e.type==='tile' ? f('x','x',e.x)+f('row','row',e.y/PITCH)
                : e.type==='hseg' ? f('y','y',e.y)+f('x1','x1',e.x1)+f('x2','x2',e.x2)
                :                   f('x','x',e.x)+f('y1','y1',e.y1)+f('y2','y2',e.y2);
+  let hopHtml='';                                            // lines can carry hops (editable even when anchored)
+  if(e.type!=='tile'){ const axis=e.type==='hseg'?'x':'y', hs=e.hops||[];
+    hopHtml=`<br><span class="t">hops (${axis}):</span> `
+      + hs.map((h,i)=>`<input data-hk="${i}" type="number" step="1" value="${Math.round(h)}"><button data-rm="${i}">×</button>`).join('')
+      + `<button data-addhop="1">+ hop</button>`; }
   coordEl.innerHTML=`<b>${e.id}</b> <span class="t">${e.type}</span>`
-    + (locked?` <span class="lock">⚓ ${e.anchor} (read-only)</span>`:'') + `<br>${fields}`;
-  if(!locked) for(const inp of coordEl.querySelectorAll('input'))
+    + (locked?` <span class="lock">⚓ ${e.anchor} (read-only)</span>`:'') + `<br>${fields}${hopHtml}`;
+  if(!locked) for(const inp of coordEl.querySelectorAll('input[data-k]'))
     inp.addEventListener('change',ev=>applyCoord(e.id, ev.target.dataset.k, ev.target.value));
+  for(const inp of coordEl.querySelectorAll('input[data-hk]'))
+    inp.addEventListener('change',ev=>applyHop(e.id, +ev.target.dataset.hk, ev.target.value));
+  for(const b of coordEl.querySelectorAll('button[data-rm]'))
+    b.addEventListener('click',()=>removeHop(e.id, +b.dataset.rm));
+  const ab=coordEl.querySelector('button[data-addhop]'); if(ab) ab.addEventListener('click',addHop);
 }
+function applyHop(id,i,raw){ const e=ents[id]; if(!e||e.type==='tile'||!e.hops) return;
+  const v=parseFloat(raw), [lo,hi]=lineRange(e);
+  if(isNaN(v)||v<lo||v>hi){ msg=`Hop centre must be within [${Math.round(lo)}, ${Math.round(hi)}].`; render(); return; }
+  e.hops[i]=v; e.hops.sort((a,b)=>a-b); render(); }
+function removeHop(id,i){ const e=ents[id]; if(!e||!e.hops) return; e.hops.splice(i,1); render(); }
+function addHop(){ const ids=[...selSet], e=ids.length===1?ents[ids[0]]:null;       // prompt for a hop centre on the one selected line
+  if(!e||e.type==='tile'){ msg='Select exactly one line to add a hop.'; render(); return; }
+  const [lo,hi]=lineRange(e), axis=e.type==='hseg'?'x':'y';
+  const raw=prompt(`Hop centre (${axis}, between ${Math.round(lo)} and ${Math.round(hi)}):`); if(raw===null) return;
+  const v=parseFloat(raw);
+  if(isNaN(v)||v<lo||v>hi){ msg=`Hop centre must be a number within [${Math.round(lo)}, ${Math.round(hi)}].`; render(); return; }
+  (e.hops=e.hops||[]).push(v); e.hops.sort((a,b)=>a-b); msg=`Hop added at ${axis}=${Math.round(v)} on ${e.id}.`; render(); }
 function applyCoord(id,key,raw){
   const e=ents[id]; if(!e || e.anchor!==null) return;        // never edit an anchored entity
   const v=parseFloat(raw); if(isNaN(v)) return;
@@ -230,10 +299,10 @@ cv.addEventListener('mousedown',e=>{
   if(target){ const[ux,uy]=userXY(e); drag={kind:'box',id,sx:e.clientX,sy:e.clientY,ux,uy}; e.preventDefault(); return; }  // ANCHORING: drag = box-select
   if(!id){ if(selSet.size){selSet.clear();} render(); return; }   // empty click: clear selection
   const handle=e.target.closest('.handle');
-  if(handle && isFree(id)){ drag={kind:'resize',id,end:handle.dataset.end,sx:e.clientX,sy:e.clientY,start:{...ents[id]}}; e.preventDefault(); return; }  // anchored line endpoints can't be dragged
-  if(isFree(id)){ const ids=[id,...subtree(id)]; const start={}; for(const m of ids)start[m]={...ents[m]};
+  if(e.shiftKey && handle && isFree(id)){ drag={kind:'resize',id,end:handle.dataset.end,sx:e.clientX,sy:e.clientY,start:{...ents[id]}}; e.preventDefault(); return; }  // SHIFT+drag a free endpoint to reshape
+  if(e.shiftKey && isFree(id)){ const ids=[id,...subtree(id)]; const start={}; for(const m of ids)start[m]={...ents[m]};   // SHIFT+drag a free entity = move it + its anchored subtree
     drag={kind:'move',id,ids,sx:e.clientX,sy:e.clientY,start}; }
-  else drag={kind:'noop',id,sx:e.clientX,sy:e.clientY};
+  else drag={kind:'noop',id,sx:e.clientX,sy:e.clientY};                 // no SHIFT (or anchored): click to select, never move
   e.preventDefault();
 });
 window.addEventListener('mousemove',e=>{
@@ -356,6 +425,15 @@ function drawMarriage(){
   selSet.clear(); msg=`Marriage line: ${a} — ${b}.`; render();
 }
 
+// ---- Top stub: a 64px vertical line standing on the centre of one tile's TOP edge, anchored to it ----
+function spawnTopStub(){
+  const sel=[...selSet].filter(id=>ents[id]&&ents[id].type==='tile');
+  if(sel.length!==1){ msg='Top stub needs exactly one tile selected.'; render(); return; }
+  const t=ents[sel[0]], cx=t.x+CW/2, id='seg'+(++segN);
+  ents[id]={id,type:'vseg',anchor:t.id,x:cx,y1:t.y-32,y2:t.y};   // bottom endpoint at top-edge centre; 32 tall; grows up; anchored
+  selSet.clear(); msg=`Top stub (32px) above ${t.id}, anchored to it.`; render();
+}
+
 function vc(){ return [(wrap.scrollLeft+wrap.clientWidth/2)/scale,(wrap.scrollTop+wrap.clientHeight/2)/scale]; }
 document.getElementById('addH').onclick=()=>{ const[cx,cy]=vc(),id='seg'+(++segN);
   ents[id]={id,type:'hseg',anchor:null,y:snapHY(cy),x1:cx-CW,x2:cx+CW}; render(); };
@@ -365,6 +443,8 @@ document.getElementById('addV').onclick=()=>{ const[cx,cy]=vc(),id='seg'+(++segN
 document.getElementById('pack').onclick=packSubtrees;
 document.getElementById('bus').onclick=drawBusbar;
 document.getElementById('mar').onclick=drawMarriage;
+document.getElementById('stub').onclick=spawnTopStub;
+document.getElementById('hop').onclick=addHop;
 document.getElementById('del').onclick=delLines;
 document.getElementById('zi').onclick=()=>{scale=Math.min(2,scale*1.25);render();};
 document.getElementById('zo').onclick=()=>{scale=Math.max(0.05,scale/1.25);render();};
@@ -372,11 +452,14 @@ document.getElementById('save').onclick=()=>{
   let y='# semi-manual positions. each entity has an optional anchor (one max). px coords; tiles also row.\n';
   y+=`cell: {w: ${CW}, h: ${CH}, pitch: ${PITCH}}\nentities:\n`;
   for(const id in ents){ const e=ents[id], a=e.anchor||'~';
-    let geo = e.type==='tile' ? `x: ${Math.round(e.x)}, row: ${Math.round(e.y/PITCH)}`
+    let geo = e.type==='tile' ? `x: ${Math.round(e.x)}, row: ${Math.round(e.y/PITCH)}, name: ${JSON.stringify(e.name)}, color: ${e.color||'~'}`
             : e.type==='hseg' ? `y: ${Math.round(e.y)}, x1: ${Math.round(e.x1)}, x2: ${Math.round(e.x2)}`
             :                   `x: ${Math.round(e.x)}, y1: ${Math.round(e.y1)}, y2: ${Math.round(e.y2)}`;
+    if(e.hops && e.hops.length) geo += `, hops: [${e.hops.map(h=>Math.round(h)).join(', ')}]`;
     y+=`  ${JSON.stringify(id)}: {type: ${e.type}, anchor: ${a}, ${geo}}\n`; }
   const b=new Blob([y],{type:'text/yaml'}), a=document.createElement('a');
   a.href=URL.createObjectURL(b); a.download='positions.yaml'; a.click();
 };
+document.getElementById('reset').onclick=()=>{                // drop manual edits, reload the baked seed
+  if(confirm('Discard all manual edits and reset to the seed layout?')){ localStorage.removeItem(LS_KEY); location.reload(); } };
 </script></body></html>"""

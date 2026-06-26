@@ -4,28 +4,44 @@
 
 orientation: rtl          # rtl = senior/primary on the RIGHT (classical reading); ltr = mirror off
 
+# named fill / text colour PAIRS. A person's `color:` in data/shiji.yaml is a KEY into
+# this dict (not a hex value); the renderer looks it up for both fill and text.
+colors:
+  tile:    {fill: "#f5f5f5", text: "#1a1a1a"}   # default tile (people with no color key)
+  wudi:    {fill: "#D4AF37", text: "#1a1a1a"}   # 五帝  Five Emperors — gold
+  xia:     {fill: "#639283", text: "#1a1a1a"}   # 夏    Xia — green
+  shang:   {fill: "#8B1E1E", text: "#f7f3ea"}   # 殷/商 Shang — dark red
+  zhou:    {fill: "#6E4B9E", text: "#f7f3ea"}   # 周    Zhou — purple
+  qin:     {fill: "#1c1c1c", text: "#f7f3ea"}   # 秦    Qin — near-black
+  han:     {fill: "#D9776F", text: "#1a1a1a"}   # 漢    Han — salmon
+  lu:      {fill: "#E3A155", text: "#1a1a1a"}   # 呂    Lü clan — orange
+  chu:     {fill: "#6B8E23", text: "#f7f3ea"}   # 西楚霸王 Chu / Xiang Yu — olive
+
 layout:
-  char_box: 36            # px per stacked character
-  tile_pad: 9             # tile_w = char_box + 2*pad = 54
-  h_gap: 54               # = one tile width: min horizontal gap (siblings / husband-wife / wife-wife)
-  v_gap: 108              # = two tile widths: gap-cells are 54x108 (height = 2x width)
+  # --- tile PRIMITIVES: edit these; everything else derives ---
+  tile_width: 64          # px tile width == min horizontal gap between tiles
+  tile_height: 308        # px tile height (fixed; must fit the longest stacked name)
+  line_width: 1.6         # px stroke of lineage / marriage lines
+  border_width: 1.5       # px stroke of a tile border
+  line_hop_length: 10     # px gap a line-hop cuts where one line crosses another
+  # derived automatically: h_gap = tile_width (64), v_gap = 2*tile_width (128),
+  #   char pitch = font_size*1.2, lineage/marriage widths = line_width, tile border = border_width,
+  #   marriage color = lineage color. font_size is set under `style`.
   margin: 70
   tile_radius: 8
 
 style:
-  background: "#f7f3ea"
-  default_fill: "#fffdf7"
+  background: "#000000"
+  # tile fill + text colours live under `colors:` (as pairs); background stays here.
   tile_stroke: "#3a3a3a"
   tile_stroke_width: 1.5
-  text_color: "#1a1a1a"
-  text_light: "#f7f3ea"         # text color used on dark-fill tiles (auto-picked by contrast)
-  font_family: "Songti SC, STSong, Noto Serif CJK SC, PingFang SC, serif"
-  font_size: 30
-  lineage_stroke: "#5b5b5b"     # solid: parent -> child
+  font_family: "Songti SC, STSong, Noto Serif CJK SC, SimSun, PingFang SC, Microsoft YaHei, serif"
+  font_size: 32
+  lineage_stroke: "#f5f5f5"     # solid: parent -> child
   lineage_width: 1.6
-  marriage_stroke: "#9a6b4a"    # solid: husband -- wife
+  marriage_stroke: "#f5f5f5"    # solid: husband -- wife
   marriage_width: 1.6
-  secondary_stroke: "#a23b3b"   # dashed: married-in daughter -> father
+  secondary_stroke: "#f5f5f5"   # dashed: married-in daughter -> father
   secondary_width: 1.4
   secondary_dash: "5 4"
   highlight_stroke: "#e8462a"   # transient outline for newly-added (under-review) tiles

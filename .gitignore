@@ -3,3 +3,7 @@ __pycache__/
 *.png
 .DS_Store
 CLAUDE.md
+scratch/
+node_modules/
+.vscode
+*__pycache__
