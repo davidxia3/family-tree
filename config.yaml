@@ -4,18 +4,19 @@
 
 orientation: rtl          # rtl = senior/primary on the RIGHT (classical reading); ltr = mirror off
 
-# named fill / text colour PAIRS. A person's `color:` in data/shiji.yaml is a KEY into
+# named fill / text colour PAIRS. A tile's `color` in positions.yaml is a KEY into
 # this dict (not a hex value); the renderer looks it up for both fill and text.
 colors:
-  tile:    {fill: "#f5f5f5", text: "#1a1a1a"}   # default tile (people with no color key)
-  wudi:    {fill: "#D4AF37", text: "#1a1a1a"}   # 五帝  Five Emperors — gold
-  xia:     {fill: "#639283", text: "#1a1a1a"}   # 夏    Xia — green
-  shang:   {fill: "#8B1E1E", text: "#f7f3ea"}   # 殷/商 Shang — dark red
-  zhou:    {fill: "#6E4B9E", text: "#f7f3ea"}   # 周    Zhou — purple
-  qin:     {fill: "#1c1c1c", text: "#f7f3ea"}   # 秦    Qin — near-black
-  han:     {fill: "#D9776F", text: "#1a1a1a"}   # 漢    Han — salmon
-  lu:      {fill: "#E3A155", text: "#1a1a1a"}   # 呂    Lü clan — orange
-  chu:     {fill: "#6B8E23", text: "#f7f3ea"}   # 西楚霸王 Chu / Xiang Yu — olive
+  tile:      {fill: "#f5f5f5", text: "#1a1a1a"}   # default tile (no color key)
+  wudi:      {fill: "#D4AF37", text: "#1a1a1a"}   # 五帝  Five Emperors — gold
+  xia:       {fill: "#639283", text: "#1a1a1a"}   # 夏    Xia — green
+  shang:     {fill: "#8B1E1E", text: "#f7f3ea"}   # 殷/商 Shang — dark red
+  zhou:      {fill: "#6E4B9E", text: "#f7f3ea"}   # 周    Zhou — purple
+  qin:       {fill: "#1c1c1c", text: "#f7f3ea"}   # 秦    Qin — near-black
+  han:       {fill: "#D9776F", text: "#1a1a1a"}   # 漢    Han — salmon
+  lu:        {fill: "#E3A155", text: "#1a1a1a"}   # 呂    Lü clan — orange
+  chu:       {fill: "#6B8E23", text: "#f7f3ea"}   # 西楚霸王 Chu / Xiang Yu — olive
+  redorange: {fill: "#E2552A", text: "#f7f3ea"}   # reddish-orange
 
 layout:
   # --- tile PRIMITIVES: edit these; everything else derives ---

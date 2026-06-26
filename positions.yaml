@@ -1,401 +1,349 @@
 # semi-manual positions. each entity has an optional anchor (one max). px coords; tiles also row.
 cell: {w: 64, h: 308, pitch: 436}
 entities:
-  "seg1": {type: hseg, anchor: 衛長公主, y: 25878, x1: 6836, x2: 6900}
-  "seg10": {type: vseg, anchor: 漢孝景帝, x: 6804, y1: 25224, y2: 25288}
-  "seg100": {type: vseg, anchor: 呂悼武王, x: 9108, y1: 24352, y2: 24416}
-  "seg101": {type: vseg, anchor: 呂悼武王, x: 9236, y1: 24352, y2: 24416}
-  "seg102": {type: vseg, anchor: 楚王劉藝, x: 4884, y1: 24724, y2: 24852}
-  "seg103": {type: hseg, anchor: 楚元王, y: 24352, x1: 4756, x2: 4884}
-  "seg104": {type: vseg, anchor: 楚元王, x: 4820, y1: 24288, y2: 24352}
-  "seg105": {type: vseg, anchor: 楚元王, x: 4756, y1: 24352, y2: 24416}
-  "seg106": {type: vseg, anchor: 楚元王, x: 4884, y1: 24352, y2: 24416}
-  "seg107": {type: vseg, anchor: 代頃王, x: 9364, y1: 24288, y2: 24416}
-  "seg108": {type: vseg, anchor: 扶柳侯呂平, x: 4948, y1: 23948, y2: 23980}
-  "seg109": {type: vseg, anchor: 臨光侯呂媭, x: 5076, y1: 23948, y2: 23980}
-  "seg11": {type: vseg, anchor: 漢孝景帝, x: 6932, y1: 25224, y2: 25288}
-  "seg110": {type: vseg, anchor: 呂悼武王, x: 9172, y1: 23948, y2: 23980}
-  "seg111": {type: vseg, anchor: 建成侯呂釋之, x: 8916, y1: 23948, y2: 23980}
-  "seg112": {type: hseg, anchor: 扶柳侯呂平, y: 23948, x1: 4948, x2: 9172, hops: [6900]}
-  "seg113": {type: hseg, anchor: 漢太上皇, y: 23916, x1: 4820, x2: 9364}
-  "seg114": {type: vseg, anchor: 漢太上皇, x: 7092, y1: 23852, y2: 23916}
-  "seg115": {type: vseg, anchor: 漢太上皇, x: 4820, y1: 23916, y2: 23980}
-  "seg116": {type: vseg, anchor: 漢太上皇, x: 6900, y1: 23916, y2: 23980}
-  "seg117": {type: vseg, anchor: 漢太上皇, x: 9364, y1: 23916, y2: 23980}
-  "seg118": {type: hseg, anchor: 漢太上皇, y: 23698, x1: 6996, x2: 7060}
-  "seg119": {type: vseg, anchor: 劉累, x: 4692, y1: 7348, y2: 23980}
-  "seg12": {type: vseg, anchor: 漢孝景帝, x: 7060, y1: 25224, y2: 25288}
-  "seg120": {type: vseg, anchor: 劉累, x: 7092, y1: 7348, y2: 23544}
-  "seg121": {type: hseg, anchor: 劉累, y: 7348, x1: 4692, x2: 7092}
-  "seg122": {type: vseg, anchor: 劉累, x: 5892, y1: 7284, y2: 7348}
-  "seg123": {type: hseg, anchor: 帝堯, y: 2988, x1: 5892, x2: 6020}
-  "seg124": {type: vseg, anchor: 帝堯, x: 5956, y1: 2924, y2: 2988}
-  "seg125": {type: vseg, anchor: 帝堯, x: 5892, y1: 2988, y2: 6976}
-  "seg126": {type: vseg, anchor: 帝堯, x: 6020, y1: 2988, y2: 3052}
-  "seg127": {type: vseg, anchor: 周赧王, x: 4116, y1: 22980, y2: 23108}
-  "seg128": {type: vseg, anchor: 周慎靚王, x: 4116, y1: 22544, y2: 22672}
-  "seg129": {type: vseg, anchor: 周顯王, x: 4116, y1: 22108, y2: 22236}
-  "seg13": {type: vseg, anchor: 漢孝景帝, x: 7188, y1: 25224, y2: 25288}
-  "seg130": {type: hseg, anchor: 周安王, y: 21736, x1: 4116, x2: 4244}
-  "seg131": {type: vseg, anchor: 周安王, x: 4180, y1: 21672, y2: 21736}
-  "seg132": {type: vseg, anchor: 周安王, x: 4116, y1: 21736, y2: 21800}
-  "seg133": {type: vseg, anchor: 周安王, x: 4244, y1: 21736, y2: 21800}
-  "seg134": {type: vseg, anchor: 周威烈王, x: 4180, y1: 21236, y2: 21364}
-  "seg135": {type: vseg, anchor: 周考王, x: 4180, y1: 20800, y2: 20928}
-  "seg136": {type: hseg, anchor: 西周威公, y: 21300, x1: 3924, x2: 4052}
-  "seg137": {type: vseg, anchor: 西周威公, x: 3988, y1: 21236, y2: 21300}
-  "seg138": {type: vseg, anchor: 西周威公, x: 3924, y1: 21300, y2: 21364}
-  "seg139": {type: vseg, anchor: 西周威公, x: 4052, y1: 21300, y2: 21364}
-  "seg14": {type: hseg, anchor: 漢孝景帝, y: 25006, x1: 6580, x2: 6644}
-  "seg140": {type: vseg, anchor: 西周桓公, x: 3988, y1: 20800, y2: 20928}
-  "seg141": {type: hseg, anchor: 周定王-2, y: 20428, x1: 3988, x2: 4436}
-  "seg142": {type: vseg, anchor: 周定王-2, x: 4212, y1: 20364, y2: 20428}
-  "seg143": {type: vseg, anchor: 周定王-2, x: 3988, y1: 20428, y2: 20492}
-  "seg144": {type: vseg, anchor: 周定王-2, x: 4180, y1: 20428, y2: 20492}
-  "seg145": {type: vseg, anchor: 周定王-2, x: 4308, y1: 20428, y2: 20492}
-  "seg146": {type: vseg, anchor: 周定王-2, x: 4436, y1: 20428, y2: 20492}
-  "seg147": {type: vseg, anchor: 周元王, x: 4212, y1: 19928, y2: 20056}
-  "seg148": {type: vseg, anchor: 周敬王, x: 4212, y1: 19492, y2: 19620}
-  "seg149": {type: hseg, anchor: 周景王, y: 19120, x1: 4212, x2: 4596}
-  "seg15": {type: hseg, anchor: 漢孝文帝, y: 24788, x1: 6164, x2: 6676}
-  "seg150": {type: vseg, anchor: 周景王, x: 4404, y1: 19056, y2: 19120}
-  "seg151": {type: vseg, anchor: 周景王, x: 4212, y1: 19120, y2: 19184}
-  "seg152": {type: vseg, anchor: 周景王, x: 4340, y1: 19120, y2: 19184}
-  "seg153": {type: vseg, anchor: 周景王, x: 4468, y1: 19120, y2: 19184}
-  "seg154": {type: vseg, anchor: 周景王, x: 4596, y1: 19120, y2: 19184}
-  "seg155": {type: vseg, anchor: 周靈王, x: 4404, y1: 18620, y2: 18748}
-  "seg156": {type: vseg, anchor: 周簡王, x: 4404, y1: 18184, y2: 18312}
-  "seg157": {type: vseg, anchor: 周定王-1, x: 4404, y1: 17748, y2: 17876}
-  "seg158": {type: hseg, anchor: 周頃王, y: 17376, x1: 4404, x2: 4532}
-  "seg159": {type: vseg, anchor: 周頃王, x: 4468, y1: 17312, y2: 17376}
-  "seg16": {type: vseg, anchor: 漢孝文帝, x: 6420, y1: 24724, y2: 24788}
-  "seg160": {type: vseg, anchor: 周頃王, x: 4404, y1: 17376, y2: 17440}
-  "seg161": {type: vseg, anchor: 周頃王, x: 4532, y1: 17376, y2: 17440}
-  "seg162": {type: vseg, anchor: 周襄王, x: 4468, y1: 16876, y2: 17004}
-  "seg164": {type: hseg, anchor: 周惠王, y: 16504, x1: 4340, x2: 4468}
-  "seg165": {type: vseg, anchor: 周惠王, x: 4404, y1: 16440, y2: 16504}
-  "seg166": {type: vseg, anchor: 周惠王, x: 4340, y1: 16504, y2: 16568}
-  "seg167": {type: vseg, anchor: 周惠王, x: 4468, y1: 16504, y2: 16568}
-  "seg168": {type: vseg, anchor: 周釐王, x: 4404, y1: 16004, y2: 16132}
-  "seg169": {type: hseg, anchor: 周莊王, y: 15632, x1: 4276, x2: 4404}
-  "seg17": {type: vseg, anchor: 漢孝文帝, x: 6164, y1: 24788, y2: 24852}
-  "seg170": {type: vseg, anchor: 周莊王, x: 4340, y1: 15568, y2: 15632}
-  "seg171": {type: vseg, anchor: 周莊王, x: 4276, y1: 15632, y2: 15696}
-  "seg172": {type: vseg, anchor: 周莊王, x: 4404, y1: 15632, y2: 15696}
-  "seg173": {type: hseg, anchor: 姚, y: 15414, x1: 4244, x2: 4308}
-  "seg174": {type: hseg, anchor: 周桓王, y: 15196, x1: 4084, x2: 4340}
-  "seg175": {type: vseg, anchor: 周桓王, x: 4212, y1: 15132, y2: 15196}
-  "seg176": {type: vseg, anchor: 周桓王, x: 4084, y1: 15196, y2: 15260}
-  "seg177": {type: vseg, anchor: 周桓王, x: 4340, y1: 15196, y2: 15260}
-  "seg178": {type: vseg, anchor: 周子洩父, x: 4212, y1: 14696, y2: 14824}
-  "seg179": {type: vseg, anchor: 周平王, x: 4212, y1: 14260, y2: 14388}
-  "seg18": {type: vseg, anchor: 漢孝文帝, x: 6292, y1: 24788, y2: 24852}
-  "seg180": {type: hseg, anchor: 周幽王, y: 13888, x1: 4084, x2: 4212}
-  "seg181": {type: vseg, anchor: 周幽王, x: 4148, y1: 13824, y2: 13888}
-  "seg182": {type: vseg, anchor: 周幽王, x: 4084, y1: 13888, y2: 13952}
-  "seg183": {type: vseg, anchor: 周幽王, x: 4212, y1: 13888, y2: 13952}
-  "seg184": {type: hseg, anchor: 周幽王, y: 13670, x1: 4052, x2: 4116}
-  "seg185": {type: vseg, anchor: 周宣王, x: 4148, y1: 13388, y2: 13516}
-  "seg186": {type: vseg, anchor: 周厲王, x: 4148, y1: 12952, y2: 13080}
-  "seg187": {type: vseg, anchor: 周夷王, x: 4148, y1: 12516, y2: 12644}
-  "seg188": {type: vseg, anchor: 周懿王, x: 4148, y1: 12080, y2: 12208}
-  "seg189": {type: vseg, anchor: 周共王, x: 4148, y1: 11644, y2: 11772}
-  "seg19": {type: vseg, anchor: 漢孝文帝, x: 6420, y1: 24788, y2: 24852}
-  "seg190": {type: hseg, anchor: 周穆王, y: 11272, x1: 4020, x2: 4148}
-  "seg191": {type: vseg, anchor: 周穆王, x: 4084, y1: 11208, y2: 11272}
-  "seg192": {type: vseg, anchor: 周穆王, x: 4020, y1: 11272, y2: 11336}
-  "seg193": {type: vseg, anchor: 周穆王, x: 4148, y1: 11272, y2: 11336}
-  "seg194": {type: vseg, anchor: 周昭王, x: 4084, y1: 10772, y2: 10900}
-  "seg195": {type: vseg, anchor: 周康王, x: 4084, y1: 10336, y2: 10464}
-  "seg196": {type: vseg, anchor: 周成王, x: 4084, y1: 9900, y2: 10028}
-  "seg197": {type: vseg, anchor: 周武王, x: 4084, y1: 9464, y2: 9592}
-  "seg198": {type: hseg, anchor: 周文王, y: 9092, x1: 2932, x2: 4084}
-  "seg199": {type: vseg, anchor: 周文王, x: 3508, y1: 9028, y2: 9092}
-  "seg2": {type: vseg, anchor: 漢孝武帝, x: 6804, y1: 25596, y2: 25724}
-  "seg20": {type: vseg, anchor: 漢孝文帝, x: 6676, y1: 24788, y2: 24852}
-  "seg200": {type: vseg, anchor: 周文王, x: 2932, y1: 9092, y2: 9156}
-  "seg201": {type: vseg, anchor: 周文王, x: 3060, y1: 9092, y2: 9156}
-  "seg202": {type: vseg, anchor: 周文王, x: 3188, y1: 9092, y2: 9156}
-  "seg203": {type: vseg, anchor: 周文王, x: 3316, y1: 9092, y2: 9156}
-  "seg204": {type: vseg, anchor: 周文王, x: 3444, y1: 9092, y2: 9156}
-  "seg205": {type: vseg, anchor: 周文王, x: 3572, y1: 9092, y2: 9156}
-  "seg206": {type: vseg, anchor: 周文王, x: 3700, y1: 9092, y2: 9156}
-  "seg207": {type: vseg, anchor: 周文王, x: 3828, y1: 9092, y2: 9156}
-  "seg208": {type: vseg, anchor: 周文王, x: 3956, y1: 9092, y2: 9156}
-  "seg209": {type: vseg, anchor: 周文王, x: 4084, y1: 9092, y2: 9156}
-  "seg21": {type: vseg, anchor: 王太后, x: 6548, y1: 24820, y2: 24852}
-  "seg210": {type: vseg, anchor: 季歷, x: 3508, y1: 8592, y2: 8720}
-  "seg211": {type: hseg, anchor: 季歷, y: 8438, x1: 3412, x2: 3476}
-  "seg212": {type: hseg, anchor: 古公亶父, y: 8220, x1: 3508, x2: 3764}
-  "seg213": {type: vseg, anchor: 古公亶父, x: 3636, y1: 8156, y2: 8220}
-  "seg214": {type: vseg, anchor: 古公亶父, x: 3508, y1: 8220, y2: 8284}
-  "seg215": {type: vseg, anchor: 古公亶父, x: 3636, y1: 8220, y2: 8284}
-  "seg216": {type: vseg, anchor: 古公亶父, x: 3764, y1: 8220, y2: 8284}
-  "seg217": {type: hseg, anchor: 古公亶父, y: 8002, x1: 3540, x2: 3604}
-  "seg218": {type: vseg, anchor: 公叔祖類, x: 3636, y1: 7720, y2: 7848}
-  "seg219": {type: vseg, anchor: 亞圉, x: 3636, y1: 7284, y2: 7412}
-  "seg22": {type: vseg, anchor: 武安侯王蚡, x: 6036, y1: 24820, y2: 24852}
-  "seg220": {type: vseg, anchor: 高圉, x: 3636, y1: 6848, y2: 6976}
-  "seg221": {type: vseg, anchor: 公非, x: 3636, y1: 6412, y2: 6540}
-  "seg222": {type: vseg, anchor: 毀隃, x: 3636, y1: 5976, y2: 6104}
-  "seg223": {type: vseg, anchor: 差弗, x: 3636, y1: 5540, y2: 5668}
-  "seg224": {type: vseg, anchor: 皇僕, x: 3636, y1: 5104, y2: 5232}
-  "seg225": {type: vseg, anchor: 慶節, x: 3636, y1: 4668, y2: 4796}
-  "seg226": {type: vseg, anchor: 公劉, x: 3636, y1: 4232, y2: 4360}
-  "seg227": {type: vseg, anchor: 鞠, x: 3636, y1: 3796, y2: 3924}
-  "seg228": {type: vseg, anchor: 不窋, x: 3636, y1: 3360, y2: 3488}
-  "seg229": {type: vseg, anchor: 后稷, x: 3636, y1: 2924, y2: 3052}
-  "seg23": {type: vseg, anchor: 周陽侯王勝, x: 5908, y1: 24820, y2: 24852}
-  "seg230": {type: vseg, anchor: 殷紂, x: 2292, y1: 15568, y2: 15696}
-  "seg231": {type: hseg, anchor: 殷乙, y: 15196, x1: 2292, x2: 2420}
-  "seg232": {type: vseg, anchor: 殷乙, x: 2356, y1: 15132, y2: 15196}
-  "seg233": {type: vseg, anchor: 殷乙, x: 2292, y1: 15196, y2: 15260}
-  "seg234": {type: vseg, anchor: 殷乙, x: 2420, y1: 15196, y2: 15260}
-  "seg235": {type: hseg, anchor: 殷太丁, y: 14760, x1: 2100, x2: 2356}
-  "seg236": {type: vseg, anchor: 殷太丁, x: 2228, y1: 14696, y2: 14760}
-  "seg237": {type: vseg, anchor: 殷太丁, x: 2100, y1: 14760, y2: 14824}
-  "seg238": {type: vseg, anchor: 殷太丁, x: 2228, y1: 14760, y2: 14824}
-  "seg239": {type: vseg, anchor: 殷太丁, x: 2356, y1: 14760, y2: 14824}
-  "seg24": {type: hseg, anchor: 漢孝文帝, y: 24820, x1: 5908, x2: 6548, hops: [6164, 6292, 6420]}
-  "seg240": {type: vseg, anchor: 殷武乙, x: 2228, y1: 14260, y2: 14388}
-  "seg241": {type: vseg, anchor: 殷庚丁, x: 2228, y1: 13824, y2: 13952}
-  "seg242": {type: hseg, anchor: 殷甲, y: 13452, x1: 2228, x2: 2356}
-  "seg243": {type: vseg, anchor: 殷甲, x: 2292, y1: 13388, y2: 13452}
-  "seg244": {type: vseg, anchor: 殷甲, x: 2228, y1: 13452, y2: 13516}
-  "seg245": {type: vseg, anchor: 殷甲, x: 2356, y1: 13452, y2: 13516}
-  "seg246": {type: hseg, anchor: 殷武丁, y: 13016, x1: 2292, x2: 2420}
-  "seg247": {type: vseg, anchor: 殷武丁, x: 2356, y1: 12952, y2: 13016}
-  "seg248": {type: vseg, anchor: 殷武丁, x: 2292, y1: 13016, y2: 13080}
-  "seg249": {type: vseg, anchor: 殷武丁, x: 2420, y1: 13016, y2: 13080}
-  "seg25": {type: hseg, anchor: 漢孝文帝, y: 24570, x1: 6324, x2: 6388}
-  "seg250": {type: vseg, anchor: 殷小乙, x: 2356, y1: 12516, y2: 12644}
-  "seg251": {type: hseg, anchor: 殷祖丁, y: 12144, x1: 2356, x2: 2740}
-  "seg252": {type: vseg, anchor: 殷祖丁, x: 2548, y1: 12080, y2: 12144}
-  "seg253": {type: vseg, anchor: 殷祖丁, x: 2356, y1: 12144, y2: 12208}
-  "seg254": {type: vseg, anchor: 殷祖丁, x: 2484, y1: 12144, y2: 12208}
-  "seg255": {type: vseg, anchor: 殷祖丁, x: 2612, y1: 12144, y2: 12208}
-  "seg256": {type: vseg, anchor: 殷祖丁, x: 2740, y1: 12144, y2: 12208}
-  "seg257": {type: vseg, anchor: 殷祖辛, x: 2548, y1: 11644, y2: 11772}
-  "seg258": {type: vseg, anchor: 殷沃甲, x: 2420, y1: 11644, y2: 11772}
-  "seg259": {type: hseg, anchor: 殷祖乙, y: 11272, x1: 2420, x2: 2548}
-  "seg26": {type: hseg, anchor: 漢孝文帝, y: 24570, x1: 6196, x2: 6260}
-  "seg260": {type: vseg, anchor: 殷祖乙, x: 2484, y1: 11208, y2: 11272}
-  "seg261": {type: vseg, anchor: 殷祖乙, x: 2420, y1: 11272, y2: 11336}
-  "seg262": {type: vseg, anchor: 殷祖乙, x: 2548, y1: 11272, y2: 11336}
-  "seg263": {type: vseg, anchor: 殷河亶甲, x: 2484, y1: 10772, y2: 10900}
-  "seg264": {type: hseg, anchor: 殷太戊, y: 10400, x1: 2484, x2: 2740}
-  "seg265": {type: vseg, anchor: 殷太戊, x: 2612, y1: 10336, y2: 10400}
-  "seg266": {type: vseg, anchor: 殷太戊, x: 2484, y1: 10400, y2: 10464}
-  "seg267": {type: vseg, anchor: 殷太戊, x: 2612, y1: 10400, y2: 10464}
-  "seg268": {type: vseg, anchor: 殷太戊, x: 2740, y1: 10400, y2: 10464}
-  "seg269": {type: hseg, anchor: 殷太庚, y: 9964, x1: 2612, x2: 2868}
-  "seg27": {type: hseg, anchor: 趙幽王, y: 24788, x1: 5652, x2: 5780}
-  "seg270": {type: vseg, anchor: 殷太庚, x: 2740, y1: 9900, y2: 9964}
-  "seg271": {type: vseg, anchor: 殷太庚, x: 2612, y1: 9964, y2: 10028}
-  "seg272": {type: vseg, anchor: 殷太庚, x: 2740, y1: 9964, y2: 10028}
-  "seg273": {type: vseg, anchor: 殷太庚, x: 2868, y1: 9964, y2: 10028}
-  "seg274": {type: hseg, anchor: 殷太甲, y: 9528, x1: 2740, x2: 2868}
-  "seg275": {type: vseg, anchor: 殷太甲, x: 2804, y1: 9464, y2: 9528}
-  "seg276": {type: vseg, anchor: 殷太甲, x: 2740, y1: 9528, y2: 9592}
-  "seg277": {type: vseg, anchor: 殷太甲, x: 2868, y1: 9528, y2: 9592}
-  "seg278": {type: vseg, anchor: 殷子太丁, x: 2804, y1: 9028, y2: 9156}
-  "seg279": {type: hseg, anchor: 殷湯, y: 8656, x1: 2548, x2: 2804}
-  "seg28": {type: vseg, anchor: 趙幽王, x: 5716, y1: 24724, y2: 24788}
-  "seg280": {type: vseg, anchor: 殷湯, x: 2676, y1: 8592, y2: 8656}
-  "seg281": {type: vseg, anchor: 殷湯, x: 2548, y1: 8656, y2: 8720}
-  "seg282": {type: vseg, anchor: 殷湯, x: 2676, y1: 8656, y2: 8720}
-  "seg283": {type: vseg, anchor: 殷湯, x: 2804, y1: 8656, y2: 8720}
-  "seg284": {type: vseg, anchor: 主癸, x: 2676, y1: 8156, y2: 8284}
-  "seg285": {type: vseg, anchor: 主壬, x: 2676, y1: 7720, y2: 7848}
-  "seg286": {type: vseg, anchor: 報丙, x: 2676, y1: 7284, y2: 7412}
-  "seg287": {type: vseg, anchor: 報乙, x: 2676, y1: 6848, y2: 6976}
-  "seg288": {type: vseg, anchor: 報丁, x: 2676, y1: 6412, y2: 6540}
-  "seg289": {type: vseg, anchor: 微, x: 2676, y1: 5976, y2: 6104}
-  "seg29": {type: vseg, anchor: 趙幽王, x: 5652, y1: 24788, y2: 24852}
-  "seg290": {type: vseg, anchor: 振, x: 2676, y1: 5540, y2: 5668}
-  "seg291": {type: vseg, anchor: 冥, x: 2676, y1: 5104, y2: 5232}
-  "seg292": {type: vseg, anchor: 曹圉, x: 2676, y1: 4668, y2: 4796}
-  "seg293": {type: vseg, anchor: 昌若, x: 2676, y1: 4232, y2: 4360}
-  "seg294": {type: vseg, anchor: 相土, x: 2676, y1: 3796, y2: 3924}
-  "seg295": {type: vseg, anchor: 昭明, x: 2676, y1: 3360, y2: 3488}
-  "seg296": {type: vseg, anchor: 契, x: 2676, y1: 2924, y2: 3052}
-  "seg297": {type: hseg, anchor: 帝嚳, y: 2552, x1: 2676, x2: 5956}
-  "seg298": {type: vseg, anchor: 帝嚳, x: 4316, y1: 2488, y2: 2552}
-  "seg299": {type: vseg, anchor: 帝嚳, x: 2676, y1: 2552, y2: 2616}
-  "seg3": {type: hseg, anchor: 漢孝景帝, y: 25224, x1: 6164, x2: 7188}
-  "seg30": {type: vseg, anchor: 趙幽王, x: 5780, y1: 24788, y2: 24852}
-  "seg300": {type: vseg, anchor: 帝嚳, x: 3636, y1: 2552, y2: 2616}
-  "seg301": {type: vseg, anchor: 帝嚳, x: 5828, y1: 2552, y2: 2616}
-  "seg302": {type: vseg, anchor: 帝嚳, x: 5956, y1: 2552, y2: 2616}
-  "seg303": {type: hseg, anchor: 帝嚳, y: 2334, x1: 4220, x2: 4284}
-  "seg304": {type: hseg, anchor: 帝嚳, y: 2334, x1: 4092, x2: 4156}
-  "seg305": {type: vseg, anchor: 蟜極, x: 4316, y1: 2052, y2: 2180}
-  "seg306": {type: vseg, anchor: 玄囂, x: 4316, y1: 1616, y2: 1744}
-  "seg307": {type: vseg, anchor: 秦公子扶蘇, x: 1844, y1: 23416, y2: 23544}
-  "seg308": {type: hseg, anchor: 秦始皇帝, y: 23044, x1: 1716, x2: 1844}
-  "seg309": {type: vseg, anchor: 秦始皇帝, x: 1780, y1: 22980, y2: 23044}
-  "seg31": {type: hseg, anchor: 淮南厲王, y: 24788, x1: 5268, x2: 5524}
-  "seg310": {type: vseg, anchor: 秦始皇帝, x: 1716, y1: 23044, y2: 23108}
-  "seg311": {type: vseg, anchor: 秦始皇帝, x: 1844, y1: 23044, y2: 23108}
-  "seg312": {type: hseg, anchor: 秦莊襄王, y: 22608, x1: 1652, x2: 1780}
-  "seg313": {type: vseg, anchor: 秦莊襄王, x: 1716, y1: 22544, y2: 22608}
-  "seg314": {type: vseg, anchor: 秦莊襄王, x: 1652, y1: 22608, y2: 22672}
-  "seg315": {type: vseg, anchor: 秦莊襄王, x: 1780, y1: 22608, y2: 22672}
-  "seg316": {type: hseg, anchor: 秦莊襄王, y: 22390, x1: 1620, x2: 1684}
-  "seg317": {type: vseg, anchor: 秦孝文王, x: 1716, y1: 22108, y2: 22236}
-  "seg318": {type: hseg, anchor: 秦孝文王, y: 21954, x1: 1620, x2: 1684}
-  "seg319": {type: hseg, anchor: 秦孝文王, y: 21954, x1: 1492, x2: 1556}
-  "seg32": {type: vseg, anchor: 淮南厲王, x: 5396, y1: 24724, y2: 24788}
-  "seg320": {type: vseg, anchor: 秦昭襄王, x: 1716, y1: 21672, y2: 21800}
-  "seg321": {type: hseg, anchor: 秦昭襄王, y: 21518, x1: 1620, x2: 1684}
-  "seg322": {type: hseg, anchor: 秦惠文王, y: 21300, x1: 1716, x2: 1844}
-  "seg323": {type: vseg, anchor: 秦惠文王, x: 1780, y1: 21236, y2: 21300}
-  "seg324": {type: vseg, anchor: 秦惠文王, x: 1716, y1: 21300, y2: 21364}
-  "seg325": {type: vseg, anchor: 秦惠文王, x: 1844, y1: 21300, y2: 21364}
-  "seg326": {type: hseg, anchor: 秦惠文王, y: 21082, x1: 1684, x2: 1748}
-  "seg327": {type: vseg, anchor: 秦孝公, x: 1780, y1: 20800, y2: 20928}
-  "seg328": {type: vseg, anchor: 秦獻公, x: 1780, y1: 20364, y2: 20492}
-  "seg329": {type: vseg, anchor: 秦靈公, x: 1780, y1: 19928, y2: 20056}
-  "seg33": {type: vseg, anchor: 淮南厲王, x: 5268, y1: 24788, y2: 24852}
-  "seg330": {type: vseg, anchor: 秦子昭, x: 1780, y1: 19492, y2: 19620}
-  "seg331": {type: vseg, anchor: 秦惠公-2, x: 1652, y1: 19928, y2: 20056}
-  "seg332": {type: vseg, anchor: 秦簡公, x: 1652, y1: 19492, y2: 19620}
-  "seg333": {type: hseg, anchor: 秦懷公, y: 19120, x1: 1652, x2: 1780}
-  "seg334": {type: vseg, anchor: 秦懷公, x: 1716, y1: 19056, y2: 19120}
-  "seg335": {type: vseg, anchor: 秦懷公, x: 1652, y1: 19120, y2: 19184}
-  "seg336": {type: vseg, anchor: 秦懷公, x: 1780, y1: 19120, y2: 19184}
-  "seg337": {type: hseg, anchor: 秦厲共公, y: 18684, x1: 1716, x2: 1844}
-  "seg338": {type: vseg, anchor: 秦厲共公, x: 1780, y1: 18620, y2: 18684}
-  "seg339": {type: vseg, anchor: 秦厲共公, x: 1716, y1: 18684, y2: 18748}
-  "seg34": {type: vseg, anchor: 淮南厲王, x: 5396, y1: 24788, y2: 24852}
-  "seg340": {type: vseg, anchor: 秦厲共公, x: 1844, y1: 18684, y2: 18748}
-  "seg341": {type: vseg, anchor: 秦悼公, x: 1780, y1: 18184, y2: 18312}
-  "seg342": {type: vseg, anchor: 秦惠公-1, x: 1780, y1: 17748, y2: 17876}
-  "seg343": {type: vseg, anchor: 秦子夷公, x: 1780, y1: 17312, y2: 17440}
-  "seg344": {type: vseg, anchor: 秦哀公, x: 1780, y1: 16876, y2: 17004}
-  "seg345": {type: vseg, anchor: 秦景公, x: 1780, y1: 16440, y2: 16568}
-  "seg346": {type: hseg, anchor: 秦桓公, y: 16068, x1: 1652, x2: 1780}
-  "seg347": {type: vseg, anchor: 秦桓公, x: 1716, y1: 16004, y2: 16068}
-  "seg348": {type: vseg, anchor: 秦桓公, x: 1652, y1: 16068, y2: 16132}
-  "seg349": {type: vseg, anchor: 秦桓公, x: 1780, y1: 16068, y2: 16132}
-  "seg35": {type: vseg, anchor: 淮南厲王, x: 5524, y1: 24788, y2: 24852}
-  "seg350": {type: vseg, anchor: 秦共公, x: 1716, y1: 15568, y2: 15696}
-  "seg351": {type: vseg, anchor: 秦康公, x: 1716, y1: 15132, y2: 15260}
-  "seg352": {type: vseg, anchor: 秦繆公, x: 1716, y1: 14696, y2: 14824}
-  "seg353": {type: hseg, anchor: 秦德公, y: 14324, x1: 1716, x2: 1972}
-  "seg354": {type: vseg, anchor: 秦德公, x: 1844, y1: 14260, y2: 14324}
-  "seg355": {type: vseg, anchor: 秦德公, x: 1716, y1: 14324, y2: 14388}
-  "seg356": {type: vseg, anchor: 秦德公, x: 1844, y1: 14324, y2: 14388}
-  "seg357": {type: vseg, anchor: 秦德公, x: 1972, y1: 14324, y2: 14388}
-  "seg358": {type: vseg, anchor: 秦武公, x: 2100, y1: 14260, y2: 14388}
-  "seg359": {type: hseg, anchor: 秦憲公, y: 13888, x1: 1716, x2: 2100}
-  "seg36": {type: hseg, anchor: 宣平侯張敖, y: 24788, x1: 6804, x2: 7060}
-  "seg360": {type: vseg, anchor: 秦憲公, x: 1908, y1: 13824, y2: 13888}
-  "seg361": {type: vseg, anchor: 秦憲公, x: 1716, y1: 13888, y2: 13952}
-  "seg362": {type: vseg, anchor: 秦憲公, x: 1844, y1: 13888, y2: 13952}
-  "seg363": {type: vseg, anchor: 秦憲公, x: 2100, y1: 13888, y2: 13952}
-  "seg364": {type: vseg, anchor: 秦竫公, x: 1908, y1: 13388, y2: 13516}
-  "seg365": {type: vseg, anchor: 秦文公, x: 1908, y1: 12952, y2: 13080}
-  "seg366": {type: vseg, anchor: 秦襄公, x: 1908, y1: 12516, y2: 12644}
-  "seg367": {type: hseg, anchor: 繆嬴, y: 12362, x1: 1684, x2: 1748}
-  "seg368": {type: hseg, anchor: 秦莊公, y: 12144, x1: 1652, x2: 2036}
-  "seg369": {type: vseg, anchor: 秦莊公, x: 1844, y1: 12080, y2: 12144}
-  "seg37": {type: vseg, anchor: 宣平侯張敖, x: 6932, y1: 24724, y2: 24788}
-  "seg370": {type: vseg, anchor: 秦莊公, x: 1652, y1: 12144, y2: 12208}
-  "seg371": {type: vseg, anchor: 秦莊公, x: 1908, y1: 12144, y2: 12208}
-  "seg372": {type: vseg, anchor: 秦莊公, x: 2036, y1: 12144, y2: 12208}
-  "seg373": {type: vseg, anchor: 秦仲, x: 1844, y1: 11644, y2: 11772}
-  "seg374": {type: vseg, anchor: 秦公伯, x: 1844, y1: 11208, y2: 11336}
-  "seg375": {type: vseg, anchor: 秦侯, x: 1844, y1: 10772, y2: 10900}
-  "seg376": {type: vseg, anchor: 秦嬴, x: 1844, y1: 10336, y2: 10464}
-  "seg377": {type: hseg, anchor: 大駱, y: 9964, x1: 1844, x2: 1972}
-  "seg378": {type: vseg, anchor: 大駱, x: 1908, y1: 9900, y2: 9964}
-  "seg379": {type: vseg, anchor: 大駱, x: 1844, y1: 9964, y2: 10028}
-  "seg38": {type: vseg, anchor: 宣平侯張敖, x: 6804, y1: 24788, y2: 24852}
-  "seg380": {type: vseg, anchor: 大駱, x: 1972, y1: 9964, y2: 10028}
-  "seg381": {type: vseg, anchor: 太幾, x: 1908, y1: 9464, y2: 9592}
-  "seg382": {type: vseg, anchor: 旁皋, x: 1908, y1: 9028, y2: 9156}
-  "seg383": {type: vseg, anchor: 女防, x: 1908, y1: 8592, y2: 8720}
-  "seg384": {type: vseg, anchor: 惡來, x: 1908, y1: 8156, y2: 8284}
-  "seg385": {type: vseg, anchor: 造父, x: 1780, y1: 9464, y2: 9592}
-  "seg386": {type: vseg, anchor: 衡父, x: 1780, y1: 9028, y2: 9156}
-  "seg387": {type: vseg, anchor: 孟增, x: 1780, y1: 8592, y2: 8720}
-  "seg388": {type: vseg, anchor: 季勝, x: 1780, y1: 8156, y2: 8284}
-  "seg389": {type: hseg, anchor: 蜚廉, y: 7784, x1: 1780, x2: 1908}
-  "seg39": {type: vseg, anchor: 宣平侯張敖, x: 6932, y1: 24788, y2: 24852}
-  "seg390": {type: vseg, anchor: 蜚廉, x: 1844, y1: 7720, y2: 7784}
-  "seg391": {type: vseg, anchor: 蜚廉, x: 1780, y1: 7784, y2: 7848}
-  "seg392": {type: vseg, anchor: 蜚廉, x: 1908, y1: 7784, y2: 7848}
-  "seg393": {type: vseg, anchor: 中潏, x: 1844, y1: 7284, y2: 7412}
-  "seg394": {type: vseg, anchor: 中衍, x: 1844, y1: 5540, y2: 6976}
-  "seg398": {type: vseg, anchor: 大廉, x: 1844, y1: 3860, y2: 5232}
-  "seg4": {type: vseg, anchor: 漢孝景帝, x: 6676, y1: 25160, y2: 25224}
-  "seg40": {type: vseg, anchor: 宣平侯張敖, x: 7060, y1: 24384, y2: 24852}
-  "seg400": {type: vseg, anchor: 大廉, x: 1972, y1: 3860, y2: 5232}
-  "seg401": {type: vseg, anchor: 大廉, x: 1908, y1: 3796, y2: 3860}
-  "seg403": {type: hseg, anchor: 大廉, y: 3860, x1: 1844, x2: 1972}
-  "seg404": {type: vseg, anchor: 若木, x: 1716, y1: 3796, y2: 5232}
-  "seg405": {type: hseg, anchor: 柏翳, y: 3424, x1: 1716, x2: 1908}
-  "seg406": {type: vseg, anchor: 柏翳, x: 1812, y1: 3360, y2: 3424}
-  "seg407": {type: vseg, anchor: 柏翳, x: 1716, y1: 3424, y2: 3488}
-  "seg408": {type: vseg, anchor: 柏翳, x: 1908, y1: 3424, y2: 3488}
-  "seg409": {type: vseg, anchor: 大業, x: 1812, y1: 2924, y2: 3052}
-  "seg41": {type: hseg, anchor: 魯元公主, y: 24570, x1: 6836, x2: 6900}
-  "seg410": {type: hseg, anchor: 大業, y: 2770, x1: 1716, x2: 1780}
-  "seg411": {type: vseg, anchor: 女修, x: 1812, y1: 2488, y2: 2616}
-  "seg412": {type: vseg, anchor: 帝舜, x: 2484, y1: 4668, y2: 4796}
-  "seg413": {type: hseg, anchor: 瞽叟, y: 4296, x1: 2356, x2: 2484}
-  "seg414": {type: vseg, anchor: 瞽叟, x: 2420, y1: 4232, y2: 4296}
-  "seg415": {type: vseg, anchor: 瞽叟, x: 2356, y1: 4296, y2: 4360}
-  "seg416": {type: vseg, anchor: 瞽叟, x: 2484, y1: 4296, y2: 4360}
-  "seg417": {type: vseg, anchor: 橋牛, x: 2420, y1: 3796, y2: 3924}
-  "seg418": {type: vseg, anchor: 句望, x: 2420, y1: 3360, y2: 3488}
-  "seg419": {type: vseg, anchor: 敬康, x: 2420, y1: 2924, y2: 3052}
-  "seg42": {type: vseg, anchor: 漢後少帝, x: 7572, y1: 25160, y2: 25288}
-  "seg420": {type: vseg, anchor: 窮蟬, x: 2420, y1: 2488, y2: 2616}
-  "seg421": {type: vseg, anchor: 夏發, x: 2164, y1: 8156, y2: 8284}
-  "seg422": {type: vseg, anchor: 夏皋, x: 2164, y1: 7720, y2: 7848}
-  "seg423": {type: vseg, anchor: 夏孔甲, x: 2164, y1: 7284, y2: 7412}
-  "seg424": {type: vseg, anchor: 夏不降, x: 2164, y1: 6848, y2: 6976}
-  "seg425": {type: vseg, anchor: 夏扃, x: 2036, y1: 6848, y2: 6976}
-  "seg426": {type: hseg, anchor: 夏泄, y: 6476, x1: 2036, x2: 2164}
-  "seg427": {type: vseg, anchor: 夏泄, x: 2100, y1: 6412, y2: 6476}
-  "seg428": {type: vseg, anchor: 夏泄, x: 2036, y1: 6476, y2: 6540}
-  "seg429": {type: vseg, anchor: 夏泄, x: 2164, y1: 6476, y2: 6540}
-  "seg43": {type: hseg, anchor: 漢孝惠帝, y: 24788, x1: 7188, x2: 7956}
-  "seg430": {type: vseg, anchor: 夏芒, x: 2100, y1: 5976, y2: 6104}
-  "seg431": {type: vseg, anchor: 夏槐, x: 2100, y1: 5540, y2: 5668}
-  "seg432": {type: vseg, anchor: 夏予, x: 2100, y1: 5104, y2: 5232}
-  "seg433": {type: vseg, anchor: 夏少康, x: 2100, y1: 4668, y2: 4796}
-  "seg434": {type: vseg, anchor: 夏相, x: 2100, y1: 4232, y2: 4360}
-  "seg435": {type: vseg, anchor: 夏中康, x: 2100, y1: 3796, y2: 3924}
-  "seg436": {type: hseg, anchor: 夏啟, y: 3424, x1: 2100, x2: 2228}
-  "seg437": {type: vseg, anchor: 夏啟, x: 2164, y1: 3360, y2: 3424}
-  "seg438": {type: vseg, anchor: 夏啟, x: 2100, y1: 3424, y2: 3488}
-  "seg439": {type: vseg, anchor: 夏啟, x: 2228, y1: 3424, y2: 3488}
-  "seg44": {type: vseg, anchor: 漢孝惠帝, x: 7572, y1: 24724, y2: 24788}
-  "seg440": {type: vseg, anchor: 夏禹, x: 2164, y1: 2924, y2: 3052}
-  "seg441": {type: vseg, anchor: 鯀, x: 2164, y1: 2488, y2: 2616}
-  "seg442": {type: hseg, anchor: 帝顓頊, y: 2116, x1: 1812, x2: 2420}
-  "seg443": {type: vseg, anchor: 帝顓頊, x: 2116, y1: 2052, y2: 2116}
-  "seg444": {type: vseg, anchor: 帝顓頊, x: 1812, y1: 2116, y2: 2180}
-  "seg445": {type: vseg, anchor: 帝顓頊, x: 2164, y1: 2116, y2: 2180}
-  "seg446": {type: vseg, anchor: 帝顓頊, x: 2292, y1: 2116, y2: 2180}
-  "seg447": {type: vseg, anchor: 帝顓頊, x: 2420, y1: 2116, y2: 2180}
-  "seg448": {type: vseg, anchor: 昌意, x: 2116, y1: 1616, y2: 1744}
-  "seg449": {type: hseg, anchor: 昌意, y: 1462, x1: 2020, x2: 2084}
-  "seg45": {type: vseg, anchor: 漢孝惠帝, x: 7188, y1: 24788, y2: 24852}
-  "seg450": {type: hseg, anchor: 黃帝, y: 1244, x1: 1860, x2: 4316}
-  "seg451": {type: vseg, anchor: 黃帝, x: 3088, y1: 1180, y2: 1244}
-  "seg452": {type: vseg, anchor: 黃帝, x: 1860, y1: 1244, y2: 1308}
-  "seg453": {type: vseg, anchor: 黃帝, x: 2116, y1: 1244, y2: 1308}
-  "seg454": {type: vseg, anchor: 黃帝, x: 4316, y1: 1244, y2: 1308}
-  "seg455": {type: hseg, anchor: 黃帝, y: 1026, x1: 2992, x2: 3056}
-  "seg456": {type: vseg, anchor: 少典, x: 3088, y1: 808, y2: 872}
-  "seg457": {type: vseg, anchor: 少典, x: 1684, y1: 808, y2: 2616}
-  "seg458": {type: hseg, anchor: 少典, y: 808, x1: 1684, x2: 3088}
-  "seg459": {type: vseg, anchor: 少典, x: 2386, y1: 744, y2: 808}
-  "seg46": {type: vseg, anchor: 漢孝惠帝, x: 7316, y1: 24788, y2: 24852}
+  "seg1": {type: hseg, anchor: 衛長公主, y: 26314, x1: 6622, x2: 6686}
+  "seg10": {type: vseg, anchor: 漢孝景帝, x: 6590, y1: 25660, y2: 25724}
+  "seg100": {type: vseg, anchor: 呂悼武王, x: 8894, y1: 24788, y2: 24852}
+  "seg101": {type: vseg, anchor: 呂悼武王, x: 9022, y1: 24788, y2: 24852}
+  "seg102": {type: vseg, anchor: 楚王劉藝, x: 4670, y1: 25160, y2: 25288}
+  "seg103": {type: hseg, anchor: 楚元王, y: 24788, x1: 4542, x2: 4670}
+  "seg104": {type: vseg, anchor: 楚元王, x: 4606, y1: 24724, y2: 24788}
+  "seg105": {type: vseg, anchor: 楚元王, x: 4542, y1: 24788, y2: 24852}
+  "seg106": {type: vseg, anchor: 楚元王, x: 4670, y1: 24788, y2: 24852}
+  "seg107": {type: vseg, anchor: 代頃王, x: 9150, y1: 24724, y2: 24852}
+  "seg108": {type: vseg, anchor: 扶柳侯呂平, x: 4734, y1: 24384, y2: 24416}
+  "seg109": {type: vseg, anchor: 臨光侯呂媭, x: 4862, y1: 24384, y2: 24416}
+  "seg11": {type: vseg, anchor: 漢孝景帝, x: 6718, y1: 25660, y2: 25724}
+  "seg110": {type: vseg, anchor: 呂悼武王, x: 8958, y1: 24384, y2: 24416}
+  "seg111": {type: vseg, anchor: 建成侯呂釋之, x: 8702, y1: 24384, y2: 24416}
+  "seg112": {type: hseg, anchor: 扶柳侯呂平, y: 24384, x1: 4734, x2: 8958, hops: [6686]}
+  "seg113": {type: hseg, anchor: 漢太上皇, y: 24352, x1: 4606, x2: 9150}
+  "seg114": {type: vseg, anchor: 漢太上皇, x: 6878, y1: 24288, y2: 24352}
+  "seg115": {type: vseg, anchor: 漢太上皇, x: 4606, y1: 24352, y2: 24416}
+  "seg116": {type: vseg, anchor: 漢太上皇, x: 6686, y1: 24352, y2: 24416}
+  "seg117": {type: vseg, anchor: 漢太上皇, x: 9150, y1: 24352, y2: 24416}
+  "seg118": {type: hseg, anchor: 漢太上皇, y: 24134, x1: 6782, x2: 6846}
+  "seg119": {type: vseg, anchor: 劉累, x: 4478, y1: 7784, y2: 24416}
+  "seg12": {type: vseg, anchor: 漢孝景帝, x: 6846, y1: 25660, y2: 25724}
+  "seg120": {type: vseg, anchor: 劉累, x: 6878, y1: 7784, y2: 23980}
+  "seg121": {type: hseg, anchor: 劉累, y: 7784, x1: 4478, x2: 6878}
+  "seg122": {type: vseg, anchor: 劉累, x: 5678, y1: 7720, y2: 7784}
+  "seg123": {type: hseg, anchor: 帝堯, y: 3424, x1: 5678, x2: 5806}
+  "seg124": {type: vseg, anchor: 帝堯, x: 5742, y1: 3360, y2: 3424}
+  "seg125": {type: vseg, anchor: 帝堯, x: 5678, y1: 3424, y2: 7412}
+  "seg126": {type: vseg, anchor: 帝堯, x: 5806, y1: 3424, y2: 3488}
+  "seg127": {type: vseg, anchor: 周赧王, x: 3902, y1: 23416, y2: 23544}
+  "seg128": {type: vseg, anchor: 周慎靚王, x: 3902, y1: 22980, y2: 23108}
+  "seg129": {type: vseg, anchor: 周顯王, x: 3902, y1: 22544, y2: 22672}
+  "seg13": {type: vseg, anchor: 漢孝景帝, x: 6974, y1: 25660, y2: 25724}
+  "seg130": {type: hseg, anchor: 周安王, y: 22172, x1: 3902, x2: 4030}
+  "seg131": {type: vseg, anchor: 周安王, x: 3966, y1: 22108, y2: 22172}
+  "seg132": {type: vseg, anchor: 周安王, x: 3902, y1: 22172, y2: 22236}
+  "seg133": {type: vseg, anchor: 周安王, x: 4030, y1: 22172, y2: 22236}
+  "seg134": {type: vseg, anchor: 周威烈王, x: 3966, y1: 21672, y2: 21800}
+  "seg135": {type: vseg, anchor: 周考王, x: 3966, y1: 21236, y2: 21364}
+  "seg136": {type: hseg, anchor: 西周威公, y: 21736, x1: 3710, x2: 3838}
+  "seg137": {type: vseg, anchor: 西周威公, x: 3774, y1: 21672, y2: 21736}
+  "seg138": {type: vseg, anchor: 西周威公, x: 3710, y1: 21736, y2: 21800}
+  "seg139": {type: vseg, anchor: 西周威公, x: 3838, y1: 21736, y2: 21800}
+  "seg14": {type: hseg, anchor: 漢孝景帝, y: 25442, x1: 6366, x2: 6430}
+  "seg140": {type: vseg, anchor: 西周桓公, x: 3774, y1: 21236, y2: 21364}
+  "seg141": {type: hseg, anchor: 周定王-2, y: 20864, x1: 3774, x2: 4222}
+  "seg142": {type: vseg, anchor: 周定王-2, x: 3998, y1: 20800, y2: 20864}
+  "seg143": {type: vseg, anchor: 周定王-2, x: 3774, y1: 20864, y2: 20928}
+  "seg144": {type: vseg, anchor: 周定王-2, x: 3966, y1: 20864, y2: 20928}
+  "seg145": {type: vseg, anchor: 周定王-2, x: 4094, y1: 20864, y2: 20928}
+  "seg146": {type: vseg, anchor: 周定王-2, x: 4222, y1: 20864, y2: 20928}
+  "seg147": {type: vseg, anchor: 周元王, x: 3998, y1: 20364, y2: 20492}
+  "seg148": {type: vseg, anchor: 周敬王, x: 3998, y1: 19928, y2: 20056}
+  "seg149": {type: hseg, anchor: 周景王, y: 19556, x1: 3998, x2: 4382}
+  "seg15": {type: hseg, anchor: 漢孝文帝, y: 25224, x1: 5950, x2: 6462}
+  "seg150": {type: vseg, anchor: 周景王, x: 4190, y1: 19492, y2: 19556}
+  "seg151": {type: vseg, anchor: 周景王, x: 3998, y1: 19556, y2: 19620}
+  "seg152": {type: vseg, anchor: 周景王, x: 4126, y1: 19556, y2: 19620}
+  "seg153": {type: vseg, anchor: 周景王, x: 4254, y1: 19556, y2: 19620}
+  "seg154": {type: vseg, anchor: 周景王, x: 4382, y1: 19556, y2: 19620}
+  "seg155": {type: vseg, anchor: 周靈王, x: 4190, y1: 19056, y2: 19184}
+  "seg156": {type: vseg, anchor: 周簡王, x: 4190, y1: 18620, y2: 18748}
+  "seg157": {type: vseg, anchor: 周定王-1, x: 4190, y1: 18184, y2: 18312}
+  "seg158": {type: hseg, anchor: 周頃王, y: 17812, x1: 4190, x2: 4318}
+  "seg159": {type: vseg, anchor: 周頃王, x: 4254, y1: 17748, y2: 17812}
+  "seg16": {type: vseg, anchor: 漢孝文帝, x: 6206, y1: 25160, y2: 25224}
+  "seg160": {type: vseg, anchor: 周頃王, x: 4190, y1: 17812, y2: 17876}
+  "seg161": {type: vseg, anchor: 周頃王, x: 4318, y1: 17812, y2: 17876}
+  "seg162": {type: vseg, anchor: 周襄王, x: 4254, y1: 17312, y2: 17440}
+  "seg164": {type: hseg, anchor: 周惠王, y: 16940, x1: 4126, x2: 4254}
+  "seg165": {type: vseg, anchor: 周惠王, x: 4190, y1: 16876, y2: 16940}
+  "seg166": {type: vseg, anchor: 周惠王, x: 4126, y1: 16940, y2: 17004}
+  "seg167": {type: vseg, anchor: 周惠王, x: 4254, y1: 16940, y2: 17004}
+  "seg168": {type: vseg, anchor: 周釐王, x: 4190, y1: 16440, y2: 16568}
+  "seg169": {type: hseg, anchor: 周莊王, y: 16068, x1: 4062, x2: 4190}
+  "seg17": {type: vseg, anchor: 漢孝文帝, x: 5950, y1: 25224, y2: 25288}
+  "seg170": {type: vseg, anchor: 周莊王, x: 4126, y1: 16004, y2: 16068}
+  "seg171": {type: vseg, anchor: 周莊王, x: 4062, y1: 16068, y2: 16132}
+  "seg172": {type: vseg, anchor: 周莊王, x: 4190, y1: 16068, y2: 16132}
+  "seg173": {type: hseg, anchor: 姚, y: 15850, x1: 4030, x2: 4094}
+  "seg174": {type: hseg, anchor: 周桓王, y: 15632, x1: 3870, x2: 4126}
+  "seg175": {type: vseg, anchor: 周桓王, x: 3998, y1: 15568, y2: 15632}
+  "seg176": {type: vseg, anchor: 周桓王, x: 3870, y1: 15632, y2: 15696}
+  "seg177": {type: vseg, anchor: 周桓王, x: 4126, y1: 15632, y2: 15696}
+  "seg178": {type: vseg, anchor: 周子洩父, x: 3998, y1: 15132, y2: 15260}
+  "seg179": {type: vseg, anchor: 周平王, x: 3998, y1: 14696, y2: 14824}
+  "seg18": {type: vseg, anchor: 漢孝文帝, x: 6078, y1: 25224, y2: 25288}
+  "seg180": {type: hseg, anchor: 周幽王, y: 14324, x1: 3870, x2: 3998}
+  "seg181": {type: vseg, anchor: 周幽王, x: 3934, y1: 14260, y2: 14324}
+  "seg182": {type: vseg, anchor: 周幽王, x: 3870, y1: 14324, y2: 14388}
+  "seg183": {type: vseg, anchor: 周幽王, x: 3998, y1: 14324, y2: 14388}
+  "seg184": {type: hseg, anchor: 周幽王, y: 14106, x1: 3838, x2: 3902}
+  "seg185": {type: vseg, anchor: 周宣王, x: 3934, y1: 13824, y2: 13952}
+  "seg186": {type: vseg, anchor: 周厲王, x: 3934, y1: 13388, y2: 13516}
+  "seg187": {type: vseg, anchor: 周夷王, x: 3934, y1: 12952, y2: 13080}
+  "seg188": {type: vseg, anchor: 周懿王, x: 3934, y1: 12516, y2: 12644}
+  "seg189": {type: vseg, anchor: 周共王, x: 3934, y1: 12080, y2: 12208}
+  "seg19": {type: vseg, anchor: 漢孝文帝, x: 6206, y1: 25224, y2: 25288}
+  "seg190": {type: hseg, anchor: 周穆王, y: 11708, x1: 3806, x2: 3934}
+  "seg191": {type: vseg, anchor: 周穆王, x: 3870, y1: 11644, y2: 11708}
+  "seg192": {type: vseg, anchor: 周穆王, x: 3806, y1: 11708, y2: 11772}
+  "seg193": {type: vseg, anchor: 周穆王, x: 3934, y1: 11708, y2: 11772}
+  "seg194": {type: vseg, anchor: 周昭王, x: 3870, y1: 11208, y2: 11336}
+  "seg195": {type: vseg, anchor: 周康王, x: 3870, y1: 10772, y2: 10900}
+  "seg196": {type: vseg, anchor: 周成王, x: 3870, y1: 10336, y2: 10464}
+  "seg197": {type: vseg, anchor: 周武王, x: 3870, y1: 9900, y2: 10028}
+  "seg2": {type: vseg, anchor: 漢孝武帝, x: 6590, y1: 26032, y2: 26160}
+  "seg20": {type: vseg, anchor: 漢孝文帝, x: 6462, y1: 25224, y2: 25288}
+  "seg21": {type: vseg, anchor: 王太后, x: 6334, y1: 25256, y2: 25288}
+  "seg22": {type: vseg, anchor: 武安侯王蚡, x: 5822, y1: 25256, y2: 25288}
+  "seg23": {type: vseg, anchor: 周陽侯王勝, x: 5694, y1: 25256, y2: 25288}
+  "seg230": {type: vseg, anchor: 殷紂, x: 1918, y1: 16004, y2: 16132}
+  "seg231": {type: hseg, anchor: 殷乙, y: 15632, x1: 1918, x2: 2046}
+  "seg232": {type: vseg, anchor: 殷乙, x: 1982, y1: 15568, y2: 15632}
+  "seg233": {type: vseg, anchor: 殷乙, x: 1918, y1: 15632, y2: 15696}
+  "seg234": {type: vseg, anchor: 殷乙, x: 2046, y1: 15632, y2: 15696}
+  "seg235": {type: hseg, anchor: 殷太丁, y: 15196, x1: 1726, x2: 1982}
+  "seg236": {type: vseg, anchor: 殷太丁, x: 1854, y1: 15132, y2: 15196}
+  "seg237": {type: vseg, anchor: 殷太丁, x: 1726, y1: 15196, y2: 15260}
+  "seg238": {type: vseg, anchor: 殷太丁, x: 1854, y1: 15196, y2: 15260}
+  "seg239": {type: vseg, anchor: 殷太丁, x: 1982, y1: 15196, y2: 15260}
+  "seg24": {type: hseg, anchor: 漢孝文帝, y: 25256, x1: 5694, x2: 6334, hops: [5950, 6078, 6206]}
+  "seg240": {type: vseg, anchor: 殷武乙, x: 1854, y1: 14696, y2: 14824}
+  "seg241": {type: vseg, anchor: 殷庚丁, x: 1854, y1: 14260, y2: 14388}
+  "seg242": {type: hseg, anchor: 殷甲, y: 13888, x1: 1854, x2: 1982}
+  "seg243": {type: vseg, anchor: 殷甲, x: 1918, y1: 13824, y2: 13888}
+  "seg244": {type: vseg, anchor: 殷甲, x: 1854, y1: 13888, y2: 13952}
+  "seg245": {type: vseg, anchor: 殷甲, x: 1982, y1: 13888, y2: 13952}
+  "seg246": {type: hseg, anchor: 殷武丁, y: 13452, x1: 1918, x2: 2046}
+  "seg247": {type: vseg, anchor: 殷武丁, x: 1982, y1: 13388, y2: 13452}
+  "seg248": {type: vseg, anchor: 殷武丁, x: 1918, y1: 13452, y2: 13516}
+  "seg249": {type: vseg, anchor: 殷武丁, x: 2046, y1: 13452, y2: 13516}
+  "seg25": {type: hseg, anchor: 漢孝文帝, y: 25006, x1: 6110, x2: 6174}
+  "seg250": {type: vseg, anchor: 殷小乙, x: 1982, y1: 12952, y2: 13080}
+  "seg251": {type: hseg, anchor: 殷祖丁, y: 12580, x1: 1982, x2: 2366}
+  "seg252": {type: vseg, anchor: 殷祖丁, x: 2174, y1: 12516, y2: 12580}
+  "seg253": {type: vseg, anchor: 殷祖丁, x: 1982, y1: 12580, y2: 12644}
+  "seg254": {type: vseg, anchor: 殷祖丁, x: 2110, y1: 12580, y2: 12644}
+  "seg255": {type: vseg, anchor: 殷祖丁, x: 2238, y1: 12580, y2: 12644}
+  "seg256": {type: vseg, anchor: 殷祖丁, x: 2366, y1: 12580, y2: 12644}
+  "seg257": {type: vseg, anchor: 殷祖辛, x: 2174, y1: 12080, y2: 12208}
+  "seg258": {type: vseg, anchor: 殷沃甲, x: 2046, y1: 12080, y2: 12208}
+  "seg259": {type: hseg, anchor: 殷祖乙, y: 11708, x1: 2046, x2: 2174}
+  "seg26": {type: hseg, anchor: 漢孝文帝, y: 25006, x1: 5982, x2: 6046}
+  "seg260": {type: vseg, anchor: 殷祖乙, x: 2110, y1: 11644, y2: 11708}
+  "seg261": {type: vseg, anchor: 殷祖乙, x: 2046, y1: 11708, y2: 11772}
+  "seg262": {type: vseg, anchor: 殷祖乙, x: 2174, y1: 11708, y2: 11772}
+  "seg263": {type: vseg, anchor: 殷河亶甲, x: 2110, y1: 11208, y2: 11336}
+  "seg264": {type: hseg, anchor: 殷太戊, y: 10836, x1: 2110, x2: 2366}
+  "seg265": {type: vseg, anchor: 殷太戊, x: 2238, y1: 10772, y2: 10836}
+  "seg266": {type: vseg, anchor: 殷太戊, x: 2110, y1: 10836, y2: 10900}
+  "seg267": {type: vseg, anchor: 殷太戊, x: 2238, y1: 10836, y2: 10900}
+  "seg268": {type: vseg, anchor: 殷太戊, x: 2366, y1: 10836, y2: 10900}
+  "seg269": {type: hseg, anchor: 殷太庚, y: 10400, x1: 2238, x2: 2494}
+  "seg27": {type: hseg, anchor: 趙幽王, y: 25224, x1: 5438, x2: 5566}
+  "seg270": {type: vseg, anchor: 殷太庚, x: 2366, y1: 10336, y2: 10400}
+  "seg271": {type: vseg, anchor: 殷太庚, x: 2238, y1: 10400, y2: 10464}
+  "seg272": {type: vseg, anchor: 殷太庚, x: 2366, y1: 10400, y2: 10464}
+  "seg273": {type: vseg, anchor: 殷太庚, x: 2494, y1: 10400, y2: 10464}
+  "seg274": {type: hseg, anchor: 殷太甲, y: 9964, x1: 2366, x2: 2494}
+  "seg275": {type: vseg, anchor: 殷太甲, x: 2430, y1: 9900, y2: 9964}
+  "seg276": {type: vseg, anchor: 殷太甲, x: 2366, y1: 9964, y2: 10028}
+  "seg277": {type: vseg, anchor: 殷太甲, x: 2494, y1: 9964, y2: 10028}
+  "seg278": {type: vseg, anchor: 殷子太丁, x: 2430, y1: 9464, y2: 9592}
+  "seg279": {type: hseg, anchor: 殷湯, y: 9092, x1: 2174, x2: 2430}
+  "seg28": {type: vseg, anchor: 趙幽王, x: 5502, y1: 25160, y2: 25224}
+  "seg280": {type: vseg, anchor: 殷湯, x: 2302, y1: 9028, y2: 9092}
+  "seg281": {type: vseg, anchor: 殷湯, x: 2174, y1: 9092, y2: 9156}
+  "seg282": {type: vseg, anchor: 殷湯, x: 2302, y1: 9092, y2: 9156}
+  "seg283": {type: vseg, anchor: 殷湯, x: 2430, y1: 9092, y2: 9156}
+  "seg284": {type: vseg, anchor: 主癸, x: 2302, y1: 8592, y2: 8720}
+  "seg285": {type: vseg, anchor: 主壬, x: 2302, y1: 8156, y2: 8284}
+  "seg286": {type: vseg, anchor: 報丙, x: 2302, y1: 7720, y2: 7848}
+  "seg287": {type: vseg, anchor: 報乙, x: 2302, y1: 7284, y2: 7412}
+  "seg288": {type: vseg, anchor: 報丁, x: 2302, y1: 6848, y2: 6976}
+  "seg289": {type: vseg, anchor: 微, x: 2302, y1: 6412, y2: 6540}
+  "seg29": {type: vseg, anchor: 趙幽王, x: 5438, y1: 25224, y2: 25288}
+  "seg290": {type: vseg, anchor: 振, x: 2302, y1: 5976, y2: 6104}
+  "seg291": {type: vseg, anchor: 冥, x: 2302, y1: 5540, y2: 5668}
+  "seg292": {type: vseg, anchor: 曹圉, x: 2302, y1: 5104, y2: 5232}
+  "seg293": {type: vseg, anchor: 昌若, x: 2302, y1: 4668, y2: 4796}
+  "seg294": {type: vseg, anchor: 相土, x: 2302, y1: 4232, y2: 4360}
+  "seg295": {type: vseg, anchor: 昭明, x: 2302, y1: 3796, y2: 3924}
+  "seg296": {type: vseg, anchor: 契, x: 2302, y1: 3360, y2: 3488}
+  "seg3": {type: hseg, anchor: 漢孝景帝, y: 25660, x1: 5950, x2: 6974}
+  "seg30": {type: vseg, anchor: 趙幽王, x: 5566, y1: 25224, y2: 25288}
+  "seg307": {type: vseg, anchor: 秦公子扶蘇, x: 1470, y1: 23852, y2: 23980}
+  "seg308": {type: hseg, anchor: 秦始皇帝, y: 23480, x1: 1342, x2: 1470}
+  "seg309": {type: vseg, anchor: 秦始皇帝, x: 1406, y1: 23416, y2: 23480}
+  "seg31": {type: hseg, anchor: 淮南厲王, y: 25224, x1: 5054, x2: 5310}
+  "seg310": {type: vseg, anchor: 秦始皇帝, x: 1342, y1: 23480, y2: 23544}
+  "seg311": {type: vseg, anchor: 秦始皇帝, x: 1470, y1: 23480, y2: 23544}
+  "seg312": {type: hseg, anchor: 秦莊襄王, y: 23044, x1: 1278, x2: 1406}
+  "seg313": {type: vseg, anchor: 秦莊襄王, x: 1342, y1: 22980, y2: 23044}
+  "seg314": {type: vseg, anchor: 秦莊襄王, x: 1278, y1: 23044, y2: 23108}
+  "seg315": {type: vseg, anchor: 秦莊襄王, x: 1406, y1: 23044, y2: 23108}
+  "seg316": {type: hseg, anchor: 秦莊襄王, y: 22826, x1: 1246, x2: 1310}
+  "seg317": {type: vseg, anchor: 秦孝文王, x: 1342, y1: 22544, y2: 22672}
+  "seg318": {type: hseg, anchor: 秦孝文王, y: 22390, x1: 1246, x2: 1310}
+  "seg319": {type: hseg, anchor: 秦孝文王, y: 22390, x1: 1118, x2: 1182}
+  "seg32": {type: vseg, anchor: 淮南厲王, x: 5182, y1: 25160, y2: 25224}
+  "seg320": {type: vseg, anchor: 秦昭襄王, x: 1342, y1: 22108, y2: 22236}
+  "seg321": {type: hseg, anchor: 秦昭襄王, y: 21954, x1: 1246, x2: 1310}
+  "seg322": {type: hseg, anchor: 秦惠文王, y: 21736, x1: 1342, x2: 1470}
+  "seg323": {type: vseg, anchor: 秦惠文王, x: 1406, y1: 21672, y2: 21736}
+  "seg324": {type: vseg, anchor: 秦惠文王, x: 1342, y1: 21736, y2: 21800}
+  "seg325": {type: vseg, anchor: 秦惠文王, x: 1470, y1: 21736, y2: 21800}
+  "seg326": {type: hseg, anchor: 秦惠文王, y: 21518, x1: 1310, x2: 1374}
+  "seg327": {type: vseg, anchor: 秦孝公, x: 1406, y1: 21236, y2: 21364}
+  "seg328": {type: vseg, anchor: 秦獻公, x: 1406, y1: 20800, y2: 20928}
+  "seg329": {type: vseg, anchor: 秦靈公, x: 1406, y1: 20364, y2: 20492}
+  "seg33": {type: vseg, anchor: 淮南厲王, x: 5054, y1: 25224, y2: 25288}
+  "seg330": {type: vseg, anchor: 秦子昭, x: 1406, y1: 19928, y2: 20056}
+  "seg331": {type: vseg, anchor: 秦惠公-2, x: 1278, y1: 20364, y2: 20492}
+  "seg332": {type: vseg, anchor: 秦簡公, x: 1278, y1: 19928, y2: 20056}
+  "seg333": {type: hseg, anchor: 秦懷公, y: 19556, x1: 1278, x2: 1406}
+  "seg334": {type: vseg, anchor: 秦懷公, x: 1342, y1: 19492, y2: 19556}
+  "seg335": {type: vseg, anchor: 秦懷公, x: 1278, y1: 19556, y2: 19620}
+  "seg336": {type: vseg, anchor: 秦懷公, x: 1406, y1: 19556, y2: 19620}
+  "seg337": {type: hseg, anchor: 秦厲共公, y: 19120, x1: 1342, x2: 1470}
+  "seg338": {type: vseg, anchor: 秦厲共公, x: 1406, y1: 19056, y2: 19120}
+  "seg339": {type: vseg, anchor: 秦厲共公, x: 1342, y1: 19120, y2: 19184}
+  "seg34": {type: vseg, anchor: 淮南厲王, x: 5182, y1: 25224, y2: 25288}
+  "seg340": {type: vseg, anchor: 秦厲共公, x: 1470, y1: 19120, y2: 19184}
+  "seg341": {type: vseg, anchor: 秦悼公, x: 1406, y1: 18620, y2: 18748}
+  "seg342": {type: vseg, anchor: 秦惠公-1, x: 1406, y1: 18184, y2: 18312}
+  "seg343": {type: vseg, anchor: 秦子夷公, x: 1406, y1: 17748, y2: 17876}
+  "seg344": {type: vseg, anchor: 秦哀公, x: 1406, y1: 17312, y2: 17440}
+  "seg345": {type: vseg, anchor: 秦景公, x: 1406, y1: 16876, y2: 17004}
+  "seg346": {type: hseg, anchor: 秦桓公, y: 16504, x1: 1278, x2: 1406}
+  "seg347": {type: vseg, anchor: 秦桓公, x: 1342, y1: 16440, y2: 16504}
+  "seg348": {type: vseg, anchor: 秦桓公, x: 1278, y1: 16504, y2: 16568}
+  "seg349": {type: vseg, anchor: 秦桓公, x: 1406, y1: 16504, y2: 16568}
+  "seg35": {type: vseg, anchor: 淮南厲王, x: 5310, y1: 25224, y2: 25288}
+  "seg350": {type: vseg, anchor: 秦共公, x: 1342, y1: 16004, y2: 16132}
+  "seg351": {type: vseg, anchor: 秦康公, x: 1342, y1: 15568, y2: 15696}
+  "seg352": {type: vseg, anchor: 秦繆公, x: 1342, y1: 15132, y2: 15260}
+  "seg353": {type: hseg, anchor: 秦德公, y: 14760, x1: 1342, x2: 1598}
+  "seg354": {type: vseg, anchor: 秦德公, x: 1470, y1: 14696, y2: 14760}
+  "seg355": {type: vseg, anchor: 秦德公, x: 1342, y1: 14760, y2: 14824}
+  "seg356": {type: vseg, anchor: 秦德公, x: 1470, y1: 14760, y2: 14824}
+  "seg357": {type: vseg, anchor: 秦德公, x: 1598, y1: 14760, y2: 14824}
+  "seg358": {type: vseg, anchor: 秦武公, x: 1726, y1: 14696, y2: 14824}
+  "seg359": {type: hseg, anchor: 秦憲公, y: 14324, x1: 1342, x2: 1726}
+  "seg36": {type: hseg, anchor: 宣平侯張敖, y: 25224, x1: 6590, x2: 6846}
+  "seg360": {type: vseg, anchor: 秦憲公, x: 1534, y1: 14260, y2: 14324}
+  "seg361": {type: vseg, anchor: 秦憲公, x: 1342, y1: 14324, y2: 14388}
+  "seg362": {type: vseg, anchor: 秦憲公, x: 1470, y1: 14324, y2: 14388}
+  "seg363": {type: vseg, anchor: 秦憲公, x: 1726, y1: 14324, y2: 14388}
+  "seg364": {type: vseg, anchor: 秦竫公, x: 1534, y1: 13824, y2: 13952}
+  "seg365": {type: vseg, anchor: 秦文公, x: 1534, y1: 13388, y2: 13516}
+  "seg366": {type: vseg, anchor: 秦襄公, x: 1534, y1: 12952, y2: 13080}
+  "seg367": {type: hseg, anchor: 繆嬴, y: 12798, x1: 1310, x2: 1374}
+  "seg368": {type: hseg, anchor: 秦莊公, y: 12580, x1: 1278, x2: 1662}
+  "seg369": {type: vseg, anchor: 秦莊公, x: 1470, y1: 12516, y2: 12580}
+  "seg37": {type: vseg, anchor: 宣平侯張敖, x: 6718, y1: 25160, y2: 25224}
+  "seg370": {type: vseg, anchor: 秦莊公, x: 1278, y1: 12580, y2: 12644}
+  "seg371": {type: vseg, anchor: 秦莊公, x: 1534, y1: 12580, y2: 12644}
+  "seg372": {type: vseg, anchor: 秦莊公, x: 1662, y1: 12580, y2: 12644}
+  "seg373": {type: vseg, anchor: 秦仲, x: 1470, y1: 12080, y2: 12208}
+  "seg374": {type: vseg, anchor: 秦公伯, x: 1470, y1: 11644, y2: 11772}
+  "seg375": {type: vseg, anchor: 秦侯, x: 1470, y1: 11208, y2: 11336}
+  "seg376": {type: vseg, anchor: 秦嬴, x: 1470, y1: 10772, y2: 10900}
+  "seg377": {type: hseg, anchor: 大駱, y: 10400, x1: 1470, x2: 1598}
+  "seg378": {type: vseg, anchor: 大駱, x: 1534, y1: 10336, y2: 10400}
+  "seg379": {type: vseg, anchor: 大駱, x: 1470, y1: 10400, y2: 10464}
+  "seg38": {type: vseg, anchor: 宣平侯張敖, x: 6590, y1: 25224, y2: 25288}
+  "seg380": {type: vseg, anchor: 大駱, x: 1598, y1: 10400, y2: 10464}
+  "seg381": {type: vseg, anchor: 太幾, x: 1534, y1: 9900, y2: 10028}
+  "seg382": {type: vseg, anchor: 旁皋, x: 1534, y1: 9464, y2: 9592}
+  "seg383": {type: vseg, anchor: 女防, x: 1534, y1: 9028, y2: 9156}
+  "seg384": {type: vseg, anchor: 惡來, x: 1534, y1: 8592, y2: 8720}
+  "seg385": {type: vseg, anchor: 造父, x: 1406, y1: 9900, y2: 10028}
+  "seg386": {type: vseg, anchor: 衡父, x: 1406, y1: 9464, y2: 9592}
+  "seg387": {type: vseg, anchor: 孟增, x: 1406, y1: 9028, y2: 9156}
+  "seg388": {type: vseg, anchor: 季勝, x: 1406, y1: 8592, y2: 8720}
+  "seg389": {type: hseg, anchor: 蜚廉, y: 8220, x1: 1406, x2: 1534}
+  "seg39": {type: vseg, anchor: 宣平侯張敖, x: 6718, y1: 25224, y2: 25288}
+  "seg390": {type: vseg, anchor: 蜚廉, x: 1470, y1: 8156, y2: 8220}
+  "seg391": {type: vseg, anchor: 蜚廉, x: 1406, y1: 8220, y2: 8284}
+  "seg392": {type: vseg, anchor: 蜚廉, x: 1534, y1: 8220, y2: 8284}
+  "seg393": {type: vseg, anchor: 中潏, x: 1470, y1: 7720, y2: 7848}
+  "seg394": {type: vseg, anchor: 中衍, x: 1470, y1: 5976, y2: 7412}
+  "seg398": {type: vseg, anchor: 大廉, x: 1470, y1: 4296, y2: 5668}
+  "seg4": {type: vseg, anchor: 漢孝景帝, x: 6462, y1: 25596, y2: 25660}
+  "seg40": {type: vseg, anchor: 宣平侯張敖, x: 6846, y1: 24820, y2: 25288}
+  "seg400": {type: vseg, anchor: 大廉, x: 1598, y1: 4296, y2: 5668}
+  "seg401": {type: vseg, anchor: 大廉, x: 1534, y1: 4232, y2: 4296}
+  "seg403": {type: hseg, anchor: 大廉, y: 4296, x1: 1470, x2: 1598}
+  "seg404": {type: vseg, anchor: 若木, x: 1342, y1: 4232, y2: 5668}
+  "seg405": {type: hseg, anchor: 柏翳, y: 3860, x1: 1342, x2: 1534}
+  "seg406": {type: vseg, anchor: 柏翳, x: 1438, y1: 3796, y2: 3860}
+  "seg407": {type: vseg, anchor: 柏翳, x: 1342, y1: 3860, y2: 3924}
+  "seg408": {type: vseg, anchor: 柏翳, x: 1534, y1: 3860, y2: 3924}
+  "seg409": {type: vseg, anchor: 大業, x: 1438, y1: 3360, y2: 3488}
+  "seg41": {type: hseg, anchor: 魯元公主, y: 25006, x1: 6622, x2: 6686}
+  "seg410": {type: hseg, anchor: 大業, y: 3206, x1: 1342, x2: 1406}
+  "seg411": {type: vseg, anchor: 女修, x: 1438, y1: 2924, y2: 3052}
+  "seg412": {type: vseg, anchor: 帝舜, x: 2110, y1: 5104, y2: 5232}
+  "seg413": {type: hseg, anchor: 瞽叟, y: 4732, x1: 1982, x2: 2110}
+  "seg414": {type: vseg, anchor: 瞽叟, x: 2046, y1: 4668, y2: 4732}
+  "seg415": {type: vseg, anchor: 瞽叟, x: 1982, y1: 4732, y2: 4796}
+  "seg416": {type: vseg, anchor: 瞽叟, x: 2110, y1: 4732, y2: 4796}
+  "seg417": {type: vseg, anchor: 橋牛, x: 2046, y1: 4232, y2: 4360}
+  "seg418": {type: vseg, anchor: 句望, x: 2046, y1: 3796, y2: 3924}
+  "seg419": {type: vseg, anchor: 敬康, x: 2046, y1: 3360, y2: 3488}
+  "seg42": {type: vseg, anchor: 漢後少帝, x: 7358, y1: 25596, y2: 25724}
+  "seg420": {type: vseg, anchor: 窮蟬, x: 2046, y1: 2924, y2: 3052}
+  "seg421": {type: vseg, anchor: 夏發, x: 1790, y1: 8592, y2: 8720}
+  "seg422": {type: vseg, anchor: 夏皋, x: 1790, y1: 8156, y2: 8284}
+  "seg423": {type: vseg, anchor: 夏孔甲, x: 1790, y1: 7720, y2: 7848}
+  "seg424": {type: vseg, anchor: 夏不降, x: 1790, y1: 7284, y2: 7412}
+  "seg425": {type: vseg, anchor: 夏扃, x: 1662, y1: 7284, y2: 7412}
+  "seg426": {type: hseg, anchor: 夏泄, y: 6912, x1: 1662, x2: 1790}
+  "seg427": {type: vseg, anchor: 夏泄, x: 1726, y1: 6848, y2: 6912}
+  "seg428": {type: vseg, anchor: 夏泄, x: 1662, y1: 6912, y2: 6976}
+  "seg429": {type: vseg, anchor: 夏泄, x: 1790, y1: 6912, y2: 6976}
+  "seg43": {type: hseg, anchor: 漢孝惠帝, y: 25224, x1: 6974, x2: 7742}
+  "seg430": {type: vseg, anchor: 夏芒, x: 1726, y1: 6412, y2: 6540}
+  "seg431": {type: vseg, anchor: 夏槐, x: 1726, y1: 5976, y2: 6104}
+  "seg432": {type: vseg, anchor: 夏予, x: 1726, y1: 5540, y2: 5668}
+  "seg433": {type: vseg, anchor: 夏少康, x: 1726, y1: 5104, y2: 5232}
+  "seg434": {type: vseg, anchor: 夏相, x: 1726, y1: 4668, y2: 4796}
+  "seg435": {type: vseg, anchor: 夏中康, x: 1726, y1: 4232, y2: 4360}
+  "seg436": {type: hseg, anchor: 夏啟, y: 3860, x1: 1726, x2: 1854}
+  "seg437": {type: vseg, anchor: 夏啟, x: 1790, y1: 3796, y2: 3860}
+  "seg438": {type: vseg, anchor: 夏啟, x: 1726, y1: 3860, y2: 3924}
+  "seg439": {type: vseg, anchor: 夏啟, x: 1854, y1: 3860, y2: 3924}
+  "seg44": {type: vseg, anchor: 漢孝惠帝, x: 7358, y1: 25160, y2: 25224}
+  "seg440": {type: vseg, anchor: 夏禹, x: 1790, y1: 3360, y2: 3488}
+  "seg441": {type: vseg, anchor: 鯀, x: 1790, y1: 2924, y2: 3052}
+  "seg442": {type: hseg, anchor: 帝顓頊, y: 2552, x1: 1438, x2: 2046}
+  "seg443": {type: vseg, anchor: 帝顓頊, x: 1742, y1: 2488, y2: 2552}
+  "seg444": {type: vseg, anchor: 帝顓頊, x: 1438, y1: 2552, y2: 2616}
+  "seg445": {type: vseg, anchor: 帝顓頊, x: 1790, y1: 2552, y2: 2616}
+  "seg446": {type: vseg, anchor: 帝顓頊, x: 1918, y1: 2552, y2: 2616}
+  "seg447": {type: vseg, anchor: 帝顓頊, x: 2046, y1: 2552, y2: 2616}
+  "seg448": {type: vseg, anchor: 昌意, x: 1742, y1: 2052, y2: 2180}
+  "seg449": {type: hseg, anchor: 昌意, y: 1898, x1: 1646, x2: 1710}
+  "seg45": {type: vseg, anchor: 漢孝惠帝, x: 6974, y1: 25224, y2: 25288}
+  "seg46": {type: vseg, anchor: 漢孝惠帝, x: 7102, y1: 25224, y2: 25288}
   "seg460": {type: hseg, anchor: 西楚霸王, y: 1462, x1: 4782, x2: 4846}
   "seg461": {type: vseg, anchor: 項超, x: 4878, y1: 1180, y2: 1308}
   "seg462": {type: hseg, anchor: 項燕, y: 808, x1: 4622, x2: 4878}
@@ -404,394 +352,450 @@ entities:
   "seg465": {type: vseg, anchor: 項燕, x: 4750, y1: 808, y2: 872}
   "seg466": {type: vseg, anchor: 項燕, x: 4878, y1: 808, y2: 872}
   "seg467": {type: vseg, anchor: 少暤, x: 5174, y1: 744, y2: 872}
-  "seg47": {type: vseg, anchor: 漢孝惠帝, x: 7444, y1: 24788, y2: 24852}
-  "seg48": {type: vseg, anchor: 漢孝惠帝, x: 7572, y1: 24788, y2: 24852}
-  "seg49": {type: vseg, anchor: 漢孝惠帝, x: 7700, y1: 24788, y2: 24852}
-  "seg5": {type: vseg, anchor: 漢孝景帝, x: 6164, y1: 25224, y2: 25724}
-  "seg50": {type: vseg, anchor: 漢孝惠帝, x: 7828, y1: 24788, y2: 24852}
-  "seg51": {type: vseg, anchor: 漢孝惠帝, x: 7956, y1: 24788, y2: 24852}
-  "seg53": {type: hseg, anchor: 漢孝惠帝, y: 24570, x1: 7476, x2: 7540}
-  "seg54": {type: vseg, anchor: 孝惠皇后, x: 7444, y1: 24384, y2: 24416}
-  "seg56": {type: hseg, anchor: 齊悼惠王, y: 24788, x1: 8084, x2: 8980}
-  "seg57": {type: vseg, anchor: 齊悼惠王, x: 8532, y1: 24724, y2: 24788}
-  "seg58": {type: vseg, anchor: 齊悼惠王, x: 8084, y1: 24788, y2: 24852}
-  "seg59": {type: vseg, anchor: 齊悼惠王, x: 8212, y1: 24788, y2: 24852}
-  "seg6": {type: vseg, anchor: 漢孝景帝, x: 6292, y1: 25224, y2: 25288}
-  "seg60": {type: vseg, anchor: 齊悼惠王, x: 8340, y1: 24788, y2: 24852}
-  "seg61": {type: vseg, anchor: 齊悼惠王, x: 8468, y1: 24788, y2: 24852}
-  "seg62": {type: vseg, anchor: 齊悼惠王, x: 8596, y1: 24788, y2: 24852}
-  "seg63": {type: vseg, anchor: 齊悼惠王, x: 8724, y1: 24788, y2: 24852}
-  "seg64": {type: vseg, anchor: 齊悼惠王, x: 8852, y1: 24788, y2: 24852}
-  "seg65": {type: vseg, anchor: 齊悼惠王, x: 8980, y1: 24788, y2: 24852}
-  "seg66": {type: hseg, anchor: 宣平侯張敖, y: 24384, x1: 7060, x2: 7444}
-  "seg67": {type: hseg, anchor: 漢高祖, y: 24352, x1: 5268, x2: 8532}
-  "seg68": {type: vseg, anchor: 漢高祖, x: 6900, y1: 24288, y2: 24352}
-  "seg69": {type: vseg, anchor: 漢高祖, x: 5268, y1: 24352, y2: 24416}
-  "seg7": {type: vseg, anchor: 漢孝景帝, x: 6420, y1: 25224, y2: 25288}
-  "seg70": {type: vseg, anchor: 漢高祖, x: 5396, y1: 24352, y2: 24416}
-  "seg71": {type: vseg, anchor: 漢高祖, x: 5716, y1: 24352, y2: 24416}
-  "seg72": {type: vseg, anchor: 漢高祖, x: 6036, y1: 24352, y2: 24416}
-  "seg73": {type: vseg, anchor: 漢高祖, x: 6420, y1: 24352, y2: 24416}
-  "seg74": {type: vseg, anchor: 漢高祖, x: 6676, y1: 24352, y2: 24416}
-  "seg75": {type: vseg, anchor: 漢高祖, x: 6804, y1: 24352, y2: 24416}
-  "seg76": {type: vseg, anchor: 漢高祖, x: 7572, y1: 24352, y2: 24416}
-  "seg77": {type: vseg, anchor: 漢高祖, x: 8532, y1: 24352, y2: 24416}
-  "seg78": {type: hseg, anchor: 漢高祖, y: 24134, x1: 6804, x2: 6868}
-  "seg79": {type: hseg, anchor: 漢高祖, y: 24134, x1: 6676, x2: 6740}
-  "seg8": {type: vseg, anchor: 漢孝景帝, x: 6548, y1: 25224, y2: 25288}
-  "seg80": {type: hseg, anchor: 漢高祖, y: 24134, x1: 6548, x2: 6612}
-  "seg81": {type: vseg, anchor: 薄后, x: 6388, y1: 23964, y2: 23980}
-  "seg82": {type: vseg, anchor: 薄后, x: 6644, y1: 23964, y2: 23980}
-  "seg83": {type: hseg, anchor: 薄后, y: 23964, x1: 6388, x2: 6644}
-  "seg84": {type: vseg, anchor: 呂太后, x: 6772, y1: 23948, y2: 23980}
-  "seg85": {type: hseg, anchor: 臨光侯呂媭, y: 24352, x1: 5012, x2: 5140}
-  "seg86": {type: vseg, anchor: 臨光侯呂媭, x: 5076, y1: 24288, y2: 24352}
-  "seg87": {type: vseg, anchor: 臨光侯呂媭, x: 5012, y1: 24352, y2: 24416}
-  "seg88": {type: vseg, anchor: 臨光侯呂媭, x: 5140, y1: 24352, y2: 24416}
-  "seg89": {type: hseg, anchor: 建成侯呂釋之, y: 24352, x1: 8852, x2: 8980}
-  "seg9": {type: vseg, anchor: 漢孝景帝, x: 6676, y1: 25224, y2: 25288}
-  "seg90": {type: vseg, anchor: 建成侯呂釋之, x: 8916, y1: 24288, y2: 24352}
-  "seg91": {type: vseg, anchor: 建成侯呂釋之, x: 8852, y1: 24352, y2: 24416}
-  "seg92": {type: vseg, anchor: 建成侯呂釋之, x: 8980, y1: 24352, y2: 24416}
-  "seg93": {type: hseg, anchor: 呂肅王, y: 24788, x1: 9108, x2: 9364}
-  "seg94": {type: vseg, anchor: 呂肅王, x: 9236, y1: 24724, y2: 24788}
-  "seg95": {type: vseg, anchor: 呂肅王, x: 9108, y1: 24788, y2: 24852}
-  "seg96": {type: vseg, anchor: 呂肅王, x: 9236, y1: 24788, y2: 24852}
-  "seg97": {type: vseg, anchor: 呂肅王, x: 9364, y1: 24788, y2: 24852}
-  "seg98": {type: hseg, anchor: 呂悼武王, y: 24352, x1: 9108, x2: 9236}
-  "seg99": {type: vseg, anchor: 呂悼武王, x: 9172, y1: 24288, y2: 24352}
-  "不窋": {type: tile, anchor: 后稷, x: 3604, row: 7, name: "不窋"}
-  "中山王劉勝": {type: tile, anchor: 漢孝武帝, x: 6900, row: 58, name: "中山王劉勝"}
-  "中潏": {type: tile, anchor: 中衍, x: 1812, row: 16, name: "中潏"}
-  "中衍": {type: tile, anchor: 大廉, x: 1812, row: 12, name: "中衍"}
-  "丹朱": {type: tile, anchor: 帝堯, x: 5988, row: 7, name: "丹朱"}
-  "主壬": {type: tile, anchor: 報丙, x: 2644, row: 17, name: "主壬"}
-  "主癸": {type: tile, anchor: 主壬, x: 2644, row: 18, name: "主癸"}
-  "亞圉": {type: tile, anchor: 高圉, x: 3604, row: 16, name: "亞圉"}
-  "代王劉武": {type: tile, anchor: 太原王劉參, x: 6388, row: 57, name: "代王劉武"}
-  "代頃王": {type: tile, anchor: 扶柳侯呂平, x: 9332, row: 55, name: "代頃王"}
-  "公劉": {type: tile, anchor: 鞠, x: 3604, row: 9, name: "公劉"}
-  "公叔祖類": {type: tile, anchor: 亞圉, x: 3604, row: 17, name: "公叔祖類"}
-  "公非": {type: tile, anchor: 毀隃, x: 3604, row: 14, name: "公非"}
-  "冥": {type: tile, anchor: 曹圉, x: 2644, row: 11, name: "冥"}
-  "劉媼": {type: tile, anchor: 漢太上皇, x: 6932, row: 54, name: "劉媼"}
-  "劉累": {type: tile, anchor: 帝堯, x: 5860, row: 16, name: "劉累"}
-  "劉賈": {type: tile, anchor: 劉累, x: 4660, row: 55, name: "劉賈"}
-  "南宮括": {type: tile, anchor: 周文王, x: 2900, row: 21, name: "南宮括"}
-  "叔振鐸": {type: tile, anchor: 毛叔鄭, x: 3540, row: 21, name: "叔振鐸"}
-  "古公亶父": {type: tile, anchor: 公叔祖類, x: 3604, row: 18, name: "古公亶父"}
-  "句望": {type: tile, anchor: 敬康, x: 2388, row: 7, name: "句望"}
-  "召公奭": {type: tile, anchor: 畢公, x: 3796, row: 21, name: "召公奭"}
-  "后稷": {type: tile, anchor: 契, x: 3604, row: 6, name: "后稷"}
-  "吳王濞": {type: tile, anchor: 代頃王, x: 9332, row: 56, name: "吳王濞"}
-  "呂太后": {type: tile, anchor: 漢高祖, x: 6740, row: 55, name: "呂太后", color: lu}
-  "呂悼武王": {type: tile, anchor: 建成侯呂釋之, x: 9140, row: 55, name: "呂悼武王", color: lu}
-  "呂王嘉": {type: tile, anchor: 燕王呂通, x: 9332, row: 57, name: "呂王嘉", color: lu}
-  "呂肅王": {type: tile, anchor: 梁王呂產, x: 9204, row: 56, name: "呂肅王", color: lu}
-  "周元王": {type: tile, anchor: 周敬王, x: 4180, row: 45, name: "周元王", color: zhou}
-  "周公旦": {type: tile, anchor: 召公奭, x: 3924, row: 21, name: "周公旦"}
-  "周共王": {type: tile, anchor: 周孝王, x: 4116, row: 26, name: "周共王", color: zhou}
-  "周匡王": {type: tile, anchor: 周定王-1, x: 4500, row: 40, name: "周匡王", color: zhou}
-  "周厲王": {type: tile, anchor: 周夷王, x: 4116, row: 29, name: "周厲王", color: zhou}
-  "周叔帶": {type: tile, anchor: 周惠王, x: 4308, row: 38, name: "周叔帶"}
-  "周哀王": {type: tile, anchor: 周思王, x: 4404, row: 47, name: "周哀王", color: zhou}
-  "周夷王": {type: tile, anchor: 周懿王, x: 4116, row: 28, name: "周夷王", color: zhou}
-  "周威烈王": {type: tile, anchor: 周考王, x: 4148, row: 48, name: "周威烈王", color: zhou}
-  "周子伯服": {type: tile, anchor: 周幽王, x: 4052, row: 32, name: "周子伯服"}
-  "周子克": {type: tile, anchor: 周桓王, x: 4052, row: 35, name: "周子克"}
-  "周子南君": {type: tile, anchor: 周赧王, x: 4084, row: 53, name: "周子南君"}
-  "周子朝": {type: tile, anchor: 周敬王, x: 4308, row: 44, name: "周子朝"}
-  "周子洩父": {type: tile, anchor: 周平王, x: 4180, row: 33, name: "周子洩父"}
-  "周子穨": {type: tile, anchor: 周莊王, x: 4244, row: 36, name: "周子穨"}
-  "周子聖": {type: tile, anchor: 周悼王, x: 4564, row: 44, name: "周子聖"}
-  "周孝王": {type: tile, anchor: 周穆王, x: 3988, row: 26, name: "周孝王", color: zhou}
-  "周安王": {type: tile, anchor: 周威烈王, x: 4148, row: 49, name: "周安王", color: zhou}
-  "周定王-1": {type: tile, anchor: 周頃王, x: 4372, row: 40, name: "周定王", color: zhou}
-  "周定王-2": {type: tile, anchor: 周元王, x: 4180, row: 46, name: "周定王", color: zhou}
-  "周宣王": {type: tile, anchor: 周厲王, x: 4116, row: 30, name: "周宣王", color: zhou}
-  "周平王": {type: tile, anchor: 周子伯服, x: 4180, row: 32, name: "周平王", color: zhou}
-  "周幽王": {type: tile, anchor: 周宣王, x: 4116, row: 31, name: "周幽王", color: zhou}
-  "周康王": {type: tile, anchor: 周成王, x: 4052, row: 23, name: "周康王", color: zhou}
-  "周思王": {type: tile, anchor: 周考王, x: 4276, row: 47, name: "周思王", color: zhou}
-  "周悼王": {type: tile, anchor: 周子朝, x: 4436, row: 44, name: "周悼王", color: zhou}
-  "周惠王": {type: tile, anchor: 周釐王, x: 4372, row: 37, name: "周惠王", color: zhou}
-  "周慎靚王": {type: tile, anchor: 周顯王, x: 4084, row: 51, name: "周慎靚王", color: zhou}
-  "周懿王": {type: tile, anchor: 周共王, x: 4116, row: 27, name: "周懿王", color: zhou}
-  "周成王": {type: tile, anchor: 周武王, x: 4052, row: 22, name: "周成王", color: zhou}
-  "周敬王": {type: tile, anchor: 周景王, x: 4180, row: 44, name: "周敬王", color: zhou}
-  "周文王": {type: tile, anchor: 季歷, x: 3476, row: 20, name: "周文王", color: zhou}
-  "周昭王": {type: tile, anchor: 周康王, x: 4052, row: 24, name: "周昭王", color: zhou}
-  "周景王": {type: tile, anchor: 周靈王, x: 4372, row: 43, name: "周景王", color: zhou}
-  "周桓王": {type: tile, anchor: 周子洩父, x: 4180, row: 34, name: "周桓王", color: zhou}
-  "周武王": {type: tile, anchor: 周公旦, x: 4052, row: 21, name: "周武王", color: zhou}
-  "周烈王": {type: tile, anchor: 周顯王, x: 4212, row: 50, name: "周烈王", color: zhou}
-  "周穆王": {type: tile, anchor: 周昭王, x: 4052, row: 25, name: "周穆王", color: zhou}
-  "周簡王": {type: tile, anchor: 周定王-1, x: 4372, row: 41, name: "周簡王", color: zhou}
-  "周考王": {type: tile, anchor: 西周桓公, x: 4148, row: 47, name: "周考王", color: zhou}
-  "周莊王": {type: tile, anchor: 姚, x: 4308, row: 35, name: "周莊王", color: zhou}
-  "周襄王": {type: tile, anchor: 周叔帶, x: 4436, row: 38, name: "周襄王", color: zhou}
-  "周赧王": {type: tile, anchor: 周慎靚王, x: 4084, row: 52, name: "周赧王", color: zhou}
-  "周釐王": {type: tile, anchor: 周子穨, x: 4372, row: 36, name: "周釐王", color: zhou}
-  "周陽侯王勝": {type: tile, anchor: 漢孝文帝, x: 5876, row: 57, name: "周陽侯王勝"}
-  "周靈王": {type: tile, anchor: 周簡王, x: 4372, row: 42, name: "周靈王", color: zhou}
-  "周頃王": {type: tile, anchor: 周襄王, x: 4436, row: 39, name: "周頃王", color: zhou}
-  "周顯王": {type: tile, anchor: 周安王, x: 4084, row: 50, name: "周顯王", color: zhou}
-  "商均": {type: tile, anchor: 帝舜, x: 2452, row: 11, name: "商均"}
-  "報丁": {type: tile, anchor: 微, x: 2644, row: 14, name: "報丁"}
-  "報丙": {type: tile, anchor: 報乙, x: 2644, row: 16, name: "報丙"}
-  "報乙": {type: tile, anchor: 報丁, x: 2644, row: 15, name: "報乙"}
-  "夏不降": {type: tile, anchor: 夏扃, x: 2132, row: 15, name: "夏不降", color: xia}
-  "夏中康": {type: tile, anchor: 夏啟, x: 2068, row: 8, name: "夏中康", color: xia}
-  "夏予": {type: tile, anchor: 夏少康, x: 2068, row: 11, name: "夏予", color: xia}
-  "夏啟": {type: tile, anchor: 夏禹, x: 2132, row: 7, name: "夏啟", color: xia}
-  "夏太后": {type: tile, anchor: 秦孝文王, x: 1556, row: 50, name: "夏太后"}
-  "夏太康": {type: tile, anchor: 夏中康, x: 2196, row: 8, name: "夏太康", color: xia}
-  "夏孔甲": {type: tile, anchor: 夏不降, x: 2132, row: 16, name: "夏孔甲", color: xia}
-  "夏少康": {type: tile, anchor: 夏相, x: 2068, row: 10, name: "夏少康", color: xia}
-  "夏廑": {type: tile, anchor: 夏扃, x: 2004, row: 16, name: "夏廑", color: xia}
-  "夏扃": {type: tile, anchor: 夏泄, x: 2004, row: 15, name: "夏扃", color: xia}
-  "夏桀": {type: tile, anchor: 夏發, x: 2132, row: 19, name: "夏桀", color: xia}
-  "夏槐": {type: tile, anchor: 夏予, x: 2068, row: 12, name: "夏槐", color: xia}
-  "夏泄": {type: tile, anchor: 夏芒, x: 2068, row: 14, name: "夏泄", color: xia}
-  "夏發": {type: tile, anchor: 夏皋, x: 2132, row: 18, name: "夏發", color: xia}
-  "夏皋": {type: tile, anchor: 夏孔甲, x: 2132, row: 17, name: "夏皋", color: xia}
-  "夏相": {type: tile, anchor: 夏中康, x: 2068, row: 9, name: "夏相", color: xia}
-  "夏禹": {type: tile, anchor: 鯀, x: 2132, row: 6, name: "夏禹", color: xia}
-  "夏芒": {type: tile, anchor: 夏槐, x: 2068, row: 13, name: "夏芒", color: xia}
-  "大廉": {type: tile, anchor: 若木, x: 1876, row: 8, name: "大廉"}
-  "大業": {type: tile, anchor: 女修, x: 1780, row: 6, name: "大業"}
-  "大駱": {type: tile, anchor: 太幾, x: 1876, row: 22, name: "大駱"}
-  "太任": {type: tile, anchor: 季歷, x: 3348, row: 19, name: "太任"}
-  "太伯": {type: tile, anchor: 虞仲, x: 3732, row: 19, name: "太伯"}
-  "太原王劉參": {type: tile, anchor: 梁王劉揖, x: 6260, row: 57, name: "太原王劉參"}
-  "太姜": {type: tile, anchor: 古公亶父, x: 3476, row: 18, name: "太姜"}
-  "太幾": {type: tile, anchor: 旁皋, x: 1876, row: 21, name: "太幾"}
-  "契": {type: tile, anchor: 帝嚳, x: 2644, row: 6, name: "契"}
-  "女修": {type: tile, anchor: 帝顓頊, x: 1780, row: 5, name: "女修"}
-  "女華": {type: tile, anchor: 大業, x: 1652, row: 6, name: "女華"}
-  "女防": {type: tile, anchor: 惡來, x: 1876, row: 19, name: "女防"}
-  "姚": {type: tile, anchor: 周子克, x: 4180, row: 35, name: "姚"}
-  "姜原": {type: tile, anchor: 帝嚳, x: 4156, row: 5, name: "姜原"}
-  "嫘祖": {type: tile, anchor: 黃帝, x: 2928, row: 2, name: "嫘祖"}
-  "孝惠皇后": {type: tile, anchor: 漢孝惠帝, x: 7412, row: 56, name: "孝惠皇后"}
-  "孟增": {type: tile, anchor: 季勝, x: 1748, row: 19, name: "孟增"}
-  "孟戲": {type: tile, anchor: 中衍, x: 1940, row: 12, name: "孟戲"}
-  "季勝": {type: tile, anchor: 蜚廉, x: 1748, row: 18, name: "季勝"}
-  "季歷": {type: tile, anchor: 古公亶父, x: 3476, row: 19, name: "季歷"}
-  "宣平侯張敖": {type: tile, anchor: 魯元公主, x: 6900, row: 56, name: "宣平侯張敖"}
-  "少典": {type: tile, anchor: ~, x: 2354, row: 1, name: "少典"}
-  "少暤": {type: tile, anchor: ~, x: 5142, row: 1, name: "少暤"}
-  "差弗": {type: tile, anchor: 皇僕, x: 3604, row: 12, name: "差弗"}
-  "帝嚳": {type: tile, anchor: 蟜極, x: 4284, row: 5, name: "帝嚳", color: wudi}
-  "帝堯": {type: tile, anchor: 摯, x: 5924, row: 6, name: "帝堯", color: wudi}
-  "帝舜": {type: tile, anchor: 象, x: 2452, row: 10, name: "帝舜", color: wudi}
-  "帝顓頊": {type: tile, anchor: 昌意, x: 2084, row: 4, name: "帝顓頊", color: wudi}
-  "常山王劉不疑": {type: tile, anchor: 漢孝惠帝, x: 7668, row: 57, name: "常山王劉不疑"}
-  "常山王劉朝": {type: tile, anchor: 漢孝惠帝, x: 7156, row: 57, name: "常山王劉朝"}
-  "常山王劉舜": {type: tile, anchor: 漢孝景帝, x: 6260, row: 58, name: "常山王劉舜"}
-  "平昌侯劉太": {type: tile, anchor: 漢後少帝, x: 7540, row: 58, name: "平昌侯劉太"}
-  "平陸侯劉禮": {type: tile, anchor: 楚元王, x: 4724, row: 56, name: "平陸侯劉禮"}
-  "廣川王劉越": {type: tile, anchor: 膠東王劉寄, x: 6516, row: 58, name: "廣川王劉越"}
-  "廬江王": {type: tile, anchor: 淮南厲王, x: 5236, row: 57, name: "廬江王"}
-  "建成侯呂釋之": {type: tile, anchor: 漢高祖, x: 8884, row: 55, name: "建成侯呂釋之", color: lu}
-  "微": {type: tile, anchor: 振, x: 2644, row: 13, name: "微"}
-  "微子啟": {type: tile, anchor: 殷紂, x: 2388, row: 35, name: "微子啟"}
-  "惡來": {type: tile, anchor: 季勝, x: 1876, row: 18, name: "惡來"}
-  "慎夫人": {type: tile, anchor: 漢孝文帝, x: 6132, row: 56, name: "慎夫人"}
-  "慶節": {type: tile, anchor: 公劉, x: 3604, row: 10, name: "慶節"}
-  "成": {type: tile, anchor: 秦嬴, x: 1940, row: 23, name: "成"}
-  "戚夫人": {type: tile, anchor: 漢高祖, x: 6484, row: 55, name: "戚夫人"}
-  "扶柳侯呂平": {type: tile, anchor: 楚元王, x: 4916, row: 55, name: "扶柳侯呂平", color: lu}
-  "振": {type: tile, anchor: 冥, x: 2644, row: 12, name: "振"}
-  "摯": {type: tile, anchor: 后稷, x: 5796, row: 6, name: "摯"}
-  "敬康": {type: tile, anchor: 窮蟬, x: 2388, row: 6, name: "敬康"}
-  "新都侯張侈": {type: tile, anchor: 樂昌侯張壽, x: 6900, row: 57, name: "新都侯張侈"}
-  "旁皋": {type: tile, anchor: 女防, x: 1876, row: 20, name: "旁皋"}
-  "昌僕": {type: tile, anchor: 昌意, x: 1956, row: 3, name: "昌僕"}
-  "昌意": {type: tile, anchor: 渾沌, x: 2084, row: 3, name: "昌意"}
-  "昌若": {type: tile, anchor: 相土, x: 2644, row: 9, name: "昌若"}
-  "昭明": {type: tile, anchor: 契, x: 2644, row: 7, name: "昭明"}
-  "曹圉": {type: tile, anchor: 昌若, x: 2644, row: 10, name: "曹圉"}
-  "朱虛侯劉章": {type: tile, anchor: 東牟侯劉興居, x: 8820, row: 57, name: "朱虛侯劉章"}
-  "東周惠公": {type: tile, anchor: 西周威公, x: 3892, row: 49, name: "東周惠公"}
-  "東平侯呂莊": {type: tile, anchor: 呂肅王, x: 9076, row: 57, name: "東平侯呂莊", color: lu}
-  "東牟侯劉興居": {type: tile, anchor: 濟北王劉志, x: 8692, row: 57, name: "東牟侯劉興居"}
-  "柏翳": {type: tile, anchor: 大業, x: 1780, row: 7, name: "柏翳"}
-  "梁王劉揖": {type: tile, anchor: 漢孝文帝, x: 6132, row: 57, name: "梁王劉揖"}
-  "梁王呂產": {type: tile, anchor: 呂悼武王, x: 9076, row: 56, name: "梁王呂產", color: lu}
-  "楚元王": {type: tile, anchor: 漢太上皇, x: 4788, row: 55, name: "楚元王"}
-  "楚王劉戊": {type: tile, anchor: 楚王劉藝, x: 4852, row: 57, name: "楚王劉戊"}
-  "楚王劉藝": {type: tile, anchor: 平陸侯劉禮, x: 4852, row: 56, name: "楚王劉藝"}
-  "樂昌侯張壽": {type: tile, anchor: 宣平侯張敖, x: 6772, row: 57, name: "樂昌侯張壽"}
-  "樂通侯": {type: tile, anchor: 衛長公主, x: 6900, row: 59, name: "樂通侯"}
-  "橋牛": {type: tile, anchor: 句望, x: 2388, row: 8, name: "橋牛"}
-  "檮杌": {type: tile, anchor: 鯀, x: 2260, row: 5, name: "檮杌"}
-  "武安侯王蚡": {type: tile, anchor: 周陽侯王勝, x: 6004, row: 57, name: "武安侯王蚡"}
-  "殷中丁": {type: tile, anchor: 殷外壬, x: 2708, row: 24, name: "殷中丁", color: shang}
-  "殷中壬": {type: tile, anchor: 殷湯, x: 2516, row: 20, name: "殷中壬", color: shang}
-  "殷乙": {type: tile, anchor: 比干, x: 2324, row: 34, name: "殷乙", color: shang}
-  "殷南庚": {type: tile, anchor: 殷沃甲, x: 2388, row: 27, name: "殷南庚", color: shang}
-  "殷外丙": {type: tile, anchor: 殷中壬, x: 2644, row: 20, name: "殷外丙", color: shang}
-  "殷外壬": {type: tile, anchor: 殷河亶甲, x: 2580, row: 24, name: "殷外壬", color: shang}
-  "殷太丁": {type: tile, anchor: 殷武乙, x: 2196, row: 33, name: "殷太丁", color: shang}
-  "殷太庚": {type: tile, anchor: 殷太甲, x: 2708, row: 22, name: "殷太庚", color: shang}
-  "殷太戊": {type: tile, anchor: 殷太庚, x: 2580, row: 23, name: "殷太戊", color: shang}
-  "殷太甲": {type: tile, anchor: 殷子太丁, x: 2772, row: 21, name: "殷太甲", color: shang}
-  "殷子太丁": {type: tile, anchor: 殷外丙, x: 2772, row: 20, name: "殷子太丁"}
-  "殷子武庚": {type: tile, anchor: 殷紂, x: 2260, row: 36, name: "殷子武庚"}
-  "殷小乙": {type: tile, anchor: 殷祖丁, x: 2324, row: 28, name: "殷小乙", color: shang}
-  "殷小甲": {type: tile, anchor: 殷雍己, x: 2836, row: 23, name: "殷小甲", color: shang}
-  "殷小辛": {type: tile, anchor: 殷小乙, x: 2452, row: 28, name: "殷小辛", color: shang}
-  "殷庚丁": {type: tile, anchor: 殷甲, x: 2196, row: 31, name: "殷庚丁", color: shang}
-  "殷廩辛": {type: tile, anchor: 殷庚丁, x: 2324, row: 31, name: "殷廩辛", color: shang}
-  "殷武丁": {type: tile, anchor: 殷小乙, x: 2324, row: 29, name: "殷武丁", color: shang}
-  "殷武乙": {type: tile, anchor: 殷庚丁, x: 2196, row: 32, name: "殷武乙", color: shang}
-  "殷沃丁": {type: tile, anchor: 殷太庚, x: 2836, row: 22, name: "殷沃丁", color: shang}
-  "殷沃甲": {type: tile, anchor: 殷祖乙, x: 2388, row: 26, name: "殷沃甲", color: shang}
-  "殷河亶甲": {type: tile, anchor: 殷太戊, x: 2452, row: 24, name: "殷河亶甲", color: shang}
-  "殷湯": {type: tile, anchor: 主癸, x: 2644, row: 19, name: "殷湯", color: shang}
-  "殷甲": {type: tile, anchor: 殷武丁, x: 2260, row: 30, name: "殷甲", color: shang}
-  "殷盤庚": {type: tile, anchor: 殷小辛, x: 2580, row: 28, name: "殷盤庚", color: shang}
-  "殷祖丁": {type: tile, anchor: 殷祖辛, x: 2516, row: 27, name: "殷祖丁", color: shang}
-  "殷祖乙": {type: tile, anchor: 殷河亶甲, x: 2452, row: 25, name: "殷祖乙", color: shang}
-  "殷祖庚": {type: tile, anchor: 殷甲, x: 2388, row: 30, name: "殷祖庚", color: shang}
-  "殷祖辛": {type: tile, anchor: 殷沃甲, x: 2516, row: 26, name: "殷祖辛", color: shang}
-  "殷紂": {type: tile, anchor: 殷乙, x: 2260, row: 35, name: "殷紂", color: shang}
-  "殷陽甲": {type: tile, anchor: 殷盤庚, x: 2708, row: 28, name: "殷陽甲", color: shang}
-  "殷雍己": {type: tile, anchor: 殷太戊, x: 2708, row: 23, name: "殷雍己", color: shang}
-  "毀隃": {type: tile, anchor: 差弗, x: 3604, row: 13, name: "毀隃"}
-  "比干": {type: tile, anchor: 箕子, x: 2196, row: 34, name: "比干"}
-  "毛叔鄭": {type: tile, anchor: 衛康叔, x: 3412, row: 21, name: "毛叔鄭"}
-  "沛侯呂種": {type: tile, anchor: 建成侯呂釋之, x: 8820, row: 56, name: "沛侯呂種", color: lu}
-  "河閒王劉辟彊": {type: tile, anchor: 趙幽王, x: 5620, row: 57, name: "河閒王劉辟彊"}
-  "淮南厲王": {type: tile, anchor: 燕王劉建, x: 5364, row: 56, name: "淮南厲王"}
-  "淮南王": {type: tile, anchor: 衡山王, x: 5492, row: 57, name: "淮南王"}
-  "淮陽王劉彊": {type: tile, anchor: 漢孝惠帝, x: 7796, row: 57, name: "淮陽王劉彊"}
-  "淮陽王劉武": {type: tile, anchor: 漢孝惠帝, x: 7284, row: 57, name: "淮陽王劉武"}
-  "渾沌": {type: tile, anchor: 黃帝, x: 1828, row: 3, name: "渾沌"}
-  "漢前少帝": {type: tile, anchor: 漢孝惠帝, x: 7924, row: 57, name: "漢前少帝", color: han}
-  "漢太上皇": {type: tile, anchor: 劉累, x: 7060, row: 54, name: "漢太上皇"}
-  "漢孝惠帝": {type: tile, anchor: 魯元公主, x: 7540, row: 56, name: "漢孝惠帝", color: han}
-  "漢孝文帝": {type: tile, anchor: 趙共王, x: 6388, row: 56, name: "漢孝文帝", color: han}
-  "漢孝景帝": {type: tile, anchor: 代王劉武, x: 6644, row: 57, name: "漢孝景帝", color: han}
-  "漢孝武帝": {type: tile, anchor: 王夫人, x: 6772, row: 58, name: "漢孝武帝", color: han}
-  "漢後少帝": {type: tile, anchor: 漢孝惠帝, x: 7540, row: 57, name: "漢後少帝", color: han}
-  "漢高祖": {type: tile, anchor: 臨光侯呂媭, x: 6868, row: 55, name: "漢高祖", color: han}
-  "濟北王劉志": {type: tile, anchor: 膠西王劉卬, x: 8564, row: 57, name: "濟北王劉志"}
-  "濟南王劉辟光": {type: tile, anchor: 菑川王劉賢, x: 8308, row: 57, name: "濟南王劉辟光"}
-  "濟川王劉太": {type: tile, anchor: 漢孝惠帝, x: 7412, row: 57, name: "濟川王劉太"}
-  "燕王劉建": {type: tile, anchor: 漢高祖, x: 5236, row: 56, name: "燕王劉建"}
-  "燕王呂通": {type: tile, anchor: 東平侯呂莊, x: 9204, row: 57, name: "燕王呂通", color: lu}
-  "玄囂": {type: tile, anchor: 昌意, x: 4284, row: 3, name: "玄囂"}
-  "王太后": {type: tile, anchor: 漢孝景帝, x: 6516, row: 57, name: "王太后"}
-  "王夫人": {type: tile, anchor: 廣川王劉越, x: 6644, row: 58, name: "王夫人"}
-  "瑯邪后": {type: tile, anchor: 臨光侯呂媭, x: 4980, row: 56, name: "瑯邪后", color: lu}
-  "瑯邪王劉澤": {type: tile, anchor: 瑯邪后, x: 5108, row: 56, name: "瑯邪王劉澤", color: lu}
-  "畢公": {type: tile, anchor: 叔振鐸, x: 3668, row: 21, name: "畢公"}
-  "皇僕": {type: tile, anchor: 慶節, x: 3604, row: 11, name: "皇僕"}
-  "相土": {type: tile, anchor: 昭明, x: 2644, row: 8, name: "相土"}
-  "瞽叟": {type: tile, anchor: 橋牛, x: 2388, row: 9, name: "瞽叟"}
-  "秦二世皇帝": {type: tile, anchor: 秦始皇帝, x: 1684, row: 53, name: "秦二世皇帝", color: qin}
-  "秦仲": {type: tile, anchor: 秦公伯, x: 1812, row: 26, name: "秦仲", color: qin}
-  "秦侯": {type: tile, anchor: 秦嬴, x: 1812, row: 24, name: "秦侯", color: qin}
-  "秦公伯": {type: tile, anchor: 秦侯, x: 1812, row: 25, name: "秦公伯", color: qin}
-  "秦公子嬰": {type: tile, anchor: 秦公子扶蘇, x: 1812, row: 54, name: "秦公子嬰", color: qin}
-  "秦公子扶蘇": {type: tile, anchor: 秦二世皇帝, x: 1812, row: 53, name: "秦公子扶蘇"}
-  "秦共公": {type: tile, anchor: 秦康公, x: 1684, row: 35, name: "秦共公", color: qin}
-  "秦出子-1": {type: tile, anchor: 秦憲公, x: 1684, row: 32, name: "秦出子", color: qin}
-  "秦出子-2": {type: tile, anchor: 秦惠公-2, x: 1620, row: 46, name: "秦出子", color: qin}
-  "秦厲共公": {type: tile, anchor: 秦悼公, x: 1748, row: 42, name: "秦厲共公", color: qin}
-  "秦哀公": {type: tile, anchor: 秦景公, x: 1748, row: 38, name: "秦哀公", color: qin}
-  "秦唐太后": {type: tile, anchor: 秦昭襄王, x: 1556, row: 49, name: "秦唐太后"}
-  "秦始皇帝": {type: tile, anchor: 長安君, x: 1748, row: 52, name: "秦始皇帝", color: qin}
-  "秦嬴": {type: tile, anchor: 大駱, x: 1812, row: 23, name: "秦嬴", color: qin}
-  "秦子世父": {type: tile, anchor: 秦襄公, x: 2004, row: 28, name: "秦子世父"}
-  "秦子夷公": {type: tile, anchor: 秦哀公, x: 1748, row: 39, name: "秦子夷公"}
-  "秦子昭": {type: tile, anchor: 秦簡公, x: 1748, row: 44, name: "秦子昭"}
-  "秦子白": {type: tile, anchor: 秦武公, x: 2068, row: 33, name: "秦子白"}
-  "秦子鍼": {type: tile, anchor: 秦桓公, x: 1620, row: 37, name: "秦子鍼"}
-  "秦孝公": {type: tile, anchor: 秦獻公, x: 1748, row: 47, name: "秦孝公", color: qin}
-  "秦孝文王": {type: tile, anchor: 秦昭襄王, x: 1684, row: 50, name: "秦孝文王", color: qin}
-  "秦宣公": {type: tile, anchor: 秦成公, x: 1940, row: 33, name: "秦宣公", color: qin}
-  "秦宣太后": {type: tile, anchor: 秦惠文王, x: 1620, row: 48, name: "秦宣太后"}
-  "秦康公": {type: tile, anchor: 秦繆公, x: 1684, row: 34, name: "秦康公", color: qin}
-  "秦德公": {type: tile, anchor: 秦出子-1, x: 1812, row: 32, name: "秦德公", color: qin}
-  "秦悼公": {type: tile, anchor: 秦惠公-1, x: 1748, row: 41, name: "秦悼公", color: qin}
-  "秦惠公-1": {type: tile, anchor: 秦子夷公, x: 1748, row: 40, name: "秦惠公", color: qin}
-  "秦惠公-2": {type: tile, anchor: 秦簡公, x: 1620, row: 45, name: "秦惠公", color: qin}
-  "秦惠文王": {type: tile, anchor: 秦孝公, x: 1748, row: 48, name: "秦惠文王", color: qin}
-  "秦憲公": {type: tile, anchor: 秦竫公, x: 1876, row: 31, name: "秦憲公", color: qin}
-  "秦懷公": {type: tile, anchor: 秦厲共公, x: 1684, row: 43, name: "秦懷公", color: qin}
-  "秦成公": {type: tile, anchor: 秦繆公, x: 1812, row: 33, name: "秦成公", color: qin}
-  "秦文公": {type: tile, anchor: 秦襄公, x: 1876, row: 29, name: "秦文公", color: qin}
-  "秦昭襄王": {type: tile, anchor: 秦惠文王, x: 1684, row: 49, name: "秦昭襄王", color: qin}
-  "秦景公": {type: tile, anchor: 秦子鍼, x: 1748, row: 37, name: "秦景公", color: qin}
-  "秦桓公": {type: tile, anchor: 秦共公, x: 1684, row: 36, name: "秦桓公", color: qin}
-  "秦武公": {type: tile, anchor: 秦德公, x: 2068, row: 32, name: "秦武公", color: qin}
-  "秦武王": {type: tile, anchor: 秦昭襄王, x: 1812, row: 49, name: "秦武王", color: qin}
-  "秦獻公": {type: tile, anchor: 秦靈公, x: 1748, row: 46, name: "秦獻公", color: qin}
-  "秦竫公": {type: tile, anchor: 秦文公, x: 1876, row: 30, name: "秦竫公"}
-  "秦簡公": {type: tile, anchor: 秦懷公, x: 1620, row: 44, name: "秦簡公", color: qin}
-  "秦繆公": {type: tile, anchor: 秦德公, x: 1684, row: 33, name: "秦繆公", color: qin}
-  "秦莊公": {type: tile, anchor: 秦仲, x: 1812, row: 27, name: "秦莊公", color: qin}
-  "秦莊襄王": {type: tile, anchor: 秦孝文王, x: 1684, row: 51, name: "秦莊襄王", color: qin}
-  "秦襄公": {type: tile, anchor: 繆嬴, x: 1876, row: 28, name: "秦襄公", color: qin}
-  "秦躁公": {type: tile, anchor: 秦懷公, x: 1812, row: 43, name: "秦躁公", color: qin}
-  "秦靈公": {type: tile, anchor: 秦子昭, x: 1748, row: 45, name: "秦靈公", color: qin}
-  "窮奇": {type: tile, anchor: 少暤, x: 5142, row: 2, name: "窮奇"}
-  "窮蟬": {type: tile, anchor: 檮杌, x: 2388, row: 5, name: "窮蟬"}
-  "竇太后": {type: tile, anchor: 漢孝文帝, x: 6260, row: 56, name: "竇太后"}
-  "箕子": {type: tile, anchor: 殷太丁, x: 2068, row: 34, name: "箕子"}
-  "管叔鮮": {type: tile, anchor: 蔡叔度, x: 3156, row: 21, name: "管叔鮮"}
-  "簡狄": {type: tile, anchor: 帝嚳, x: 4028, row: 5, name: "簡狄"}
-  "繆嬴": {type: tile, anchor: 秦莊公, x: 1620, row: 28, name: "繆嬴"}
-  "胡陵侯呂祿": {type: tile, anchor: 沛侯呂種, x: 8948, row: 56, name: "胡陵侯呂祿", color: lu}
-  "膠東王劉寄": {type: tile, anchor: 常山王劉舜, x: 6388, row: 58, name: "膠東王劉寄"}
-  "膠東王劉雄渠": {type: tile, anchor: 齊悼惠王, x: 8052, row: 57, name: "膠東王劉雄渠"}
-  "膠西王劉卬": {type: tile, anchor: 濟南王劉辟光, x: 8436, row: 57, name: "膠西王劉卬"}
-  "膠西王劉端": {type: tile, anchor: 中山王劉勝, x: 7028, row: 58, name: "膠西王劉端"}
-  "臨光侯呂媭": {type: tile, anchor: 扶柳侯呂平, x: 5044, row: 55, name: "臨光侯呂媭", color: lu}
-  "臨江王劉栗": {type: tile, anchor: 膠西王劉端, x: 7156, row: 58, name: "臨江王劉栗"}
-  "若木": {type: tile, anchor: 柏翳, x: 1684, row: 8, name: "若木"}
-  "菑川王劉賢": {type: tile, anchor: 膠東王劉雄渠, x: 8180, row: 57, name: "菑川王劉賢"}
-  "華陽太后": {type: tile, anchor: 秦孝文王, x: 1428, row: 50, name: "華陽太后"}
-  "蔡叔度": {type: tile, anchor: 南宮括, x: 3028, row: 21, name: "蔡叔度"}
-  "薄后": {type: tile, anchor: 漢高祖, x: 6612, row: 55, name: "薄后"}
-  "薄昭": {type: tile, anchor: 薄后, x: 6356, row: 55, name: "薄昭"}
-  "虞仲": {type: tile, anchor: 季歷, x: 3604, row: 19, name: "虞仲"}
-  "虞姬": {type: tile, anchor: 西楚霸王, x: 4718, row: 3, name: "虞姬"}
-  "蜚廉": {type: tile, anchor: 中潏, x: 1812, row: 17, name: "蜚廉"}
-  "蟜極": {type: tile, anchor: 玄囂, x: 4284, row: 4, name: "蟜極"}
-  "衛康叔": {type: tile, anchor: 管叔鮮, x: 3284, row: 21, name: "衛康叔"}
-  "衛長公主": {type: tile, anchor: 漢孝武帝, x: 6772, row: 59, name: "衛長公主"}
-  "衡山王": {type: tile, anchor: 廬江王, x: 5364, row: 57, name: "衡山王"}
-  "衡父": {type: tile, anchor: 孟增, x: 1748, row: 20, name: "衡父"}
-  "褒姒": {type: tile, anchor: 周幽王, x: 3988, row: 31, name: "褒姒"}
-  "西周威公": {type: tile, anchor: 西周桓公, x: 3956, row: 48, name: "西周威公"}
-  "西周惠公": {type: tile, anchor: 東周惠公, x: 4020, row: 49, name: "西周惠公"}
-  "西周桓公": {type: tile, anchor: 周定王-2, x: 3956, row: 47, name: "西周桓公"}
-  "西戎豐王": {type: tile, anchor: 繆嬴, x: 1748, row: 28, name: "西戎豐王"}
+  "seg47": {type: vseg, anchor: 漢孝惠帝, x: 7230, y1: 25224, y2: 25288}
+  "seg48": {type: vseg, anchor: 漢孝惠帝, x: 7358, y1: 25224, y2: 25288}
+  "seg49": {type: vseg, anchor: 漢孝惠帝, x: 7486, y1: 25224, y2: 25288}
+  "seg5": {type: vseg, anchor: 漢孝景帝, x: 5950, y1: 25660, y2: 26160}
+  "seg50": {type: vseg, anchor: 漢孝惠帝, x: 7614, y1: 25224, y2: 25288}
+  "seg51": {type: vseg, anchor: 漢孝惠帝, x: 7742, y1: 25224, y2: 25288}
+  "seg53": {type: hseg, anchor: 漢孝惠帝, y: 25006, x1: 7262, x2: 7326}
+  "seg54": {type: vseg, anchor: 孝惠皇后, x: 7230, y1: 24820, y2: 24852}
+  "seg56": {type: hseg, anchor: 齊悼惠王, y: 25224, x1: 7870, x2: 8766}
+  "seg57": {type: vseg, anchor: 齊悼惠王, x: 8318, y1: 25160, y2: 25224}
+  "seg58": {type: vseg, anchor: 齊悼惠王, x: 7870, y1: 25224, y2: 25288}
+  "seg59": {type: vseg, anchor: 齊悼惠王, x: 7998, y1: 25224, y2: 25288}
+  "seg6": {type: vseg, anchor: 漢孝景帝, x: 6078, y1: 25660, y2: 25724}
+  "seg60": {type: vseg, anchor: 齊悼惠王, x: 8126, y1: 25224, y2: 25288}
+  "seg61": {type: vseg, anchor: 齊悼惠王, x: 8254, y1: 25224, y2: 25288}
+  "seg62": {type: vseg, anchor: 齊悼惠王, x: 8382, y1: 25224, y2: 25288}
+  "seg63": {type: vseg, anchor: 齊悼惠王, x: 8510, y1: 25224, y2: 25288}
+  "seg64": {type: vseg, anchor: 齊悼惠王, x: 8638, y1: 25224, y2: 25288}
+  "seg65": {type: vseg, anchor: 齊悼惠王, x: 8766, y1: 25224, y2: 25288}
+  "seg66": {type: hseg, anchor: 宣平侯張敖, y: 24820, x1: 6846, x2: 7230}
+  "seg67": {type: hseg, anchor: 漢高祖, y: 24788, x1: 5054, x2: 8318}
+  "seg68": {type: vseg, anchor: 漢高祖, x: 6686, y1: 24724, y2: 24788}
+  "seg69": {type: vseg, anchor: 漢高祖, x: 5054, y1: 24788, y2: 24852}
+  "seg7": {type: vseg, anchor: 漢孝景帝, x: 6206, y1: 25660, y2: 25724}
+  "seg70": {type: vseg, anchor: 漢高祖, x: 5182, y1: 24788, y2: 24852}
+  "seg71": {type: vseg, anchor: 漢高祖, x: 5502, y1: 24788, y2: 24852}
+  "seg72": {type: vseg, anchor: 漢高祖, x: 5822, y1: 24788, y2: 24852}
+  "seg73": {type: vseg, anchor: 漢高祖, x: 6206, y1: 24788, y2: 24852}
+  "seg74": {type: vseg, anchor: 漢高祖, x: 6462, y1: 24788, y2: 24852}
+  "seg75": {type: vseg, anchor: 漢高祖, x: 6590, y1: 24788, y2: 24852}
+  "seg76": {type: vseg, anchor: 漢高祖, x: 7358, y1: 24788, y2: 24852}
+  "seg77": {type: vseg, anchor: 漢高祖, x: 8318, y1: 24788, y2: 24852}
+  "seg78": {type: hseg, anchor: 漢高祖, y: 24570, x1: 6590, x2: 6654}
+  "seg79": {type: hseg, anchor: 漢高祖, y: 24570, x1: 6462, x2: 6526}
+  "seg8": {type: vseg, anchor: 漢孝景帝, x: 6334, y1: 25660, y2: 25724}
+  "seg80": {type: hseg, anchor: 漢高祖, y: 24570, x1: 6334, x2: 6398}
+  "seg81": {type: vseg, anchor: 薄后, x: 6174, y1: 24400, y2: 24416}
+  "seg82": {type: vseg, anchor: 薄后, x: 6430, y1: 24400, y2: 24416}
+  "seg83": {type: hseg, anchor: 薄后, y: 24400, x1: 6174, x2: 6430}
+  "seg84": {type: vseg, anchor: 呂太后, x: 6558, y1: 24384, y2: 24416}
+  "seg85": {type: hseg, anchor: 臨光侯呂媭, y: 24788, x1: 4798, x2: 4926}
+  "seg86": {type: vseg, anchor: 臨光侯呂媭, x: 4862, y1: 24724, y2: 24788}
+  "seg87": {type: vseg, anchor: 臨光侯呂媭, x: 4798, y1: 24788, y2: 24852}
+  "seg88": {type: vseg, anchor: 臨光侯呂媭, x: 4926, y1: 24788, y2: 24852}
+  "seg89": {type: hseg, anchor: 建成侯呂釋之, y: 24788, x1: 8638, x2: 8766}
+  "seg9": {type: vseg, anchor: 漢孝景帝, x: 6462, y1: 25660, y2: 25724}
+  "seg90": {type: vseg, anchor: 建成侯呂釋之, x: 8702, y1: 24724, y2: 24788}
+  "seg91": {type: vseg, anchor: 建成侯呂釋之, x: 8638, y1: 24788, y2: 24852}
+  "seg92": {type: vseg, anchor: 建成侯呂釋之, x: 8766, y1: 24788, y2: 24852}
+  "seg93": {type: hseg, anchor: 呂肅王, y: 25224, x1: 8894, x2: 9150}
+  "seg94": {type: vseg, anchor: 呂肅王, x: 9022, y1: 25160, y2: 25224}
+  "seg95": {type: vseg, anchor: 呂肅王, x: 8894, y1: 25224, y2: 25288}
+  "seg96": {type: vseg, anchor: 呂肅王, x: 9022, y1: 25224, y2: 25288}
+  "seg97": {type: vseg, anchor: 呂肅王, x: 9150, y1: 25224, y2: 25288}
+  "seg98": {type: hseg, anchor: 呂悼武王, y: 24788, x1: 8894, x2: 9022}
+  "seg99": {type: vseg, anchor: 呂悼武王, x: 8958, y1: 24724, y2: 24788}
+  "不窋": {type: tile, anchor: 后稷, x: 3326, row: 8, name: "不窋", color: ~}
+  "中山王劉勝": {type: tile, anchor: 漢孝武帝, x: 6686, row: 59, name: "中山王劉勝", color: ~}
+  "中潏": {type: tile, anchor: 中衍, x: 1438, row: 17, name: "中潏", color: ~}
+  "中衍": {type: tile, anchor: 大廉, x: 1438, row: 13, name: "中衍", color: ~}
+  "丹朱": {type: tile, anchor: 帝堯, x: 5774, row: 8, name: "丹朱", color: ~}
+  "主壬": {type: tile, anchor: 報丙, x: 2270, row: 18, name: "主壬", color: ~}
+  "主癸": {type: tile, anchor: 主壬, x: 2270, row: 19, name: "主癸", color: ~}
+  "亞圉": {type: tile, anchor: 高圉, x: 3326, row: 17, name: "亞圉", color: ~}
+  "代王劉武": {type: tile, anchor: 太原王劉參, x: 6174, row: 58, name: "代王劉武", color: ~}
+  "代頃王": {type: tile, anchor: 扶柳侯呂平, x: 9118, row: 56, name: "代頃王", color: ~}
+  "公劉": {type: tile, anchor: 鞠, x: 3326, row: 10, name: "公劉", color: ~}
+  "公叔祖類": {type: tile, anchor: 亞圉, x: 3326, row: 18, name: "公叔祖類", color: ~}
+  "公非": {type: tile, anchor: 毀隃, x: 3326, row: 15, name: "公非", color: ~}
+  "冥": {type: tile, anchor: 曹圉, x: 2270, row: 12, name: "冥", color: ~}
+  "劉媼": {type: tile, anchor: 漢太上皇, x: 6718, row: 55, name: "劉媼", color: ~}
+  "劉累": {type: tile, anchor: 帝堯, x: 5646, row: 17, name: "劉累", color: ~}
+  "劉賈": {type: tile, anchor: 劉累, x: 4446, row: 56, name: "劉賈", color: ~}
+  "南宮括": {type: tile, anchor: 霍叔處, x: 2686, row: 22, name: "南宮括", color: ~}
+  "叔振鐸": {type: tile, anchor: 毛叔鄭, x: 3326, row: 22, name: "叔振鐸", color: ~}
+  "古公亶父": {type: tile, anchor: 公叔祖類, x: 3326, row: 19, name: "古公亶父", color: ~}
+  "句望": {type: tile, anchor: 敬康, x: 2014, row: 8, name: "句望", color: ~}
+  "召公奭": {type: tile, anchor: 畢公, x: 3582, row: 22, name: "召公奭", color: ~}
+  "后稷": {type: tile, anchor: 契, x: 3326, row: 7, name: "后稷", color: ~}
+  "吳王濞": {type: tile, anchor: 代頃王, x: 9118, row: 57, name: "吳王濞", color: ~}
+  "呂太后": {type: tile, anchor: 漢高祖, x: 6526, row: 56, name: "呂太后", color: lu}
+  "呂悼武王": {type: tile, anchor: 建成侯呂釋之, x: 8926, row: 56, name: "呂悼武王", color: lu}
+  "呂王嘉": {type: tile, anchor: 燕王呂通, x: 9118, row: 58, name: "呂王嘉", color: lu}
+  "呂肅王": {type: tile, anchor: 梁王呂產, x: 8990, row: 57, name: "呂肅王", color: lu}
+  "周元王": {type: tile, anchor: 周敬王, x: 3966, row: 46, name: "周元王", color: zhou}
+  "周公旦": {type: tile, anchor: 召公奭, x: 3710, row: 22, name: "周公旦", color: ~}
+  "周共王": {type: tile, anchor: 周孝王, x: 3902, row: 27, name: "周共王", color: zhou}
+  "周匡王": {type: tile, anchor: 周定王-1, x: 4286, row: 41, name: "周匡王", color: zhou}
+  "周厲王": {type: tile, anchor: 周夷王, x: 3902, row: 30, name: "周厲王", color: zhou}
+  "周叔帶": {type: tile, anchor: 周惠王, x: 4094, row: 39, name: "周叔帶", color: ~}
+  "周哀王": {type: tile, anchor: 周思王, x: 4190, row: 48, name: "周哀王", color: zhou}
+  "周夷王": {type: tile, anchor: 周懿王, x: 3902, row: 29, name: "周夷王", color: zhou}
+  "周威烈王": {type: tile, anchor: 周考王, x: 3934, row: 49, name: "周威烈王", color: zhou}
+  "周子伯服": {type: tile, anchor: 周幽王, x: 3838, row: 33, name: "周子伯服", color: ~}
+  "周子克": {type: tile, anchor: 周桓王, x: 3838, row: 36, name: "周子克", color: ~}
+  "周子南君": {type: tile, anchor: 周赧王, x: 3870, row: 54, name: "周子南君", color: ~}
+  "周子朝": {type: tile, anchor: 周敬王, x: 4094, row: 45, name: "周子朝", color: ~}
+  "周子洩父": {type: tile, anchor: 周平王, x: 3966, row: 34, name: "周子洩父", color: ~}
+  "周子穨": {type: tile, anchor: 周莊王, x: 4030, row: 37, name: "周子穨", color: ~}
+  "周子聖": {type: tile, anchor: 周悼王, x: 4350, row: 45, name: "周子聖", color: ~}
+  "周孝王": {type: tile, anchor: 周穆王, x: 3774, row: 27, name: "周孝王", color: zhou}
+  "周安王": {type: tile, anchor: 周威烈王, x: 3934, row: 50, name: "周安王", color: zhou}
+  "周定王-1": {type: tile, anchor: 周頃王, x: 4158, row: 41, name: "周定王", color: zhou}
+  "周定王-2": {type: tile, anchor: 周元王, x: 3966, row: 47, name: "周定王", color: zhou}
+  "周宣王": {type: tile, anchor: 周厲王, x: 3902, row: 31, name: "周宣王", color: zhou}
+  "周平王": {type: tile, anchor: 周子伯服, x: 3966, row: 33, name: "周平王", color: zhou}
+  "周幽王": {type: tile, anchor: 周宣王, x: 3902, row: 32, name: "周幽王", color: zhou}
+  "周康王": {type: tile, anchor: 周成王, x: 3838, row: 24, name: "周康王", color: zhou}
+  "周思王": {type: tile, anchor: 周考王, x: 4062, row: 48, name: "周思王", color: zhou}
+  "周悼王": {type: tile, anchor: 周子朝, x: 4222, row: 45, name: "周悼王", color: zhou}
+  "周惠王": {type: tile, anchor: 周釐王, x: 4158, row: 38, name: "周惠王", color: zhou}
+  "周慎靚王": {type: tile, anchor: 周顯王, x: 3870, row: 52, name: "周慎靚王", color: zhou}
+  "周懿王": {type: tile, anchor: 周共王, x: 3902, row: 28, name: "周懿王", color: zhou}
+  "周成王": {type: tile, anchor: 周武王, x: 3838, row: 23, name: "周成王", color: zhou}
+  "周敬王": {type: tile, anchor: 周景王, x: 3966, row: 45, name: "周敬王", color: zhou}
+  "周文王": {type: tile, anchor: 季歷, x: 3198, row: 21, name: "周文王", color: zhou}
+  "周昭王": {type: tile, anchor: 周康王, x: 3838, row: 25, name: "周昭王", color: zhou}
+  "周景王": {type: tile, anchor: 周靈王, x: 4158, row: 44, name: "周景王", color: zhou}
+  "周桓王": {type: tile, anchor: 周子洩父, x: 3966, row: 35, name: "周桓王", color: zhou}
+  "周武王": {type: tile, anchor: 周公旦, x: 3838, row: 22, name: "周武王", color: zhou}
+  "周烈王": {type: tile, anchor: 周顯王, x: 3998, row: 51, name: "周烈王", color: zhou}
+  "周穆王": {type: tile, anchor: 周昭王, x: 3838, row: 26, name: "周穆王", color: zhou}
+  "周簡王": {type: tile, anchor: 周定王-1, x: 4158, row: 42, name: "周簡王", color: zhou}
+  "周考王": {type: tile, anchor: 西周桓公, x: 3934, row: 48, name: "周考王", color: zhou}
+  "周莊王": {type: tile, anchor: 姚, x: 4094, row: 36, name: "周莊王", color: zhou}
+  "周襄王": {type: tile, anchor: 周叔帶, x: 4222, row: 39, name: "周襄王", color: zhou}
+  "周赧王": {type: tile, anchor: 周慎靚王, x: 3870, row: 53, name: "周赧王", color: zhou}
+  "周釐王": {type: tile, anchor: 周子穨, x: 4158, row: 37, name: "周釐王", color: zhou}
+  "周陽侯王勝": {type: tile, anchor: 漢孝文帝, x: 5662, row: 58, name: "周陽侯王勝", color: ~}
+  "周靈王": {type: tile, anchor: 周簡王, x: 4158, row: 43, name: "周靈王", color: zhou}
+  "周頃王": {type: tile, anchor: 周襄王, x: 4222, row: 40, name: "周頃王", color: zhou}
+  "周顯王": {type: tile, anchor: 周安王, x: 3870, row: 51, name: "周顯王", color: zhou}
+  "商均": {type: tile, anchor: 帝舜, x: 2078, row: 12, name: "商均", color: ~}
+  "報丁": {type: tile, anchor: 微, x: 2270, row: 15, name: "報丁", color: ~}
+  "報丙": {type: tile, anchor: 報乙, x: 2270, row: 17, name: "報丙", color: ~}
+  "報乙": {type: tile, anchor: 報丁, x: 2270, row: 16, name: "報乙", color: ~}
+  "夏不降": {type: tile, anchor: 夏扃, x: 1758, row: 16, name: "夏不降", color: xia}
+  "夏中康": {type: tile, anchor: 夏啟, x: 1694, row: 9, name: "夏中康", color: xia}
+  "夏予": {type: tile, anchor: 夏少康, x: 1694, row: 12, name: "夏予", color: xia}
+  "夏啟": {type: tile, anchor: 夏禹, x: 1758, row: 8, name: "夏啟", color: xia}
+  "夏太后": {type: tile, anchor: 秦孝文王, x: 1182, row: 51, name: "夏太后", color: ~}
+  "夏太康": {type: tile, anchor: 夏中康, x: 1822, row: 9, name: "夏太康", color: xia}
+  "夏孔甲": {type: tile, anchor: 夏不降, x: 1758, row: 17, name: "夏孔甲", color: xia}
+  "夏少康": {type: tile, anchor: 夏相, x: 1694, row: 11, name: "夏少康", color: xia}
+  "夏廑": {type: tile, anchor: 夏扃, x: 1630, row: 17, name: "夏廑", color: xia}
+  "夏扃": {type: tile, anchor: 夏泄, x: 1630, row: 16, name: "夏扃", color: xia}
+  "夏桀": {type: tile, anchor: 夏發, x: 1758, row: 20, name: "夏桀", color: xia}
+  "夏槐": {type: tile, anchor: 夏予, x: 1694, row: 13, name: "夏槐", color: xia}
+  "夏泄": {type: tile, anchor: 夏芒, x: 1694, row: 15, name: "夏泄", color: xia}
+  "夏發": {type: tile, anchor: 夏皋, x: 1758, row: 19, name: "夏發", color: xia}
+  "夏皋": {type: tile, anchor: 夏孔甲, x: 1758, row: 18, name: "夏皋", color: xia}
+  "夏相": {type: tile, anchor: 夏中康, x: 1694, row: 10, name: "夏相", color: xia}
+  "夏禹": {type: tile, anchor: 鯀, x: 1758, row: 7, name: "夏禹", color: xia}
+  "夏芒": {type: tile, anchor: 夏槐, x: 1694, row: 14, name: "夏芒", color: xia}
+  "大廉": {type: tile, anchor: 若木, x: 1502, row: 9, name: "大廉", color: ~}
+  "大業": {type: tile, anchor: 女修, x: 1406, row: 7, name: "大業", color: ~}
+  "大駱": {type: tile, anchor: 太幾, x: 1502, row: 23, name: "大駱", color: ~}
+  "太任": {type: tile, anchor: 季歷, x: 3070, row: 20, name: "太任", color: ~}
+  "太伯": {type: tile, anchor: 虞仲, x: 3454, row: 20, name: "太伯", color: ~}
+  "太原王劉參": {type: tile, anchor: 梁王劉揖, x: 6046, row: 58, name: "太原王劉參", color: ~}
+  "太姜": {type: tile, anchor: 古公亶父, x: 3198, row: 19, name: "太姜", color: ~}
+  "太幾": {type: tile, anchor: 旁皋, x: 1502, row: 22, name: "太幾", color: ~}
+  "契": {type: tile, anchor: 帝嚳, x: 2270, row: 7, name: "契", color: ~}
+  "女修": {type: tile, anchor: 帝顓頊, x: 1406, row: 6, name: "女修", color: ~}
+  "女華": {type: tile, anchor: 大業, x: 1278, row: 7, name: "女華", color: ~}
+  "女防": {type: tile, anchor: 惡來, x: 1502, row: 20, name: "女防", color: ~}
+  "姚": {type: tile, anchor: 周子克, x: 3966, row: 36, name: "姚", color: ~}
+  "姜原": {type: tile, anchor: 帝嚳, x: 3862, row: 6, name: "姜原", color: ~}
+  "嫘祖": {type: tile, anchor: 黃帝, x: 2594, row: 3, name: "嫘祖", color: ~}
+  "孝惠皇后": {type: tile, anchor: 漢孝惠帝, x: 7198, row: 57, name: "孝惠皇后", color: ~}
+  "孟增": {type: tile, anchor: 季勝, x: 1374, row: 20, name: "孟增", color: ~}
+  "孟戲": {type: tile, anchor: 中衍, x: 1566, row: 13, name: "孟戲", color: ~}
+  "季勝": {type: tile, anchor: 蜚廉, x: 1374, row: 19, name: "季勝", color: ~}
+  "季歷": {type: tile, anchor: 古公亶父, x: 3198, row: 20, name: "季歷", color: ~}
+  "宣平侯張敖": {type: tile, anchor: 魯元公主, x: 6686, row: 57, name: "宣平侯張敖", color: ~}
+  "少典": {type: tile, anchor: ~, x: 2000, row: 2, name: "少典", color: ~}
+  "少暤": {type: tile, anchor: ~, x: 5142, row: 1, name: "少暤", color: ~}
+  "差弗": {type: tile, anchor: 皇僕, x: 3326, row: 13, name: "差弗", color: ~}
+  "帝嚳": {type: tile, anchor: 蟜極, x: 3990, row: 6, name: "帝嚳", color: wudi}
+  "帝堯": {type: tile, anchor: 摯, x: 5710, row: 7, name: "帝堯", color: wudi}
+  "帝舜": {type: tile, anchor: 象, x: 2078, row: 11, name: "帝舜", color: wudi}
+  "帝顓頊": {type: tile, anchor: 昌意, x: 1710, row: 5, name: "帝顓頊", color: wudi}
+  "常山王劉不疑": {type: tile, anchor: 漢孝惠帝, x: 7454, row: 58, name: "常山王劉不疑", color: ~}
+  "常山王劉朝": {type: tile, anchor: 漢孝惠帝, x: 6942, row: 58, name: "常山王劉朝", color: ~}
+  "常山王劉舜": {type: tile, anchor: 漢孝景帝, x: 6046, row: 59, name: "常山王劉舜", color: ~}
+  "平昌侯劉太": {type: tile, anchor: 漢後少帝, x: 7326, row: 59, name: "平昌侯劉太", color: ~}
+  "平陸侯劉禮": {type: tile, anchor: 楚元王, x: 4510, row: 57, name: "平陸侯劉禮", color: ~}
+  "廣川王劉越": {type: tile, anchor: 膠東王劉寄, x: 6302, row: 59, name: "廣川王劉越", color: ~}
+  "廬江王": {type: tile, anchor: 淮南厲王, x: 5022, row: 58, name: "廬江王", color: ~}
+  "建成侯呂釋之": {type: tile, anchor: 漢高祖, x: 8670, row: 56, name: "建成侯呂釋之", color: lu}
+  "微": {type: tile, anchor: 振, x: 2270, row: 14, name: "微", color: ~}
+  "微子啟": {type: tile, anchor: 殷紂, x: 2014, row: 36, name: "微子啟", color: ~}
+  "惡來": {type: tile, anchor: 季勝, x: 1502, row: 19, name: "惡來", color: ~}
+  "慎夫人": {type: tile, anchor: 漢孝文帝, x: 5918, row: 57, name: "慎夫人", color: ~}
+  "慶節": {type: tile, anchor: 公劉, x: 3326, row: 11, name: "慶節", color: ~}
+  "成": {type: tile, anchor: 秦嬴, x: 1566, row: 24, name: "成", color: ~}
+  "戚夫人": {type: tile, anchor: 漢高祖, x: 6270, row: 56, name: "戚夫人", color: ~}
+  "扶柳侯呂平": {type: tile, anchor: 楚元王, x: 4702, row: 56, name: "扶柳侯呂平", color: lu}
+  "振": {type: tile, anchor: 冥, x: 2270, row: 13, name: "振", color: ~}
+  "摯": {type: tile, anchor: 后稷, x: 5582, row: 7, name: "摯", color: ~}
+  "敬康": {type: tile, anchor: 窮蟬, x: 2014, row: 7, name: "敬康", color: ~}
+  "新都侯張侈": {type: tile, anchor: 樂昌侯張壽, x: 6686, row: 58, name: "新都侯張侈", color: ~}
+  "旁皋": {type: tile, anchor: 女防, x: 1502, row: 21, name: "旁皋", color: ~}
+  "昌僕": {type: tile, anchor: 昌意, x: 1582, row: 4, name: "昌僕", color: ~}
+  "昌意": {type: tile, anchor: 渾沌, x: 1710, row: 4, name: "昌意", color: ~}
+  "昌若": {type: tile, anchor: 相土, x: 2270, row: 10, name: "昌若", color: ~}
+  "昭明": {type: tile, anchor: 契, x: 2270, row: 8, name: "昭明", color: ~}
+  "曹圉": {type: tile, anchor: 昌若, x: 2270, row: 11, name: "曹圉", color: ~}
+  "朱虛侯劉章": {type: tile, anchor: 東牟侯劉興居, x: 8606, row: 58, name: "朱虛侯劉章", color: ~}
+  "東周惠公": {type: tile, anchor: 西周威公, x: 3678, row: 50, name: "東周惠公", color: ~}
+  "東平侯呂莊": {type: tile, anchor: 呂肅王, x: 8862, row: 58, name: "東平侯呂莊", color: lu}
+  "東牟侯劉興居": {type: tile, anchor: 濟北王劉志, x: 8478, row: 58, name: "東牟侯劉興居", color: ~}
+  "柏翳": {type: tile, anchor: 大業, x: 1406, row: 8, name: "柏翳", color: ~}
+  "梁王劉揖": {type: tile, anchor: 漢孝文帝, x: 5918, row: 58, name: "梁王劉揖", color: ~}
+  "梁王呂產": {type: tile, anchor: 呂悼武王, x: 8862, row: 57, name: "梁王呂產", color: lu}
+  "楚元王": {type: tile, anchor: 漢太上皇, x: 4574, row: 56, name: "楚元王", color: ~}
+  "楚王劉戊": {type: tile, anchor: 楚王劉藝, x: 4638, row: 58, name: "楚王劉戊", color: ~}
+  "楚王劉藝": {type: tile, anchor: 平陸侯劉禮, x: 4638, row: 57, name: "楚王劉藝", color: ~}
+  "樂昌侯張壽": {type: tile, anchor: 宣平侯張敖, x: 6558, row: 58, name: "樂昌侯張壽", color: ~}
+  "樂通侯": {type: tile, anchor: 衛長公主, x: 6686, row: 60, name: "樂通侯", color: ~}
+  "橋牛": {type: tile, anchor: 句望, x: 2014, row: 9, name: "橋牛", color: ~}
+  "檮杌": {type: tile, anchor: 鯀, x: 1886, row: 6, name: "檮杌", color: ~}
+  "武安侯王蚡": {type: tile, anchor: 周陽侯王勝, x: 5790, row: 58, name: "武安侯王蚡", color: ~}
+  "殷中丁": {type: tile, anchor: 殷外壬, x: 2334, row: 25, name: "殷中丁", color: shang}
+  "殷中壬": {type: tile, anchor: 殷湯, x: 2142, row: 21, name: "殷中壬", color: shang}
+  "殷乙": {type: tile, anchor: 比干, x: 1950, row: 35, name: "殷乙", color: shang}
+  "殷南庚": {type: tile, anchor: 殷沃甲, x: 2014, row: 28, name: "殷南庚", color: shang}
+  "殷外丙": {type: tile, anchor: 殷中壬, x: 2270, row: 21, name: "殷外丙", color: shang}
+  "殷外壬": {type: tile, anchor: 殷河亶甲, x: 2206, row: 25, name: "殷外壬", color: shang}
+  "殷太丁": {type: tile, anchor: 殷武乙, x: 1822, row: 34, name: "殷太丁", color: shang}
+  "殷太庚": {type: tile, anchor: 殷太甲, x: 2334, row: 23, name: "殷太庚", color: shang}
+  "殷太戊": {type: tile, anchor: 殷太庚, x: 2206, row: 24, name: "殷太戊", color: shang}
+  "殷太甲": {type: tile, anchor: 殷子太丁, x: 2398, row: 22, name: "殷太甲", color: shang}
+  "殷子太丁": {type: tile, anchor: 殷外丙, x: 2398, row: 21, name: "殷子太丁", color: ~}
+  "殷子武庚": {type: tile, anchor: 殷紂, x: 1886, row: 37, name: "殷子武庚", color: ~}
+  "殷小乙": {type: tile, anchor: 殷祖丁, x: 1950, row: 29, name: "殷小乙", color: shang}
+  "殷小甲": {type: tile, anchor: 殷雍己, x: 2462, row: 24, name: "殷小甲", color: shang}
+  "殷小辛": {type: tile, anchor: 殷小乙, x: 2078, row: 29, name: "殷小辛", color: shang}
+  "殷庚丁": {type: tile, anchor: 殷甲, x: 1822, row: 32, name: "殷庚丁", color: shang}
+  "殷廩辛": {type: tile, anchor: 殷庚丁, x: 1950, row: 32, name: "殷廩辛", color: shang}
+  "殷武丁": {type: tile, anchor: 殷小乙, x: 1950, row: 30, name: "殷武丁", color: shang}
+  "殷武乙": {type: tile, anchor: 殷庚丁, x: 1822, row: 33, name: "殷武乙", color: shang}
+  "殷沃丁": {type: tile, anchor: 殷太庚, x: 2462, row: 23, name: "殷沃丁", color: shang}
+  "殷沃甲": {type: tile, anchor: 殷祖乙, x: 2014, row: 27, name: "殷沃甲", color: shang}
+  "殷河亶甲": {type: tile, anchor: 殷太戊, x: 2078, row: 25, name: "殷河亶甲", color: shang}
+  "殷湯": {type: tile, anchor: 主癸, x: 2270, row: 20, name: "殷湯", color: shang}
+  "殷甲": {type: tile, anchor: 殷武丁, x: 1886, row: 31, name: "殷甲", color: shang}
+  "殷盤庚": {type: tile, anchor: 殷小辛, x: 2206, row: 29, name: "殷盤庚", color: shang}
+  "殷祖丁": {type: tile, anchor: 殷祖辛, x: 2142, row: 28, name: "殷祖丁", color: shang}
+  "殷祖乙": {type: tile, anchor: 殷河亶甲, x: 2078, row: 26, name: "殷祖乙", color: shang}
+  "殷祖庚": {type: tile, anchor: 殷甲, x: 2014, row: 31, name: "殷祖庚", color: shang}
+  "殷祖辛": {type: tile, anchor: 殷沃甲, x: 2142, row: 27, name: "殷祖辛", color: shang}
+  "殷紂": {type: tile, anchor: 殷乙, x: 1886, row: 36, name: "殷紂", color: shang}
+  "殷陽甲": {type: tile, anchor: 殷盤庚, x: 2334, row: 29, name: "殷陽甲", color: shang}
+  "殷雍己": {type: tile, anchor: 殷太戊, x: 2334, row: 24, name: "殷雍己", color: shang}
+  "毀隃": {type: tile, anchor: 差弗, x: 3326, row: 14, name: "毀隃", color: ~}
+  "比干": {type: tile, anchor: 箕子, x: 1822, row: 35, name: "比干", color: ~}
+  "毛叔鄭": {type: tile, anchor: 衛康叔, x: 3198, row: 22, name: "毛叔鄭", color: ~}
+  "沛侯呂種": {type: tile, anchor: 建成侯呂釋之, x: 8606, row: 57, name: "沛侯呂種", color: lu}
+  "河閒王劉辟彊": {type: tile, anchor: 趙幽王, x: 5406, row: 58, name: "河閒王劉辟彊", color: ~}
+  "淮南厲王": {type: tile, anchor: 燕王劉建, x: 5150, row: 57, name: "淮南厲王", color: ~}
+  "淮南王": {type: tile, anchor: 衡山王, x: 5278, row: 58, name: "淮南王", color: ~}
+  "淮陽王劉彊": {type: tile, anchor: 漢孝惠帝, x: 7582, row: 58, name: "淮陽王劉彊", color: ~}
+  "淮陽王劉武": {type: tile, anchor: 漢孝惠帝, x: 7070, row: 58, name: "淮陽王劉武", color: ~}
+  "渾沌": {type: tile, anchor: 黃帝, x: 1454, row: 4, name: "渾沌", color: ~}
+  "漢前少帝": {type: tile, anchor: 漢孝惠帝, x: 7710, row: 58, name: "漢前少帝", color: han}
+  "漢太上皇": {type: tile, anchor: 劉累, x: 6846, row: 55, name: "漢太上皇", color: ~}
+  "漢孝惠帝": {type: tile, anchor: 魯元公主, x: 7326, row: 57, name: "漢孝惠帝", color: han}
+  "漢孝文帝": {type: tile, anchor: 趙共王, x: 6174, row: 57, name: "漢孝文帝", color: han}
+  "漢孝景帝": {type: tile, anchor: 代王劉武, x: 6430, row: 58, name: "漢孝景帝", color: han}
+  "漢孝武帝": {type: tile, anchor: 王夫人, x: 6558, row: 59, name: "漢孝武帝", color: han}
+  "漢後少帝": {type: tile, anchor: 漢孝惠帝, x: 7326, row: 58, name: "漢後少帝", color: han}
+  "漢高祖": {type: tile, anchor: 臨光侯呂媭, x: 6654, row: 56, name: "漢高祖", color: han}
+  "濟北王劉志": {type: tile, anchor: 膠西王劉卬, x: 8350, row: 58, name: "濟北王劉志", color: ~}
+  "濟南王劉辟光": {type: tile, anchor: 菑川王劉賢, x: 8094, row: 58, name: "濟南王劉辟光", color: ~}
+  "濟川王劉太": {type: tile, anchor: 漢孝惠帝, x: 7198, row: 58, name: "濟川王劉太", color: ~}
+  "燕王劉建": {type: tile, anchor: 漢高祖, x: 5022, row: 57, name: "燕王劉建", color: ~}
+  "燕王呂通": {type: tile, anchor: 東平侯呂莊, x: 8990, row: 58, name: "燕王呂通", color: lu}
+  "玄囂": {type: tile, anchor: 昌意, x: 3990, row: 4, name: "玄囂", color: ~}
+  "王太后": {type: tile, anchor: 漢孝景帝, x: 6302, row: 58, name: "王太后", color: ~}
+  "王夫人": {type: tile, anchor: 廣川王劉越, x: 6430, row: 59, name: "王夫人", color: ~}
+  "瑯邪后": {type: tile, anchor: 臨光侯呂媭, x: 4766, row: 57, name: "瑯邪后", color: lu}
+  "瑯邪王劉澤": {type: tile, anchor: 瑯邪后, x: 4894, row: 57, name: "瑯邪王劉澤", color: lu}
+  "畢公": {type: tile, anchor: 叔振鐸, x: 3454, row: 22, name: "畢公", color: ~}
+  "皇僕": {type: tile, anchor: 慶節, x: 3326, row: 12, name: "皇僕", color: ~}
+  "相土": {type: tile, anchor: 昭明, x: 2270, row: 9, name: "相土", color: ~}
+  "瞽叟": {type: tile, anchor: 橋牛, x: 2014, row: 10, name: "瞽叟", color: ~}
+  "秦二世皇帝": {type: tile, anchor: 秦始皇帝, x: 1310, row: 54, name: "秦二世皇帝", color: qin}
+  "秦仲": {type: tile, anchor: 秦公伯, x: 1438, row: 27, name: "秦仲", color: qin}
+  "秦侯": {type: tile, anchor: 秦嬴, x: 1438, row: 25, name: "秦侯", color: qin}
+  "秦公伯": {type: tile, anchor: 秦侯, x: 1438, row: 26, name: "秦公伯", color: qin}
+  "秦公子嬰": {type: tile, anchor: 秦公子扶蘇, x: 1438, row: 55, name: "秦公子嬰", color: qin}
+  "秦公子扶蘇": {type: tile, anchor: 秦二世皇帝, x: 1438, row: 54, name: "秦公子扶蘇", color: ~}
+  "秦共公": {type: tile, anchor: 秦康公, x: 1310, row: 36, name: "秦共公", color: qin}
+  "秦出子-1": {type: tile, anchor: 秦憲公, x: 1310, row: 33, name: "秦出子", color: qin}
+  "秦出子-2": {type: tile, anchor: 秦惠公-2, x: 1246, row: 47, name: "秦出子", color: qin}
+  "秦厲共公": {type: tile, anchor: 秦悼公, x: 1374, row: 43, name: "秦厲共公", color: qin}
+  "秦哀公": {type: tile, anchor: 秦景公, x: 1374, row: 39, name: "秦哀公", color: qin}
+  "秦唐太后": {type: tile, anchor: 秦昭襄王, x: 1182, row: 50, name: "秦唐太后", color: ~}
+  "秦始皇帝": {type: tile, anchor: 長安君, x: 1374, row: 53, name: "秦始皇帝", color: qin}
+  "秦嬴": {type: tile, anchor: 大駱, x: 1438, row: 24, name: "秦嬴", color: qin}
+  "秦子世父": {type: tile, anchor: 秦襄公, x: 1630, row: 29, name: "秦子世父", color: ~}
+  "秦子夷公": {type: tile, anchor: 秦哀公, x: 1374, row: 40, name: "秦子夷公", color: ~}
+  "秦子昭": {type: tile, anchor: 秦簡公, x: 1374, row: 45, name: "秦子昭", color: ~}
+  "秦子白": {type: tile, anchor: 秦武公, x: 1694, row: 34, name: "秦子白", color: ~}
+  "秦子鍼": {type: tile, anchor: 秦桓公, x: 1246, row: 38, name: "秦子鍼", color: ~}
+  "秦孝公": {type: tile, anchor: 秦獻公, x: 1374, row: 48, name: "秦孝公", color: qin}
+  "秦孝文王": {type: tile, anchor: 秦昭襄王, x: 1310, row: 51, name: "秦孝文王", color: qin}
+  "秦宣公": {type: tile, anchor: 秦成公, x: 1566, row: 34, name: "秦宣公", color: qin}
+  "秦宣太后": {type: tile, anchor: 秦惠文王, x: 1246, row: 49, name: "秦宣太后", color: ~}
+  "秦康公": {type: tile, anchor: 秦繆公, x: 1310, row: 35, name: "秦康公", color: qin}
+  "秦德公": {type: tile, anchor: 秦出子-1, x: 1438, row: 33, name: "秦德公", color: qin}
+  "秦悼公": {type: tile, anchor: 秦惠公-1, x: 1374, row: 42, name: "秦悼公", color: qin}
+  "秦惠公-1": {type: tile, anchor: 秦子夷公, x: 1374, row: 41, name: "秦惠公", color: qin}
+  "秦惠公-2": {type: tile, anchor: 秦簡公, x: 1246, row: 46, name: "秦惠公", color: qin}
+  "秦惠文王": {type: tile, anchor: 秦孝公, x: 1374, row: 49, name: "秦惠文王", color: qin}
+  "秦憲公": {type: tile, anchor: 秦竫公, x: 1502, row: 32, name: "秦憲公", color: qin}
+  "秦懷公": {type: tile, anchor: 秦厲共公, x: 1310, row: 44, name: "秦懷公", color: qin}
+  "秦成公": {type: tile, anchor: 秦繆公, x: 1438, row: 34, name: "秦成公", color: qin}
+  "秦文公": {type: tile, anchor: 秦襄公, x: 1502, row: 30, name: "秦文公", color: qin}
+  "秦昭襄王": {type: tile, anchor: 秦惠文王, x: 1310, row: 50, name: "秦昭襄王", color: qin}
+  "秦景公": {type: tile, anchor: 秦子鍼, x: 1374, row: 38, name: "秦景公", color: qin}
+  "秦桓公": {type: tile, anchor: 秦共公, x: 1310, row: 37, name: "秦桓公", color: qin}
+  "秦武公": {type: tile, anchor: 秦德公, x: 1694, row: 33, name: "秦武公", color: qin}
+  "秦武王": {type: tile, anchor: 秦昭襄王, x: 1438, row: 50, name: "秦武王", color: qin}
+  "秦獻公": {type: tile, anchor: 秦靈公, x: 1374, row: 47, name: "秦獻公", color: qin}
+  "秦竫公": {type: tile, anchor: 秦文公, x: 1502, row: 31, name: "秦竫公", color: ~}
+  "秦簡公": {type: tile, anchor: 秦懷公, x: 1246, row: 45, name: "秦簡公", color: qin}
+  "秦繆公": {type: tile, anchor: 秦德公, x: 1310, row: 34, name: "秦繆公", color: qin}
+  "秦莊公": {type: tile, anchor: 秦仲, x: 1438, row: 28, name: "秦莊公", color: qin}
+  "秦莊襄王": {type: tile, anchor: 秦孝文王, x: 1310, row: 52, name: "秦莊襄王", color: qin}
+  "秦襄公": {type: tile, anchor: 繆嬴, x: 1502, row: 29, name: "秦襄公", color: qin}
+  "秦躁公": {type: tile, anchor: 秦懷公, x: 1438, row: 44, name: "秦躁公", color: qin}
+  "秦靈公": {type: tile, anchor: 秦子昭, x: 1374, row: 46, name: "秦靈公", color: qin}
+  "窮奇": {type: tile, anchor: 少暤, x: 5142, row: 2, name: "窮奇", color: ~}
+  "窮蟬": {type: tile, anchor: 檮杌, x: 2014, row: 6, name: "窮蟬", color: ~}
+  "竇太后": {type: tile, anchor: 漢孝文帝, x: 6046, row: 57, name: "竇太后", color: ~}
+  "箕子": {type: tile, anchor: 殷太丁, x: 1694, row: 35, name: "箕子", color: ~}
+  "管叔鮮": {type: tile, anchor: 蔡叔度, x: 2942, row: 22, name: "管叔鮮", color: ~}
+  "簡狄": {type: tile, anchor: 帝嚳, x: 3734, row: 6, name: "簡狄", color: ~}
+  "繆嬴": {type: tile, anchor: 秦莊公, x: 1246, row: 29, name: "繆嬴", color: ~}
+  "胡陵侯呂祿": {type: tile, anchor: 沛侯呂種, x: 8734, row: 57, name: "胡陵侯呂祿", color: lu}
+  "膠東王劉寄": {type: tile, anchor: 常山王劉舜, x: 6174, row: 59, name: "膠東王劉寄", color: ~}
+  "膠東王劉雄渠": {type: tile, anchor: 齊悼惠王, x: 7838, row: 58, name: "膠東王劉雄渠", color: ~}
+  "膠西王劉卬": {type: tile, anchor: 濟南王劉辟光, x: 8222, row: 58, name: "膠西王劉卬", color: ~}
+  "膠西王劉端": {type: tile, anchor: 中山王劉勝, x: 6814, row: 59, name: "膠西王劉端", color: ~}
+  "臨光侯呂媭": {type: tile, anchor: 扶柳侯呂平, x: 4830, row: 56, name: "臨光侯呂媭", color: lu}
+  "臨江王劉栗": {type: tile, anchor: 膠西王劉端, x: 6942, row: 59, name: "臨江王劉栗", color: ~}
+  "若木": {type: tile, anchor: 柏翳, x: 1310, row: 9, name: "若木", color: ~}
+  "菑川王劉賢": {type: tile, anchor: 膠東王劉雄渠, x: 7966, row: 58, name: "菑川王劉賢", color: ~}
+  "華陽太后": {type: tile, anchor: 秦孝文王, x: 1054, row: 51, name: "華陽太后", color: ~}
+  "蔡叔度": {type: tile, anchor: 南宮括, x: 2814, row: 22, name: "蔡叔度", color: ~}
+  "薄后": {type: tile, anchor: 漢高祖, x: 6398, row: 56, name: "薄后", color: ~}
+  "薄昭": {type: tile, anchor: 薄后, x: 6142, row: 56, name: "薄昭", color: ~}
+  "虞仲": {type: tile, anchor: 季歷, x: 3326, row: 20, name: "虞仲", color: ~}
+  "虞姬": {type: tile, anchor: 西楚霸王, x: 4718, row: 3, name: "虞姬", color: ~}
+  "蜚廉": {type: tile, anchor: 中潏, x: 1438, row: 18, name: "蜚廉", color: ~}
+  "蟜極": {type: tile, anchor: 玄囂, x: 3990, row: 5, name: "蟜極", color: ~}
+  "衛康叔": {type: tile, anchor: 管叔鮮, x: 3070, row: 22, name: "衛康叔", color: ~}
+  "衛長公主": {type: tile, anchor: 漢孝武帝, x: 6558, row: 60, name: "衛長公主", color: ~}
+  "衡山王": {type: tile, anchor: 廬江王, x: 5150, row: 58, name: "衡山王", color: ~}
+  "衡父": {type: tile, anchor: 孟增, x: 1374, row: 21, name: "衡父", color: ~}
+  "褒姒": {type: tile, anchor: 周幽王, x: 3774, row: 32, name: "褒姒", color: ~}
+  "西周威公": {type: tile, anchor: 西周桓公, x: 3742, row: 49, name: "西周威公", color: ~}
+  "西周惠公": {type: tile, anchor: 東周惠公, x: 3806, row: 50, name: "西周惠公", color: ~}
+  "西周桓公": {type: tile, anchor: 周定王-2, x: 3742, row: 48, name: "西周桓公", color: ~}
+  "西戎豐王": {type: tile, anchor: 繆嬴, x: 1374, row: 29, name: "西戎豐王", color: ~}
   "西楚霸王": {type: tile, anchor: 項超, x: 4846, row: 3, name: "西楚霸王", color: chu}
-  "象": {type: tile, anchor: 瞽叟, x: 2324, row: 10, name: "象"}
-  "費昌": {type: tile, anchor: 若木, x: 1684, row: 12, name: "費昌"}
-  "趙共王": {type: tile, anchor: 趙幽王, x: 6004, row: 56, name: "趙共王"}
-  "趙太后": {type: tile, anchor: 秦莊襄王, x: 1556, row: 51, name: "趙太后"}
-  "趙幽王": {type: tile, anchor: 淮南厲王, x: 5684, row: 56, name: "趙幽王"}
-  "趙王劉遂": {type: tile, anchor: 河閒王劉辟彊, x: 5748, row: 57, name: "趙王劉遂"}
-  "趙衰": {type: tile, anchor: 造父, x: 1748, row: 22, name: "趙衰"}
-  "趙隱王": {type: tile, anchor: 漢孝文帝, x: 6644, row: 56, name: "趙隱王"}
-  "造父": {type: tile, anchor: 衡父, x: 1748, row: 21, name: "造父"}
-  "長安君": {type: tile, anchor: 秦莊襄王, x: 1620, row: 52, name: "長安君"}
-  "隆慮侯蟜": {type: tile, anchor: 漢孝景帝, x: 6132, row: 59, name: "隆慮侯蟜"}
-  "鞠": {type: tile, anchor: 不窋, x: 3604, row: 8, name: "鞠"}
-  "項伯": {type: tile, anchor: 項燕, x: 4590, row: 2, name: "項伯"}
-  "項梁": {type: tile, anchor: 項伯, x: 4718, row: 2, name: "項梁"}
-  "項燕": {type: tile, anchor: ~, x: 4718, row: 1, name: "項燕"}
-  "項超": {type: tile, anchor: 項梁, x: 4846, row: 2, name: "項超"}
-  "高圉": {type: tile, anchor: 公非, x: 3604, row: 15, name: "高圉"}
-  "魯元公主": {type: tile, anchor: 趙隱王, x: 6772, row: 56, name: "魯元公主"}
-  "魯王張偃": {type: tile, anchor: 新都侯張侈, x: 7028, row: 57, name: "魯王張偃"}
-  "鯀": {type: tile, anchor: 女修, x: 2132, row: 5, name: "鯀"}
-  "黃帝": {type: tile, anchor: 少典, x: 3056, row: 2, name: "黃帝", color: wudi}
-  "齊哀王": {type: tile, anchor: 朱虛侯劉章, x: 8948, row: 57, name: "齊哀王"}
-  "齊悼惠王": {type: tile, anchor: 漢孝惠帝, x: 8500, row: 56, name: "齊悼惠王"}
+  "象": {type: tile, anchor: 瞽叟, x: 1950, row: 11, name: "象", color: ~}
+  "費昌": {type: tile, anchor: 若木, x: 1310, row: 13, name: "費昌", color: ~}
+  "趙共王": {type: tile, anchor: 趙幽王, x: 5790, row: 57, name: "趙共王", color: ~}
+  "趙太后": {type: tile, anchor: 秦莊襄王, x: 1182, row: 52, name: "趙太后", color: ~}
+  "趙幽王": {type: tile, anchor: 淮南厲王, x: 5470, row: 57, name: "趙幽王", color: ~}
+  "趙王劉遂": {type: tile, anchor: 河閒王劉辟彊, x: 5534, row: 58, name: "趙王劉遂", color: ~}
+  "趙衰": {type: tile, anchor: 造父, x: 1374, row: 23, name: "趙衰", color: ~}
+  "趙隱王": {type: tile, anchor: 漢孝文帝, x: 6430, row: 57, name: "趙隱王", color: ~}
+  "造父": {type: tile, anchor: 衡父, x: 1374, row: 22, name: "造父", color: ~}
+  "長安君": {type: tile, anchor: 秦莊襄王, x: 1246, row: 53, name: "長安君", color: ~}
+  "隆慮侯蟜": {type: tile, anchor: 漢孝景帝, x: 5918, row: 60, name: "隆慮侯蟜", color: ~}
+  "霍叔處": {type: tile, anchor: 周文王, x: 2558, row: 22, name: "霍叔處", color: redorange}
+  "霍子孟": {type: tile, anchor: 霍叔處, x: 2558, row: 60, name: "霍子孟", color: redorange}
+  "鞠": {type: tile, anchor: 不窋, x: 3326, row: 9, name: "鞠", color: ~}
+  "項伯": {type: tile, anchor: 項燕, x: 4590, row: 2, name: "項伯", color: ~}
+  "項梁": {type: tile, anchor: 項伯, x: 4718, row: 2, name: "項梁", color: ~}
+  "項燕": {type: tile, anchor: ~, x: 4718, row: 1, name: "項燕", color: ~}
+  "項超": {type: tile, anchor: 項梁, x: 4846, row: 2, name: "項超", color: ~}
+  "高圉": {type: tile, anchor: 公非, x: 3326, row: 16, name: "高圉", color: ~}
+  "魯元公主": {type: tile, anchor: 趙隱王, x: 6558, row: 57, name: "魯元公主", color: ~}
+  "魯王張偃": {type: tile, anchor: 新都侯張侈, x: 6814, row: 58, name: "魯王張偃", color: ~}
+  "鯀": {type: tile, anchor: 女修, x: 1758, row: 6, name: "鯀", color: ~}
+  "黃帝": {type: tile, anchor: 少典, x: 2722, row: 3, name: "黃帝", color: wudi}
+  "齊哀王": {type: tile, anchor: 朱虛侯劉章, x: 8734, row: 58, name: "齊哀王", color: ~}
+  "齊悼惠王": {type: tile, anchor: 漢孝惠帝, x: 8286, row: 57, name: "齊悼惠王", color: ~}
+  "seg468": {type: vseg, anchor: 霍叔處, x: 2590, y1: 9900, y2: 26160}
+  "seg469": {type: hseg, anchor: 周文王, y: 9528, x1: 2590, x2: 3870}
+  "seg470": {type: vseg, anchor: 周文王, x: 3230, y1: 9464, y2: 9528}
+  "seg471": {type: vseg, anchor: 周文王, x: 2590, y1: 9528, y2: 9592}
+  "seg472": {type: vseg, anchor: 周文王, x: 2718, y1: 9528, y2: 9592}
+  "seg473": {type: vseg, anchor: 周文王, x: 2846, y1: 9528, y2: 9592}
+  "seg474": {type: vseg, anchor: 周文王, x: 2974, y1: 9528, y2: 9592}
+  "seg475": {type: vseg, anchor: 周文王, x: 3102, y1: 9528, y2: 9592}
+  "seg476": {type: vseg, anchor: 周文王, x: 3230, y1: 9528, y2: 9592}
+  "seg477": {type: vseg, anchor: 周文王, x: 3358, y1: 9528, y2: 9592}
+  "seg478": {type: vseg, anchor: 周文王, x: 3486, y1: 9528, y2: 9592}
+  "seg479": {type: vseg, anchor: 周文王, x: 3614, y1: 9528, y2: 9592}
+  "seg480": {type: vseg, anchor: 周文王, x: 3742, y1: 9528, y2: 9592}
+  "seg481": {type: vseg, anchor: 周文王, x: 3870, y1: 9528, y2: 9592}
+  "seg482": {type: vseg, anchor: 季歷, x: 3230, y1: 9028, y2: 9156}
+  "seg483": {type: hseg, anchor: 季歷, y: 8874, x1: 3134, x2: 3198}
+  "seg484": {type: hseg, anchor: 古公亶父, y: 8656, x1: 3230, x2: 3486}
+  "seg485": {type: vseg, anchor: 古公亶父, x: 3358, y1: 8592, y2: 8656}
+  "seg486": {type: vseg, anchor: 古公亶父, x: 3230, y1: 8656, y2: 8720}
+  "seg487": {type: vseg, anchor: 古公亶父, x: 3358, y1: 8656, y2: 8720}
+  "seg488": {type: vseg, anchor: 古公亶父, x: 3486, y1: 8656, y2: 8720}
+  "seg490": {type: hseg, anchor: 古公亶父, y: 8438, x1: 3262, x2: 3326}
+  "seg491": {type: vseg, anchor: 公叔祖類, x: 3358, y1: 8156, y2: 8284}
+  "seg492": {type: vseg, anchor: 亞圉, x: 3358, y1: 7720, y2: 7848}
+  "seg493": {type: vseg, anchor: 高圉, x: 3358, y1: 7284, y2: 7412}
+  "seg494": {type: vseg, anchor: 公非, x: 3358, y1: 6848, y2: 6976}
+  "seg495": {type: vseg, anchor: 毀隃, x: 3358, y1: 6412, y2: 6540}
+  "seg496": {type: vseg, anchor: 差弗, x: 3358, y1: 5976, y2: 6104}
+  "seg497": {type: vseg, anchor: 皇僕, x: 3358, y1: 5540, y2: 5668}
+  "seg498": {type: vseg, anchor: 慶節, x: 3358, y1: 5104, y2: 5232}
+  "seg499": {type: vseg, anchor: 公劉, x: 3358, y1: 4668, y2: 4796}
+  "seg500": {type: vseg, anchor: 鞠, x: 3358, y1: 4232, y2: 4360}
+  "seg501": {type: vseg, anchor: 不窋, x: 3358, y1: 3796, y2: 3924}
+  "seg502": {type: vseg, anchor: 后稷, x: 3358, y1: 3360, y2: 3488}
+  "seg503": {type: hseg, anchor: 帝嚳, y: 2988, x1: 2302, x2: 5742}
+  "seg504": {type: vseg, anchor: 帝嚳, x: 4022, y1: 2924, y2: 2988}
+  "seg505": {type: vseg, anchor: 帝嚳, x: 2302, y1: 2988, y2: 3052}
+  "seg506": {type: vseg, anchor: 帝嚳, x: 3358, y1: 2988, y2: 3052}
+  "seg507": {type: vseg, anchor: 帝嚳, x: 5614, y1: 2988, y2: 3052}
+  "seg508": {type: vseg, anchor: 帝嚳, x: 5742, y1: 2988, y2: 3052}
+  "seg509": {type: hseg, anchor: 帝嚳, y: 2770, x1: 3926, x2: 3990}
+  "seg510": {type: hseg, anchor: 帝嚳, y: 2770, x1: 3798, x2: 3862}
+  "seg511": {type: vseg, anchor: 蟜極, x: 4022, y1: 2488, y2: 2616}
+  "seg512": {type: vseg, anchor: 玄囂, x: 4022, y1: 2052, y2: 2180}
+  "seg513": {type: hseg, anchor: 黃帝, y: 1680, x1: 1486, x2: 4022}
+  "seg514": {type: vseg, anchor: 黃帝, x: 2754, y1: 1616, y2: 1680}
+  "seg515": {type: vseg, anchor: 黃帝, x: 1486, y1: 1680, y2: 1744}
+  "seg516": {type: vseg, anchor: 黃帝, x: 1742, y1: 1680, y2: 1744}
+  "seg517": {type: vseg, anchor: 黃帝, x: 4022, y1: 1680, y2: 1744}
+  "seg518": {type: hseg, anchor: 黃帝, y: 1462, x1: 2658, x2: 2722}
+  "seg519": {type: vseg, anchor: 少典, x: 2754, y1: 1244, y2: 1308}
+  "seg520": {type: vseg, anchor: 少典, x: 1310, y1: 1244, y2: 3052}
+  "seg521": {type: hseg, anchor: 少典, y: 1244, x1: 1310, x2: 2754}
+  "seg522": {type: vseg, anchor: 少典, x: 2032, y1: 1180, y2: 1244}
